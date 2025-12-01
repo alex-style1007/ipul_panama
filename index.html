@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPUL Panamá | Sitio Oficial con IA</title>
+    <meta name="description" content="Iglesia Pentecostal Unida Latinoamericana en Panamá. Doctrina apostólica y unidad.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Leaflet CSS (Para el mapa) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Markdown Parser for AI responses -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ipul-blue': '#002855',    // Azul Institucional
+                        'ipul-gold': '#FFC72C',    // Dorado Institucional
+                        'panama-red': '#DA121A',   // Rojo Bandera Panamá
+                        'panama-blue': '#072357',  // Azul Bandera Panamá
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'panama-pattern': "url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23002855\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { color: #1e293b; }
+        
+        #map { height: 100%; min-height: 500px; width: 100%; z-index: 1; border-radius: 0.75rem; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%), url('https://images.unsplash.com/photo-1568322445389-f64ac2515020?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .flag-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Estilos para el Chat AI */
+        .ai-message { background-color: #f1f5f9; color: #334155; border-radius: 12px 12px 12px 0; padding: 12px; margin-bottom: 8px; font-size: 0.95rem; }
+        .user-message { background-color: #002855; color: white; border-radius: 12px 12px 0 12px; padding: 12px; margin-bottom: 8px; margin-left: auto; max-width: 80%; font-size: 0.95rem; }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #94a3b8; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; margin: 0 2px; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        /* Markdown styles in chat */
+        .ai-message p { margin-bottom: 0.5em; }
+        .ai-message strong { color: #002855; font-weight: 700; }
+        
+        /* Scrollbar custom for location list */
+        #location-list::-webkit-scrollbar { width: 6px; }
+        #location-list::-webkit-scrollbar-track { background: #f1f1f1; }
+        #location-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        #location-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased overflow-x-hidden selection:bg-ipul-gold selection:text-ipul-blue">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo Area -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-ipul-blue rounded flex items-center justify-center text-white shadow-lg group-hover:bg-ipul-gold group-hover:text-ipul-blue transition-colors duration-300">
+                    <i class="ph-fill ph-church text-2xl"></i>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <span class="font-heading font-extrabold text-xl text-ipul-blue leading-none tracking-tight">IPUL</span>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                        <span class="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase">PANAMÁ</span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Bandera de Panamá" class="h-3 w-auto shadow-sm flag-icon transition-transform duration-300">
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-6 text-sm font-bold text-gray-600">
+                <a href="#inicio" class="hover:text-ipul-blue hover:scale-105 transition-all">Inicio</a>
+                <a href="historia.html" class="hover:text-ipul-blue hover:scale-105 transition-all">Historia</a>
+                <a href="#doctrina" class="hover:text-ipul-blue hover:scale-105 transition-all">Doctrina</a>
+                <a href="#comites" class="hover:text-ipul-blue hover:scale-105 transition-all">Comités</a>
+                <a href="#mapa-sedes" class="hover:text-ipul-blue hover:scale-105 transition-all">Sedes</a>
+                
+                <!-- Botón IA -->
+                <button onclick="toggleAIModal()" class="flex items-center gap-2 text-ipul-blue bg-blue-50 px-4 py-2 rounded-full border border-blue-100 hover:bg-blue-100 transition-colors animate-pulse hover:animate-none">
+                    <i class="ph-fill ph-sparkle text-ipul-gold"></i> Asistente IA
+                </button>
+
+                <a href="#contacto" class="px-6 py-2.5 bg-ipul-blue text-white rounded-full hover:bg-ipul-gold hover:text-ipul-blue transition shadow-lg flex items-center gap-2">
+                    Contacto <i class="ph-bold ph-paper-plane-right"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Icon -->
+            <button id="menu-btn" class="md:hidden text-2xl text-ipul-blue"><i class="ph ph-list"></i></button>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden absolute w-full bg-white border-t border-gray-100 md:hidden shadow-xl top-20">
+            <div class="px-6 py-6 space-y-4">
+                <a href="#inicio" class="block text-gray-600 hover:text-ipul-blue font-medium">Inicio</a>
+                <a href="historia.html" class="block text-gray-600 hover:text-ipul-blue font-medium">Historia</a>
+                <button onclick="toggleAIModal()" class="w-full text-left flex items-center gap-2 text-ipul-blue font-bold">
+                    <i class="ph-fill ph-sparkle text-ipul-gold"></i> Asistente Pastoral IA
+                </button>
+                <a href="#doctrina" class="block text-gray-600 hover:text-ipul-blue font-medium">Doctrina</a>
+                <a href="#comites" class="block text-gray-600 hover:text-ipul-blue font-medium">Comités</a>
+                <a href="#mapa-sedes" class="block text-gray-600 hover:text-ipul-blue font-medium">Sedes</a>
+                <a href="#contacto" class="block text-ipul-blue font-bold">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button for AI -->
+    <button onclick="toggleAIModal()" class="fixed bottom-6 right-6 z-40 bg-ipul-gold text-ipul-blue p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 group border-2 border-white">
+        <i class="ph-fill ph-sparkle text-3xl group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-10 right-0 bg-white text-ipul-blue text-xs font-bold px-3 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            ¡Pregúntale a la IA! ✨
+        </span>
+    </button>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <!-- Text Content -->
+            <div class="text-white space-y-8 animate-fade-in-up pt-10 lg:pt-0">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
+                    <span class="text-xs font-bold tracking-wider uppercase text-white">Puente del Mundo</span>
+                </div>
+                
+                <h1 class="font-heading text-5xl md:text-7xl font-bold leading-[1.1]">
+                    Una Fe Viva para<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-ipul-gold to-yellow-200">Todo Panamá</span>
+                </h1>
+                
+                <p class="text-lg text-blue-100 max-w-lg leading-relaxed border-l-4 border-panama-red pl-6">
+                    Desde Chiriquí hasta Darién, proclamamos un solo Señor, una sola fe y un solo bautismo. Bienvenidos a la Iglesia Pentecostal Unida Latinoamericana.
+                </p>
+
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#mapa-sedes" class="px-8 py-4 bg-white text-ipul-blue font-bold rounded hover:bg-ipul-gold hover:text-ipul-blue transition duration-300 shadow-xl flex items-center gap-2 group">
+                        <i class="ph-bold ph-map-trifold group-hover:rotate-12 transition-transform"></i>
+                        Ver Sedes en el Mapa
+                    </a>
+                    <button onclick="toggleAIModal()" class="px-8 py-4 border border-white/40 bg-white/10 backdrop-blur-sm text-white font-bold rounded hover:bg-white/20 transition duration-300 flex items-center gap-2">
+                        <i class="ph-fill ph-sparkle text-ipul-gold"></i> Oración en Línea
+                    </button>
+                </div>
+            </div>
+
+            <!-- Visual Decoration: Abstract Panama Map -->
+            <div class="relative hidden lg:block h-[500px] w-full">
+                <svg class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-auto opacity-20" viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,150 Q150,180 250,150 T450,150 T650,120 T750,150" stroke="#FFC72C" stroke-width="4" fill="none"/>
+                    <path d="M50,160 Q150,190 250,160 T450,160 T650,130 T750,160" stroke="#DA121A" stroke-width="2" fill="none" opacity="0.6"/>
+                    <circle cx="450" cy="150" r="10" fill="white" /> 
+                </svg>
+                
+                <!-- CAROUSEL CONTAINER -->
+                <div class="absolute right-10 bottom-20 w-[340px] h-[180px] perspective-1000">
+                    <div id="committee-carousel" class="relative w-full h-full">
+                        <!-- Slide 1: Escuela Dominical -->
+                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-100 translate-x-0">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-white shrink-0">
+                                    <i class="ph-fill ph-book-open text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-green-200 uppercase font-bold tracking-wider">Educación Cristiana</p>
+                                    <p class="text-white font-bold text-lg leading-tight">Escuela Dominical</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-200 italic leading-relaxed">"Instruye al niño en su camino, y aun cuando fuere viejo no se apartará de él."</p>
+                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Proverbios 22:6</p>
+                        </div>
+
+                        <!-- Slide 2: Damas Dorcas -->
+                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-0 translate-x-10 pointer-events-none">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-700 flex items-center justify-center text-white shrink-0">
+                                    <i class="ph-fill ph-heart text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-pink-200 uppercase font-bold tracking-wider">Comité de Damas</p>
+                                    <p class="text-white font-bold text-lg leading-tight">Mujeres Dorcas</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-200 italic leading-relaxed">"Mujer virtuosa, ¿quién la hallará? Porque su estima sobrepasa largamente a la de las piedras preciosas."</p>
+                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Proverbios 31:10</p>
+                        </div>
+
+                        <!-- Slide 3: Jóvenes -->
+                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-0 translate-x-10 pointer-events-none">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white shrink-0">
+                                    <i class="ph-fill ph-fire text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-orange-200 uppercase font-bold tracking-wider">Generación de Fuego</p>
+                                    <p class="text-white font-bold text-lg leading-tight">Comité de Jóvenes</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-200 italic leading-relaxed">"Acuérdate de tu Creador en los días de tu juventud..."</p>
+                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Eclesiastés 12:1</p>
+                        </div>
+
+                        <!-- Slide 4: Cultos Dominicales -->
+                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-0 translate-x-10 pointer-events-none">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white shrink-0">
+                                    <i class="ph-fill ph-users-three text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-blue-200 uppercase font-bold tracking-wider">Familia Unida</p>
+                                    <p class="text-white font-bold text-lg leading-tight">Cultos Dominicales</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-200 italic leading-relaxed">"Mirad cuán bueno y cuán delicioso es habitar los hermanos juntos en armonía..."</p>
+                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Salmos 133:1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-slate-50"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Map & Locations Section -->
+    <section id="mapa-sedes" class="py-24 bg-slate-50 bg-panama-pattern relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-ipul-blue mb-6 shadow-sm">
+                    <i class="ph-duotone ph-map-pin-area text-3xl"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold text-ipul-blue mb-4">
+                    Nuestras Sedes
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Con presencia en casi todas las provincias, la IPUL sigue creciendo para la gloria de Dios.
+                    <span class="block text-panama-blue font-medium mt-2">Selecciona una iglesia en la lista para verla en el mapa.</span>
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 shadow-2xl rounded-2xl overflow-hidden bg-white border border-gray-100">
+                <div class="lg:col-span-1 bg-white flex flex-col h-[600px]">
+                    <div class="p-6 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                        <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                            <i class="ph-fill ph-list-dashes text-ipul-gold"></i> Lista de Iglesias
+                        </h3>
+                        <span class="text-xs bg-ipul-blue text-white px-2 py-1 rounded-full" id="count-badge">20+</span>
+                    </div>
+                    <!-- Dynamic List Container -->
+                    <div class="overflow-y-auto flex-1 p-2 space-y-2" id="location-list">
+                        <!-- Items injected by JS -->
+                        <div class="flex justify-center items-center h-full">
+                            <i class="ph ph-spinner animate-spin text-ipul-blue text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 h-[600px] relative z-0">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctrine Section -->
+    <section id="doctrina" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="h-px w-8 bg-ipul-gold"></span>
+                        <span class="text-sm font-bold text-ipul-gold uppercase tracking-widest">Nuestra Fe</span>
+                    </div>
+                    <h2 class="text-4xl font-heading font-bold text-ipul-blue mb-6">Fundamento Apostólico</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Creemos fielmente en la doctrina impartida por los apóstoles. En un mundo cambiante, la Palabra de Dios permanece firme.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-ipul-gold text-xl mt-1"></i>
+                            <span class="text-gray-700"><strong>Unicidad:</strong> Un solo Dios manifestado en carne (Jesús).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-ipul-gold text-xl mt-1"></i>
+                            <span class="text-gray-700"><strong>Salvación:</strong> Arrepentimiento, Bautismo en el Nombre de Jesús y llenura del Espíritu Santo.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-ipul-gold text-xl mt-1"></i>
+                            <span class="text-gray-700"><strong>Santidad:</strong> Vivir separados del mundo para agradar a Dios.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-ipul-blue rounded-2xl rotate-3 opacity-10"></div>
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?q=80&w=1000&auto=format&fit=crop" alt="Biblia Abierta" class="relative rounded-2xl shadow-xl w-full object-cover h-[400px]">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg border-l-4 border-panama-red max-w-[200px]">
+                        <p class="text-ipul-blue font-bold text-sm">"Edificados sobre el fundamento de los apóstoles y profetas..."</p>
+                        <p class="text-xs text-gray-500 mt-1">Efesios 2:20</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Committee / Leadership Section (NUEVO & REESTRUCTURADO) -->
+    <section id="comites" class="py-24 bg-slate-50 relative border-t border-gray-100">
+        <!-- Abstract Bg -->
+        <div class="absolute top-0 right-0 p-20 opacity-5 pointer-events-none">
+            <i class="ph-fill ph-users-four text-9xl text-ipul-blue"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header Principal -->
+            <div class="text-center mb-12">
+                <span class="text-ipul-gold font-bold tracking-widest text-sm uppercase">Organigrama Nacional</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold text-ipul-blue mt-2">Liderazgo & Comités</h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">
+                    Hombres y mujeres dedicados al servicio de la obra en cada departamento nacional.
+                </p>
+            </div>
+
+            <!-- 0. FAMILIA PASTORAL (NUEVA SECCIÓN) -->
+            <div class="mb-24">
+                <div class="flex items-center justify-center mb-10">
+                    <div class="bg-gradient-to-r from-ipul-blue to-blue-900 rounded-2xl p-8 md:p-12 shadow-2xl max-w-4xl w-full relative overflow-hidden text-white flex flex-col md:flex-row items-center gap-8">
+                        <!-- Decoration -->
+                        <div class="absolute top-0 right-0 p-10 opacity-10"><i class="ph-fill ph-users-three text-9xl"></i></div>
+                        
+                        <!-- Image -->
+                        <div class="relative shrink-0">
+                            <div class="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-ipul-gold shadow-lg overflow-hidden relative z-10">
+                                <img src="https://images.unsplash.com/photo-1559629476-0b8158c3c4b7?q=80&w=600&auto=format&fit=crop" alt="Familia Pastoral" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-3 -right-3 bg-ipul-gold text-ipul-blue px-4 py-1 rounded-full font-bold text-sm shadow-md z-20">Liderazgo Nacional</div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="text-center md:text-left relative z-10">
+                            <h3 class="text-3xl font-heading font-bold mb-2">Rev. Pastor & Esposa</h3>
+                            <p class="text-blue-200 text-lg mb-6">Pastor Presidente Nacional</p>
+                            <p class="italic text-blue-100 mb-6 font-light leading-relaxed">"Guiando a la iglesia con amor, doctrina y visión hacia un futuro glorioso en Cristo Jesús."</p>
+                            
+                            <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                                <a href="mailto:pastor@ipulpanama.org" class="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition backdrop-blur-sm border border-white/10 text-sm font-medium">
+                                    <i class="ph-fill ph-envelope text-ipul-gold"></i> pastor@ipulpanama.org
+                                </a>
+                                <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/10 text-sm font-medium">
+                                    <i class="ph-fill ph-phone text-ipul-gold"></i> +507 6000-0000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Comité de Jóvenes -->
+            <div class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
+                        <i class="ph-fill ph-fire text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-ipul-blue">Comité Nacional de Jóvenes</h3>
+                        <p class="text-sm text-gray-500 font-medium uppercase tracking-wider">Generación de Fuego</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Presidente -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-orange-500 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-orange-100 group-hover:border-orange-500 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hno. Carlos Pérez</h4>
+                        <span class="block text-xs font-bold text-orange-600 uppercase mb-4">Presidente</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6200-1111</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Chitré</p>
+                        </div>
+                    </div>
+                    <!-- Vicepresidente -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-orange-400 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-orange-100 group-hover:border-orange-400 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hno. David Ruiz</h4>
+                        <span class="block text-xs font-bold text-orange-500 uppercase mb-4">Vicepresidente</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6200-2222</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL La Chorrera</p>
+                        </div>
+                    </div>
+                    <!-- Secretario -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-orange-300 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-orange-100 group-hover:border-orange-300 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hno. Miguel Ángel</h4>
+                        <span class="block text-xs font-bold text-orange-500 uppercase mb-4">Secretario</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6200-3333</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Central</p>
+                        </div>
+                    </div>
+                    <!-- Vocal -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-orange-300 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-orange-100 group-hover:border-orange-300 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hno. Samuel Torres</h4>
+                        <span class="block text-xs font-bold text-orange-500 uppercase mb-4">Vocal</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6200-4444</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Colón</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Comité de Damas Dorcas -->
+            <div class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center text-pink-600">
+                        <i class="ph-fill ph-heart text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-ipul-blue">Comité Nacional de Damas</h3>
+                        <p class="text-sm text-gray-500 font-medium uppercase tracking-wider">Mujeres Virtuosas</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Presidenta -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-pink-500 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-pink-100 group-hover:border-pink-500 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hna. María de González</h4>
+                        <span class="block text-xs font-bold text-pink-600 uppercase mb-4">Presidenta</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6300-1111</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> Sede Central</p>
+                        </div>
+                    </div>
+                    <!-- Vicepresidenta -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-pink-400 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-pink-100 group-hover:border-pink-400 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hna. Elena Rojas</h4>
+                        <span class="block text-xs font-bold text-pink-500 uppercase mb-4">Vicepresidenta</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6300-2222</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL David</p>
+                        </div>
+                    </div>
+                    <!-- Secretaria -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-pink-300 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-pink-100 group-hover:border-pink-300 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hna. Rosa Méndez</h4>
+                        <span class="block text-xs font-bold text-pink-500 uppercase mb-4">Secretaria</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6300-3333</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL 24 de Dic.</p>
+                        </div>
+                    </div>
+                    <!-- Vocal -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-pink-300 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-pink-100 group-hover:border-pink-300 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hna. Carmen Vega</h4>
+                        <span class="block text-xs font-bold text-pink-500 uppercase mb-4">Vocal</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6300-4444</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Santiago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Misiones & Evangelismo -->
+            <div class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                        <i class="ph-fill ph-globe-hemisphere-west text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-ipul-blue">Misiones y Evangelismo</h3>
+                        <p class="text-sm text-gray-500 font-medium uppercase tracking-wider">Extendiendo el Reino</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Director -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-500 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-blue-100 group-hover:border-blue-500 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Rev. Juan Rodríguez</h4>
+                        <span class="block text-xs font-bold text-blue-600 uppercase mb-4">Director Nacional</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6400-1111</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Colón</p>
+                        </div>
+                    </div>
+                    <!-- Secretario -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-400 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-blue-100 group-hover:border-blue-400 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Rev. Pedro Castillo</h4>
+                        <span class="block text-xs font-bold text-blue-500 uppercase mb-4">Secretario</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6400-2222</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Tocumen</p>
+                        </div>
+                    </div>
+                     <!-- Tesorero -->
+                     <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-400 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-blue-100 group-hover:border-blue-400 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hno. Lucas Mendoza</h4>
+                        <span class="block text-xs font-bold text-blue-500 uppercase mb-4">Tesorero</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6400-3333</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Chitré</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Música y Alabanza -->
+            <div>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
+                        <i class="ph-fill ph-music-notes text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-ipul-blue">Música y Alabanza</h3>
+                        <p class="text-sm text-gray-500 font-medium uppercase tracking-wider">Adoración en Espíritu</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Director -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-purple-500 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-purple-100 group-hover:border-purple-500 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hno. Andrés Felipe</h4>
+                        <span class="block text-xs font-bold text-purple-600 uppercase mb-4">Director Musical</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6500-1111</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> Sede Central</p>
+                        </div>
+                    </div>
+                    <!-- Vocal -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-purple-400 hover:shadow-xl transition text-center group">
+                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 border-2 border-purple-100 group-hover:border-purple-400 transition-colors">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-lg text-gray-900">Hna. Sofia Marín</h4>
+                        <span class="block text-xs font-bold text-purple-500 uppercase mb-4">Vocal</span>
+                        <div class="text-xs text-gray-500 space-y-2 pt-4 border-t border-gray-50">
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-phone text-ipul-gold text-lg"></i> +507 6500-2222</p>
+                            <p class="flex items-center justify-center gap-2"><i class="ph-fill ph-map-pin text-ipul-gold text-lg"></i> IPUL Vista Alegre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ipul-blue text-white pt-20 pb-10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16 relative z-10">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="ph-fill ph-globe-hemisphere-west text-4xl text-ipul-gold"></i>
+                    <div>
+                        <span class="font-heading font-bold text-2xl block leading-none">IPUL PANAMÁ</span>
+                        <span class="text-xs text-blue-300 tracking-wider">Unidos en la Fe</span>
+                    </div>
+                </div>
+                <p class="text-blue-100 max-w-sm mb-6">
+                    Llevando el evangelio a cada rincón del istmo. Una iglesia comprometida con Dios y con nuestra nación.
+                </p>
+                <div class="flex items-center gap-2 text-sm font-semibold text-ipul-gold">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Panama" class="h-4 rounded-sm">
+                    "Puente del mundo, corazón del universo"
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-lg mb-6 text-white border-b-2 border-ipul-gold inline-block pb-1">Enlaces</h4>
+                <ul class="space-y-3 text-blue-200">
+                    <li><a href="#" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Inicio</a></li>
+                    <li><a href="historia.html" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Historia</a></li>
+                    <li><a href="#" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Doctrina</a></li>
+                    <li><a href="#" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Misiones Nacionales</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-6 text-white border-b-2 border-ipul-gold inline-block pb-1">Contáctanos</h4>
+                <ul class="space-y-3 text-blue-200">
+                    <li class="flex items-start gap-3">
+                        <i class="ph-fill ph-map-pin mt-1 text-ipul-gold"></i>
+                        <span>Ciudad de Panamá<br>República de Panamá</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="ph-fill ph-envelope text-ipul-gold"></i>
+                        <span>info@ipulpanama.org</span>
+                    </li>
+                </ul>
+                <div class="flex gap-4 mt-6">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-blue-900 transition"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-pink-600 transition"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-red-600 transition"><i class="ph-fill ph-youtube-logo"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-blue-300 text-sm">
+            <p>&copy; 2025 Iglesia Pentecostal Unida Latinoamericana.</p>
+            <p class="flex items-center gap-1 mt-2 md:mt-0">
+                Hecho con <i class="ph-fill ph-heart text-red-500"></i> en Panamá 🇵🇦
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // --- 1. Menu Logic ---
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // --- 2. Leaflet Map & Location Logic ---
+        const map = L.map('map', { scrollWheelZoom: false }).setView([8.538, -80.782], 8);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Icono
+        const churchIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', 
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        // Expanded Data of Locations (approximate coordinates based on research)
+        const locations = [
+            // Panamá Metro & Este
+            { name: "Catedral IPUL (P. Lefevre)", coords: [9.0095, -79.4953], info: "Vía España y Cincuentenario, Parque Lefevre" },
+            { name: "IPUL Calidonia", coords: [8.9667, -79.5358], info: "Av. Justo Arosemena, cerca Metro 5 de Mayo" },
+            { name: "IPUL 24 de Diciembre", coords: [9.0989, -79.3558], info: "Plaza Panamericana, cerca Estación Metro" },
+            { name: "IPUL Las Mañanitas", coords: [9.0833, -79.4000], info: "Cruce de Mañanitas, diagonal Estación" },
+            { name: "IPUL Pedregal", coords: [9.0681, -79.4208], info: "Entrada El Porvenir, diagonal Rana de Oro" },
+            
+            // Panamá Oeste
+            { name: "IPUL La Chorrera", coords: [8.8803, -79.7833], info: "Barrio Balboa. Dom 10AM, Mar 6PM" },
+            { name: "IPUL Arraiján Cabecera", coords: [8.9500, -79.6500], info: "C. Panamericana frente a Piquera Taxi" },
+            { name: "IPUL Vista Alegre", coords: [8.9328, -79.7047], info: "Vista Alegre, Arraiján" },
+            { name: "IPUL Vacamonte", coords: [8.9200, -79.6800], info: "Vía Puerto Vacamonte, Plaza DIJ" },
+            { name: "IPUL Capira", coords: [8.7500, -79.8800], info: "Vía Interamericana, entrada Lídice" },
+            { name: "IPUL Coronado", coords: [8.5400, -79.8900], info: "Plaza The Village, Local #4" },
+
+            // Coclé
+            { name: "IPUL El Valle", coords: [8.6050, -80.1250], info: "El Valle de Antón, diagonal mercado" },
+            { name: "IPUL Penonomé", coords: [8.5150, -80.3550], info: "Calle Héctor Conte, cerca IDAAN" },
+            { name: "IPUL Aguadulce", coords: [8.2400, -80.5400], info: "Av. Abelardo Herrera, centro" },
+
+            // Herrera
+            { name: "IPUL Chitré", coords: [7.9603, -80.4287], info: "Av. Julio Arjona, cerca Parque La Bandera" },
+
+            // Colón
+            { name: "IPUL Colón", coords: [9.3600, -79.9000], info: "Calle 9 y Av. Bolívar" },
+
+            // Chiriquí & Bocas del Toro
+            { name: "IPUL David", coords: [8.4300, -82.4300], info: "Calle Central entre Av 4 y 5 Este" },
+            { name: "IPUL Bugaba", coords: [8.4700, -82.6200], info: "La Concepción, cerca Parque Bugaba" },
+            { name: "IPUL Volcán", coords: [8.7700, -82.6400], info: "Tierras Altas" },
+            { name: "IPUL Changuinola", coords: [9.4300, -82.5200], info: "Av. 17 de Abril, frente IFARHU" },
+            { name: "IPUL Almirante", coords: [9.2900, -82.4000], info: "Cruzando Puente Jack" }
+        ];
+
+        // 1. Add Markers to Map
+        locations.forEach(loc => {
+            L.marker(loc.coords, {icon: churchIcon}).addTo(map)
+                .bindPopup(`<div class="text-center"><b>${loc.name}</b><br><span class="text-xs">${loc.info}</span></div>`);
+        });
+
+        // 2. Generate List in HTML
+        const listContainer = document.getElementById('location-list');
+        const badge = document.getElementById('count-badge');
+        
+        function renderList() {
+            badge.innerText = locations.length;
+            listContainer.innerHTML = ''; // Clear loading spinner
+            
+            locations.forEach(loc => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl hover:bg-blue-50 border border-transparent hover:border-blue-100 transition group relative overflow-hidden bg-white shadow-sm mb-2";
+                btn.onclick = () => flyToLocation(loc.coords[0], loc.coords[1]);
+                
+                btn.innerHTML = `
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-ipul-blue text-sm md:text-base">${loc.name}</h4>
+                        <p class="text-xs text-gray-500 mt-1 flex items-start gap-1">
+                            <i class="ph-bold ph-map-pin text-ipul-gold mt-0.5"></i> ${loc.info}
+                        </p>
+                    </div>
+                    <div class="absolute right-[-10px] top-[-10px] text-gray-50 group-hover:text-blue-100 transition-colors pointer-events-none">
+                        <i class="ph-fill ph-church text-5xl"></i>
+                    </div>
+                `;
+                listContainer.appendChild(btn);
+            });
+        }
+        
+        // Initial Render
+        renderList();
+
+        function flyToLocation(lat, lng) {
+            map.flyTo([lat, lng], 14, { duration: 1.5 });
+            // Scroll map into view on mobile
+            document.getElementById('map').scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+
+        // --- 3. AI Assistant Logic (Gemini API) ---
+        
+        function toggleAIModal() {
+            const modal = document.getElementById('ai-modal');
+            const panel = document.getElementById('ai-modal-panel');
+            
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+            } else {
+                panel.classList.add('translate-x-full');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        function switchTab(tab) {
+            const viewChat = document.getElementById('view-chat');
+            const viewPrayer = document.getElementById('view-prayer');
+            const tabChat = document.getElementById('tab-chat');
+            const tabPrayer = document.getElementById('tab-prayer');
+
+            if (tab === 'chat') {
+                viewChat.classList.remove('hidden');
+                viewPrayer.classList.add('hidden');
+                tabChat.classList.add('text-ipul-blue', 'border-b-2', 'border-ipul-blue', 'bg-blue-50');
+                tabChat.classList.remove('text-gray-500');
+                tabPrayer.classList.remove('text-ipul-blue', 'border-b-2', 'border-ipul-blue', 'bg-blue-50');
+                tabPrayer.classList.add('text-gray-500');
+            } else {
+                viewChat.classList.add('hidden');
+                viewPrayer.classList.remove('hidden');
+                tabPrayer.classList.add('text-ipul-blue', 'border-b-2', 'border-ipul-blue', 'bg-blue-50');
+                tabPrayer.classList.remove('text-gray-500');
+                tabChat.classList.remove('text-ipul-blue', 'border-b-2', 'border-ipul-blue', 'bg-blue-50');
+                tabChat.classList.add('text-gray-500');
+            }
+        }
+
+        // --- GEMINI API INTEGRATION ---
+        
+        async function callGemini(prompt, systemPrompt) {
+            const apiKey = ""; // Runtime Environment Key
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (data.error) throw new Error(data.error.message);
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Lo siento, no pude procesar eso.";
+            } catch (error) {
+                console.error("AI Error:", error);
+                return "Hubo un error de conexión. Por favor intenta más tarde.";
+            }
+        }
+
+        // Chat Logic
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const history = document.getElementById('chat-history');
+            const userText = input.value.trim();
+            if (!userText) return;
+
+            // Add user message
+            history.innerHTML += `<div class="user-message">${userText}</div>`;
+            input.value = '';
+            
+            // Add typing indicator
+            const typingId = 'typing-' + Date.now();
+            history.innerHTML += `
+                <div id="${typingId}" class="ai-message typing-indicator" style="width: fit-content">
+                    <span></span><span></span><span></span>
+                </div>`;
+            history.scrollTop = history.scrollHeight;
+
+            // System Prompt for Chat
+            const systemContext = `Eres un asistente pastoral virtual para la Iglesia Pentecostal Unida Latinoamericana en Panamá. 
+            Doctrina clave: Unicidad de Dios (Jesús es el Padre, Hijo y Espíritu Santo), Bautismo en el nombre de Jesús por inmersión, Santidad interna y externa.
+            Usa la Biblia Reina Valera 1960. Sé empático, amable, usa emojis ocasionalmente. Responde concisamente (máximo 3 párrafos cortos).`;
+
+            const aiResponseText = await callGemini(userText, systemContext);
+
+            // Remove typing indicator and add response
+            document.getElementById(typingId).remove();
+            const cleanHtml = marked.parse(aiResponseText);
+            history.innerHTML += `<div class="ai-message">${cleanHtml}</div>`;
+            history.scrollTop = history.scrollHeight;
+        }
+
+        // Prayer Logic
+        async function generatePrayer() {
+            const input = document.getElementById('prayer-input').value;
+            const resultDiv = document.getElementById('prayer-result');
+            const contentDiv = document.getElementById('prayer-content');
+            
+            if (!input) return alert("Por favor escribe una petición.");
+
+            // Show loading state in button (simplified)
+            contentDiv.innerHTML = '<div class="text-center py-4"><i class="ph ph-spinner animate-spin text-2xl text-ipul-gold"></i><p>Orando y redactando...</p></div>';
+            resultDiv.classList.remove('hidden');
+
+            const systemContext = `Eres un intercesor de oración cristiano pentecostal. Escribe una oración fervorosa, llena de fe y esperanza basada en la petición del usuario.
+            Usa lenguaje reverente pero cercano. Incluye una cita bíblica de la Reina Valera 1960 al final que de aliento.`;
+
+            const prayer = await callGemini(`Redacta una oración para esta petición: ${input}`, systemContext);
+            
+            contentDiv.innerHTML = marked.parse(prayer);
+        }
+
+        // --- 4. Simple Hero Carousel Logic ---
+        function startHeroCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            setInterval(() => {
+                // Hide current
+                slides[currentSlide].classList.remove('opacity-100', 'translate-x-0');
+                slides[currentSlide].classList.add('opacity-0', 'translate-x-10', 'pointer-events-none');
+
+                // Move to next
+                currentSlide = (currentSlide + 1) % totalSlides;
+
+                // Show next
+                slides[currentSlide].classList.remove('opacity-0', 'translate-x-10', 'pointer-events-none');
+                slides[currentSlide].classList.add('opacity-100', 'translate-x-0');
+            }, 4000); // Change every 4 seconds
+        }
+
+        // Initialize Carousel
+        document.addEventListener('DOMContentLoaded', startHeroCarousel);
+
+    </script>
+</body>
+</html>
