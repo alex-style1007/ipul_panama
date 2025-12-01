@@ -110,7 +110,31 @@
                 <a href="#inicio" class="hover:text-ipul-blue hover:scale-105 transition-all">Inicio</a>
                 <a href="historia.html" class="hover:text-ipul-blue hover:scale-105 transition-all">Historia</a>
                 <a href="#doctrina" class="hover:text-ipul-blue hover:scale-105 transition-all">Doctrina</a>
-                <a href="#comites" class="hover:text-ipul-blue hover:scale-105 transition-all">Comités</a>
+                
+                <!-- Dropdown Comités -->
+                <div class="relative group">
+                    <button class="flex items-center gap-1 hover:text-ipul-blue hover:scale-105 transition-all py-4">
+                        Comités <i class="ph-bold ph-caret-down text-ipul-gold"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-full w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                        <div class="py-2">
+                            <a href="#comite-jovenes" class="block px-4 py-3 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors border-b border-gray-50 last:border-0 flex items-center gap-2">
+                                <i class="ph-fill ph-fire text-orange-500"></i> Jóvenes
+                            </a>
+                            <a href="#comite-damas" class="block px-4 py-3 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors border-b border-gray-50 last:border-0 flex items-center gap-2">
+                                <i class="ph-fill ph-heart text-pink-500"></i> Damas Dorcas
+                            </a>
+                            <a href="#comite-misiones" class="block px-4 py-3 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors border-b border-gray-50 last:border-0 flex items-center gap-2">
+                                <i class="ph-fill ph-globe-hemisphere-west text-blue-500"></i> Misiones
+                            </a>
+                            <a href="#comite-musica" class="block px-4 py-3 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-2">
+                                <i class="ph-fill ph-music-notes text-purple-500"></i> Música
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="#mapa-sedes" class="hover:text-ipul-blue hover:scale-105 transition-all">Sedes</a>
                 
                 <!-- Botón IA -->
@@ -129,14 +153,31 @@
         
         <!-- Mobile Dropdown -->
         <div id="mobile-menu" class="hidden absolute w-full bg-white border-t border-gray-100 md:hidden shadow-xl top-20">
-            <div class="px-6 py-6 space-y-4">
+            <div class="px-6 py-6 space-y-4 max-h-[80vh] overflow-y-auto">
                 <a href="#inicio" class="block text-gray-600 hover:text-ipul-blue font-medium">Inicio</a>
                 <a href="historia.html" class="block text-gray-600 hover:text-ipul-blue font-medium">Historia</a>
                 <button onclick="toggleAIModal()" class="w-full text-left flex items-center gap-2 text-ipul-blue font-bold">
                     <i class="ph-fill ph-sparkle text-ipul-gold"></i> Asistente Pastoral IA
                 </button>
                 <a href="#doctrina" class="block text-gray-600 hover:text-ipul-blue font-medium">Doctrina</a>
-                <a href="#comites" class="block text-gray-600 hover:text-ipul-blue font-medium">Comités</a>
+                
+                <!-- Mobile Submenu for Comités -->
+                <div class="border-l-2 border-gray-100 pl-4 space-y-3">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Comités</p>
+                    <a href="#comite-jovenes" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-fire text-orange-500"></i> Jóvenes
+                    </a>
+                    <a href="#comite-damas" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-heart text-pink-500"></i> Damas Dorcas
+                    </a>
+                    <a href="#comite-misiones" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-globe-hemisphere-west text-blue-500"></i> Misiones
+                    </a>
+                    <a href="#comite-musica" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-music-notes text-purple-500"></i> Música
+                    </a>
+                </div>
+
                 <a href="#mapa-sedes" class="block text-gray-600 hover:text-ipul-blue font-medium">Sedes</a>
                 <a href="#contacto" class="block text-ipul-blue font-bold">Contacto</a>
             </div>
@@ -395,7 +436,7 @@
             </div>
 
             <!-- 1. Comité de Jóvenes -->
-            <div class="mb-24">
+            <div id="comite-jovenes" class="mb-24 scroll-mt-28">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
                         <i class="ph-fill ph-fire text-2xl"></i>
@@ -459,7 +500,7 @@
             </div>
 
             <!-- 2. Comité de Damas Dorcas -->
-            <div class="mb-24">
+            <div id="comite-damas" class="mb-24 scroll-mt-28">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center text-pink-600">
                         <i class="ph-fill ph-heart text-2xl"></i>
@@ -523,7 +564,7 @@
             </div>
 
             <!-- 3. Misiones & Evangelismo -->
-            <div class="mb-24">
+            <div id="comite-misiones" class="mb-24 scroll-mt-28">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
                         <i class="ph-fill ph-globe-hemisphere-west text-2xl"></i>
@@ -575,7 +616,7 @@
             </div>
 
             <!-- 4. Música y Alabanza -->
-            <div>
+            <div id="comite-musica" class="scroll-mt-28">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
                         <i class="ph-fill ph-music-notes text-2xl"></i>
