@@ -69,6 +69,10 @@
         #location-list::-webkit-scrollbar-track { background: #f1f1f1; }
         #location-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         #location-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Estilo personalizado para el popup de Leaflet */
+        .leaflet-popup-content-wrapper { border-radius: 12px; padding: 0; overflow: hidden; }
+        .leaflet-popup-content { margin: 0; width: 260px !important; }
     </style>
 </head>
 <body class="bg-slate-50 font-sans antialiased overflow-x-hidden selection:bg-ipul-gold selection:text-ipul-blue">
@@ -744,10 +748,31 @@
             { name: "IPUL Almirante", coords: [9.2900, -82.4000], info: "Cruzando Puente Jack" }
         ];
 
-        // 1. Add Markers to Map
-        locations.forEach(loc => {
-            L.marker(loc.coords, {icon: churchIcon}).addTo(map)
-                .bindPopup(`<div class="text-center"><b>${loc.name}</b><br><span class="text-xs">${loc.info}</span></div>`);
+        // 1. Add Markers to Map and Store References
+        const markers = []; // Store markers to access them later
+        locations.forEach((loc, index) => {
+            const popupContent = `
+                <div class="text-center p-4">
+                    <h3 class="font-bold text-ipul-blue text-lg mb-1">${loc.name}</h3>
+                    <p class="text-xs text-gray-600 mb-4">${loc.info}</p>
+                    <div class="flex justify-center gap-2">
+                        <!-- Botón Google Maps: Fondo Blanco, Letras Negras (Gris oscuro), Borde sutil -->
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${loc.coords[0]},${loc.coords[1]}" target="_blank" class="flex-1 bg-white text-gray-900 border border-gray-200 py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1 hover:bg-gray-50 transition shadow-sm">
+                            <i class="ph-fill ph-google-logo text-base text-gray-900"></i> Google Maps
+                        </a>
+                        <!-- Botón Waze: Fondo Cyan, Letras Blancas -->
+                        <a href="https://waze.com/ul?ll=${loc.coords[0]},${loc.coords[1]}&navigate=yes" target="_blank" class="flex-1 bg-cyan-500 text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1 hover:bg-cyan-600 transition shadow-sm">
+                            <i class="ph-fill ph-car text-base text-white"></i> Waze
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            const marker = L.marker(loc.coords, {icon: churchIcon})
+                .addTo(map)
+                .bindPopup(popupContent);
+                
+            markers.push(marker);
         });
 
         // 2. Generate List in HTML
@@ -758,10 +783,11 @@
             badge.innerText = locations.length;
             listContainer.innerHTML = ''; // Clear loading spinner
             
-            locations.forEach(loc => {
+            locations.forEach((loc, index) => {
                 const btn = document.createElement('button');
                 btn.className = "w-full text-left p-4 rounded-xl hover:bg-blue-50 border border-transparent hover:border-blue-100 transition group relative overflow-hidden bg-white shadow-sm mb-2";
-                btn.onclick = () => flyToLocation(loc.coords[0], loc.coords[1]);
+                // Pass index to identify which marker to open
+                btn.onclick = () => flyToLocation(index);
                 
                 btn.innerHTML = `
                     <div class="relative z-10">
@@ -781,8 +807,16 @@
         // Initial Render
         renderList();
 
-        function flyToLocation(lat, lng) {
-            map.flyTo([lat, lng], 14, { duration: 1.5 });
+        function flyToLocation(index) {
+            const loc = locations[index];
+            const marker = markers[index];
+            
+            // Fly to location
+            map.flyTo(loc.coords, 14, { duration: 1.5 });
+            
+            // Open popup associated with this location
+            marker.openPopup();
+            
             // Scroll map into view on mobile
             document.getElementById('map').scrollIntoView({behavior: 'smooth', block: 'center'});
         }
