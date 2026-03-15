@@ -410,140 +410,230 @@
                     <div class="w-16 h-1 bg-ipul-gold mx-auto rounded-full"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Decom -->
-                    <div id="comite-decom" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-blue-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-broadcast text-6xl text-blue-500"></i>
+                    <div id="comite-decom" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo -->
+                        <img src="https://raw.githubusercontent.com/alex-style1007/ipul_panama/main/DecomNacional.jpg" alt="Decom" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-broadcast text-ipul-gold"></i> Decom
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-broadcast text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Decom</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Departamento de Comunicaciones, dedicado a la difusión de la doctrina y el mensaje de salvación a través de los medios digitales y audiovisuales.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-blue-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-broadcast text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Decom</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Difusión de la doctrina y el mensaje de salvación a través de los medios digitales y audiovisuales.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Misiones -->
-                    <div id="comite-misiones" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-green-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-globe-hemisphere-west text-6xl text-green-500"></i>
+                    <div id="comite-misiones" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?q=80&w=600&auto=format&fit=crop" alt="Misiones" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-globe-hemisphere-west text-ipul-gold"></i> Misiones
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-6 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-globe-hemisphere-west text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Misiones</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Expandiendo el reino de Dios dentro y fuera de nuestras fronteras. Apoyando el establecimiento de nuevas obras y fortaleciendo el evangelismo.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-green-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-globe-hemisphere-west text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Misiones</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Expandiendo el reino de Dios. Apoyo al establecimiento de nuevas obras y fortalecimiento evangelístico.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Crecimiento Espiritual -->
-                    <div id="comite-crecimiento" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-emerald-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-plant text-6xl text-emerald-500"></i>
+                    <div id="comite-crecimiento" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=600&auto=format&fit=crop" alt="Crecimiento Espiritual" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-plant text-ipul-gold"></i> Crecimiento Espiritual
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-plant text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Crecimiento Espiritual</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Enfocados en la formación doctrinal, el discipulado continuo y la edificación de cada creyente para alcanzar la madurez en Cristo.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-plant text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Crecimiento Espiritual</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Formación doctrinal, discipulado continuo y edificación para alcanzar la madurez en Cristo.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Misión Familia -->
-                    <div id="comite-familia" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-indigo-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-users-three text-6xl text-indigo-500"></i>
+                    <div id="comite-familia" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=600&auto=format&fit=crop" alt="Misión Familia" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-users-three text-ipul-gold"></i> Misión Familia
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-users-three text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Misión Familia</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Fomentando hogares sólidos bajo los principios bíblicos. Restauración, consejería y fortalecimiento del núcleo familiar en la iglesia.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-users-three text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Misión Familia</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Fomentando hogares sólidos bajo principios bíblicos, restauración y consejería familiar.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Eventos Nacionales -->
-                    <div id="comite-eventos" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-purple-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-calendar-star text-6xl text-purple-500"></i>
+                    <div id="comite-eventos" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600&auto=format&fit=crop" alt="Eventos Nacionales" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-calendar-star text-ipul-gold"></i> Eventos Nacionales
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-calendar-star text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Eventos Nacionales</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Coordinación y logística de nuestras grandes convocatorias, convenciones y campamentos nacionales que reúnen a toda la hermandad.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-purple-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-calendar-star text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Eventos Nacionales</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Coordinación logística de nuestras grandes convocatorias y convenciones que reúnen a la hermandad.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Música Nacional -->
-                    <div id="comite-musica" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-pink-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-music-notes text-6xl text-pink-500"></i>
+                    <div id="comite-musica" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1510915361894-faa8b2d708e3?q=80&w=600&auto=format&fit=crop" alt="Música Nacional" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-music-notes text-ipul-gold"></i> Música Nacional
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 mb-6 group-hover:bg-pink-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-music-notes text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Música Nacional</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Adoración en espíritu y en verdad. Promoviendo la excelencia musical, la formación de coros y ministerios de alabanza en todas las sedes.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-pink-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-music-notes text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Música Nacional</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Adoración en espíritu y en verdad. Promoviendo la excelencia en ministerios de alabanza.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Misión Femenil Nacional -->
-                    <div id="comite-femenil" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-rose-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-heart text-6xl text-rose-500"></i>
+                    <div id="comite-femenil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49e?q=80&w=600&auto=format&fit=crop" alt="Misión Femenil" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-heart text-ipul-gold"></i> Misión Femenil
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-rose-50 rounded-xl flex items-center justify-center text-rose-600 mb-6 group-hover:bg-rose-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-heart text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Misión Femenil</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Agrupando a las mujeres virtuosas de la iglesia. Dedicadas a la oración, el ayuno, la obra social y el respaldo a los proyectos locales y nacionales.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-rose-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-heart text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Misión Femenil</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Mujeres virtuosas dedicadas a la oración, el ayuno y la obra social de la iglesia.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Misión Juvenil -->
-                    <div id="comite-juvenil" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-orange-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-fire text-6xl text-orange-500"></i>
+                    <div id="comite-juvenil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=600&auto=format&fit=crop" alt="Misión Juvenil" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-fire text-ipul-gold"></i> Misión Juvenil
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-fire text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Misión Juvenil</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Una generación apasionada por el Espíritu Santo. Formando jóvenes santos y activos que sean luz en sus centros de estudio y lugares de trabajo.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-orange-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-fire text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Misión Juvenil</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Una generación apasionada por el Espíritu Santo, siendo luz en sus entornos y sirviendo con fuerza.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
                     <!-- Iglesia Infantil -->
-                    <div id="comite-infantil" class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 border-t-4 border-t-amber-500 group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:scale-110 transition-transform duration-500">
-                            <i class="ph-fill ph-smiley text-6xl text-amber-500"></i>
+                    <div id="comite-infantil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                        <!-- Imagen de Fondo (Placeholder) -->
+                        <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=600&auto=format&fit=crop" alt="Iglesia Infantil" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        
+                        <!-- Título visible por defecto -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 transition-opacity duration-300 group-hover:opacity-0">
+                            <h4 class="text-white font-bold text-xl drop-shadow-md flex items-center gap-2">
+                                <i class="ph-fill ph-smiley text-ipul-gold"></i> Iglesia Infantil
+                            </h4>
                         </div>
-                        <div class="w-14 h-14 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 mb-6 group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                            <i class="ph-fill ph-smiley text-3xl"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Iglesia Infantil</h4>
-                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Sembrando la Palabra de Dios en el corazón de los niños a través de maestras capacitadas, pedagogía dinámica y mucho amor.</p>
-                        <div class="pt-4 border-t border-gray-50">
-                            <p class="text-xs font-bold text-amber-600 uppercase tracking-wider">Dirección Nacional</p>
+
+                        <!-- Overlay Azul Oscuro Translúcido (Hover) -->
+                        <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 transform scale-50 group-hover:scale-100 transition-transform duration-500 delay-100">
+                                <i class="ph-fill ph-smiley text-4xl text-white"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Iglesia Infantil</h4>
+                            <p class="text-blue-100 text-sm mt-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                                Sembrando la Palabra de Dios en el corazón de los niños con pedagogía dinámica y mucho amor.
+                            </p>
+                            <div class="w-8 h-1 bg-ipul-gold rounded-full mt-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-300"></div>
                         </div>
                     </div>
 
