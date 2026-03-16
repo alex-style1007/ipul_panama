@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión Juvenil | IPUL Panamá</title>
+    <meta name="description" content="Misión Juvenil de la Iglesia Pentecostal Unida Latinoamericana en Panamá.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ipul-blue': '#002855',
+                        'ipul-gold': '#FFC72C',
+                        'panama-red': '#DA121A',
+                        'panama-blue': '#072357',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'panama-pattern': "url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23002855\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { color: #1e293b; }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .flag-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .hero-mini-gradient {
+            background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%), url('https://images.unsplash.com/photo-1523580494112-071d1694d6e9?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans antialiased overflow-x-hidden selection:bg-ipul-gold selection:text-ipul-blue">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo Area -->
+            <a href="../index.html" class="flex items-center gap-3 group">
+                <img src="../src/ipul_logo-removebg-preview.png" alt="Logo IPUL" class="h-12 w-auto object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'">
+                
+                <div class="flex flex-col justify-center">
+                    <span class="font-heading font-extrabold text-xl text-ipul-blue leading-none tracking-tight">IPUL</span>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                        <span class="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase">PANAMÁ</span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Bandera de Panamá" class="h-3 w-auto shadow-sm flag-icon transition-transform duration-300">
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-6 text-sm font-bold text-gray-600">
+                <a href="../index.html#inicio" class="hover:text-ipul-blue hover:scale-105 transition-all">Inicio</a>
+                <a href="../historia.html" class="hover:text-ipul-blue hover:scale-105 transition-all">Historia</a>
+                <a href="../index.html#doctrina" class="hover:text-ipul-blue hover:scale-105 transition-all">Doctrina</a>
+                
+                <!-- Dropdown Ministerios -->
+                <div class="relative group">
+                    <button class="flex items-center gap-1 hover:text-ipul-blue hover:scale-105 transition-all py-4">
+                        Ministerios <i class="ph-bold ph-caret-down text-ipul-gold"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-full w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                        <div class="py-2 grid grid-cols-1 max-h-80 overflow-y-auto">
+                            <a href="../index.html#ministerio-decom" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-broadcast text-blue-500 text-lg"></i> Decom
+                            </a>
+                            <a href="../index.html#ministerio-misiones" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-globe-hemisphere-west text-green-500 text-lg"></i> Misiones
+                            </a>
+                            <a href="../index.html#ministerio-crecimiento" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-plant text-emerald-500 text-lg"></i> Crecimiento Espiritual
+                            </a>
+                            <a href="../index.html#mision-familia" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-users-three text-indigo-500 text-lg"></i> Misión Familia
+                            </a>
+                            <a href="../index.html#ministerio-eventos" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-calendar-star text-purple-500 text-lg"></i> Eventos Nacionales
+                            </a>
+                            <a href="../index.html#ministerio-musica" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-music-notes text-pink-500 text-lg"></i> Música Nacional
+                            </a>
+                            <a href="../index.html#mision-femenil" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-heart text-rose-500 text-lg"></i> Misión Femenil
+                            </a>
+                            <a href="mision_juvenil.html" class="px-4 py-2.5 bg-blue-50 text-ipul-blue font-bold transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                                <i class="ph-fill ph-fire text-orange-500 text-lg"></i> Misión Juvenil
+                            </a>
+                            <a href="../index.html#iglesia-infantil" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm">
+                                <i class="ph-fill ph-smiley text-amber-500 text-lg"></i> Iglesia Infantil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IPUL Digital Dropdown -->
+                <div class="relative group">
+                    <button class="flex items-center gap-1 hover:text-ipul-blue hover:scale-105 transition-all py-4 text-panama-blue font-extrabold">
+                        IPUL Digital <i class="ph-bold ph-caret-down text-ipul-gold"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute left-0 top-full w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                        <div class="py-2 grid grid-cols-1">
+                            <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-red-50 text-gray-700 hover:text-red-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
+                                <i class="ph-fill ph-youtube-logo text-xl text-red-500"></i> YouTube
+                            </a>
+                            <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
+                                <i class="ph-fill ph-facebook-logo text-xl text-blue-500"></i> Facebook
+                            </a>
+                            <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-pink-50 text-gray-700 hover:text-pink-600 transition-colors flex items-center gap-3 text-sm font-semibold">
+                                <i class="ph-fill ph-instagram-logo text-xl text-pink-500"></i> Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="../index.html#mapa-sedes" class="hover:text-ipul-blue hover:scale-105 transition-all">Sedes</a>
+                
+                <a href="../index.html#contacto" class="px-6 py-2.5 bg-ipul-blue text-white rounded-full hover:bg-ipul-gold hover:text-ipul-blue transition shadow-lg flex items-center gap-2">
+                    Contacto <i class="ph-bold ph-paper-plane-right"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Icon -->
+            <button id="menu-btn" class="md:hidden text-2xl text-ipul-blue"><i class="ph ph-list"></i></button>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden absolute w-full bg-white border-t border-gray-100 md:hidden shadow-xl top-20">
+            <div class="px-6 py-6 space-y-4 max-h-[80vh] overflow-y-auto">
+                <a href="../index.html#inicio" class="block text-gray-600 hover:text-ipul-blue font-medium">Inicio</a>
+                <a href="../historia.html" class="block text-gray-600 hover:text-ipul-blue font-medium">Historia</a>
+                <a href="../index.html#doctrina" class="block text-gray-600 hover:text-ipul-blue font-medium">Doctrina</a>
+                
+                <!-- Mobile Submenu for Ministerios -->
+                <div class="border-l-2 border-gray-100 pl-4 space-y-3">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Ministerios</p>
+                    <a href="../index.html#ministerio-decom" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-broadcast text-blue-500"></i> Decom
+                    </a>
+                    <a href="../index.html#ministerio-misiones" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-globe-hemisphere-west text-green-500"></i> Misiones
+                    </a>
+                    <a href="../index.html#ministerio-crecimiento" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-plant text-emerald-500"></i> Crecimiento Espiritual
+                    </a>
+                    <a href="../index.html#mision-familia" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-users-three text-indigo-500"></i> Misión Familia
+                    </a>
+                    <a href="../index.html#ministerio-eventos" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-calendar-star text-purple-500"></i> Eventos Nacionales
+                    </a>
+                    <a href="../index.html#ministerio-musica" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-music-notes text-pink-500"></i> Música Nacional
+                    </a>
+                    <a href="../index.html#mision-femenil" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-heart text-rose-500"></i> Misión Femenil
+                    </a>
+                    <a href="mision_juvenil.html" class="block text-ipul-blue font-bold text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-fire text-orange-500"></i> Misión Juvenil
+                    </a>
+                    <a href="../index.html#iglesia-infantil" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-smiley text-amber-500"></i> Iglesia Infantil
+                    </a>
+                </div>
+
+                <!-- Mobile Submenu for IPUL Digital -->
+                <div class="border-l-2 border-gray-100 pl-4 space-y-3 mt-4">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">IPUL Digital</p>
+                    <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:text-red-600 font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-youtube-logo text-red-500 text-lg"></i> YouTube
+                    </a>
+                    <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:text-blue-600 font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-facebook-logo text-blue-500 text-lg"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:text-pink-600 font-medium text-sm flex items-center gap-2">
+                        <i class="ph-fill ph-instagram-logo text-pink-500 text-lg"></i> Instagram
+                    </a>
+                </div>
+
+                <a href="../index.html#mapa-sedes" class="block text-gray-600 hover:text-ipul-blue font-medium mt-4">Sedes</a>
+                <a href="../index.html#contacto" class="block text-ipul-blue font-bold mt-4">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section (Título) -->
+    <header class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 hero-mini-gradient overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md mb-6">
+                <i class="ph-fill ph-fire text-orange-400 text-lg"></i>
+                <span class="text-xs font-bold tracking-wider uppercase text-white">Generación de Fuego</span>
+            </div>
+            <h1 class="font-heading text-5xl md:text-6xl font-extrabold text-white mb-4">
+                Misión <span class="text-transparent bg-clip-text bg-gradient-to-r from-ipul-gold to-orange-300">Juvenil</span>
+            </h1>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto">
+                "Acuérdate de tu Creador en los días de tu juventud..." Eclesiastés 12:1
+            </p>
+        </div>
+        
+        <!-- Curva inferior -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Sección Vertical: Visión -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-ipul-blue mb-8 flex justify-center items-center gap-3">
+                <i class="ph-duotone ph-eye text-ipul-gold"></i> Nuestra Visión
+            </h2>
+            <div class="prose prose-lg text-gray-600 mx-auto">
+                <p class="leading-relaxed">
+                    [Aquí va el texto de la visión. Ejemplo: Formar una generación de jóvenes llenos del Espíritu Santo, capacitados en la Palabra de Dios y comprometidos con la extensión del reino en nuestro país. Buscamos impactar a la sociedad panameña a través de jóvenes que vivan en santidad, reflejen el amor de Cristo y sean líderes íntegros en sus hogares, lugares de estudio y comunidades.]
+                </p>
+            </div>
+            <div class="w-16 h-1 bg-ipul-gold mx-auto mt-10 rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Sección Vertical: Video -->
+    <section class="py-20 relative border-y border-gray-100 bg-panama-pattern">
+        <!-- Overlay azul claro translúcido -->
+        <div class="absolute inset-0 bg-blue-100/80 backdrop-blur-sm"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-ipul-blue mb-4">
+                    Juventud en Acción
+                </h2>
+                <p class="text-gray-700 font-medium">Un vistazo a nuestro ministerio y nuestras actividades.</p>
+            </div>
+            
+            <!-- Contenedor del Video -->
+            <div class="relative w-full overflow-hidden rounded-2xl shadow-2xl aspect-video bg-gray-900 border-4 border-white">
+                <!-- iframe actualizado con el video real de YouTube -->
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full" 
+                    src="https://www.youtube.com/embed/JQb17kPST7k" 
+                    title="Video Misión Juvenil" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Vertical: Encuéntranos (Redirige al mapa de index.html) -->
+    <section class="py-24 bg-ipul-blue relative overflow-hidden text-center text-white">
+        <div class="absolute top-0 right-0 p-20 opacity-5 pointer-events-none">
+            <i class="ph-fill ph-map-pin text-9xl"></i>
+        </div>
+        <div class="max-w-3xl mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-5xl font-heading font-bold mb-6 text-white">
+                Encuéntranos
+            </h2>
+            <p class="text-blue-200 text-lg mb-10 leading-relaxed">
+                Tenemos un lugar para ti. Nuestra Misión Juvenil está activa en todas las congregaciones de la IPUL a nivel nacional. Únete y se parte de esta gran familia.
+            </p>
+            <a href="../index.html#mapa-sedes" class="inline-flex items-center gap-3 px-8 py-4 bg-ipul-gold text-ipul-blue font-bold rounded-full hover:bg-white hover:scale-105 transition duration-300 shadow-xl text-lg">
+                <i class="ph-bold ph-map-trifold text-xl"></i>
+                Ver Sedes Nacionales
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ipul-blue text-white pt-20 pb-10 relative overflow-hidden border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16 relative z-10">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="ph-fill ph-globe-hemisphere-west text-4xl text-ipul-gold"></i>
+                    <div>
+                        <span class="font-heading font-bold text-2xl block leading-none">IPUL PANAMÁ</span>
+                        <span class="text-xs text-blue-300 tracking-wider">Unidos en la Fe</span>
+                    </div>
+                </div>
+                <p class="text-blue-100 max-w-sm mb-6">
+                    Llevando el evangelio a cada rincón del istmo. Una iglesia comprometida con Dios y con nuestra nación.
+                </p>
+                <div class="flex items-center gap-2 text-sm font-semibold text-ipul-gold">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Panama" class="h-4 rounded-sm">
+                    "Puente del mundo, corazón del universo"
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-lg mb-6 text-white border-b-2 border-ipul-gold inline-block pb-1">Enlaces</h4>
+                <ul class="space-y-3 text-blue-200">
+                    <li><a href="../index.html" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Inicio</a></li>
+                    <li><a href="../historia.html" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Historia</a></li>
+                    <li><a href="../index.html#doctrina" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Doctrina</a></li>
+                    <li><a href="../index.html#ministerio-misiones" class="hover:text-white hover:translate-x-1 transition-transform inline-block">Misiones Nacionales</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-6 text-white border-b-2 border-ipul-gold inline-block pb-1">Contáctanos</h4>
+                <ul class="space-y-3 text-blue-200">
+                    <li class="flex items-start gap-3">
+                        <i class="ph-fill ph-map-pin mt-1 text-ipul-gold"></i>
+                        <span>Ciudad de Panamá<br>República de Panamá</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="ph-fill ph-envelope text-ipul-gold"></i>
+                        <span>info@ipulpanama.org</span>
+                    </li>
+                </ul>
+                <div class="flex gap-4 mt-6">
+                    <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-blue-900 transition"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-pink-600 transition"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-red-600 transition"><i class="ph-fill ph-youtube-logo"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-blue-300 text-sm">
+            <p>&copy; 2025 Iglesia Pentecostal Unida Latinoamericana.</p>
+            <p class="flex items-center gap-1 mt-2 md:mt-0">
+                Hecho con <i class="ph-fill ph-heart text-red-500"></i> en Panamá 🇵🇦
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script para Menú Móvil -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (menuBtn && menu) {
+                menuBtn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
