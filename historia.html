@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historia | IPUL Panamá</title>
-    <meta name="description" content="Historia de la Iglesia Pentecostal Unida Latinoamericana en Panamá. Un legado de fe y avivamiento desde 1935.">
+    <title>Nuestra Historia | IPUL Panamá</title>
+    <meta name="description" content="Historia de la Iglesia Pentecostal Unida Latinoamericana en Panamá. Un legado de fe y avivamiento desde 1964.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -30,7 +30,7 @@
                         heading: ['Montserrat', 'sans-serif'],
                     },
                     backgroundImage: {
-                        'pattern-dots': "url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23002855\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E')",
+                        'panama-pattern': "url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23002855\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
                     }
                 }
             }
@@ -43,31 +43,44 @@
             backdrop-filter: blur(10px);
         }
         
-        .timeline-line::before {
+        /* Timeline styling */
+        .timeline-container::before {
             content: '';
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 50%;
-            width: 2px;
-            background: #e5e7eb;
-            transform: translateX(-50%);
+            left: 31px;
+            width: 4px;
+            background: linear-gradient(to bottom, #FFC72C, #002855);
+            border-radius: 2px;
         }
-        
-        @media (max-width: 768px) {
-            .timeline-line::before {
-                left: 20px;
+
+        @media (min-width: 768px) {
+            .timeline-container::before {
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
 
-        .flag-icon:hover {
+        .phase-card:hover .phase-icon {
             transform: scale(1.1) rotate(5deg);
+        }
+
+        .church-badge {
+            background: rgba(0, 40, 85, 0.05);
+            border: 1px solid rgba(0, 40, 85, 0.1);
+            transition: all 0.3s ease;
+        }
+        .church-badge:hover {
+            background: #002855;
+            color: white;
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased selection:bg-ipul-gold selection:text-ipul-blue">
+<body class="bg-slate-50 font-sans antialiased text-slate-800 selection:bg-ipul-gold selection:text-ipul-blue">
 
-    <!-- Navbar Actualizada -->
+    <!-- Navbar -->
     <nav class="fixed w-full z-50 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <!-- Logo Area -->
@@ -94,7 +107,6 @@
                     <button class="flex items-center gap-1 hover:text-ipul-blue hover:scale-105 transition-all py-4">
                         Ministerios <i class="ph-bold ph-caret-down text-ipul-gold"></i>
                     </button>
-                    <!-- Dropdown Menu -->
                     <div class="absolute left-0 top-full w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
                         <div class="py-2 grid grid-cols-1 max-h-80 overflow-y-auto">
                             <a href="index.html#ministerio-decom" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
@@ -103,20 +115,8 @@
                             <a href="index.html#ministerio-misiones" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-globe-hemisphere-west text-green-500 text-lg"></i> Misiones
                             </a>
-                            <a href="index.html#ministerio-crecimiento" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
-                                <i class="ph-fill ph-plant text-emerald-500 text-lg"></i> Crecimiento Espiritual
-                            </a>
                             <a href="index.html#mision-familia" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-users-three text-indigo-500 text-lg"></i> Misión Familia
-                            </a>
-                            <a href="index.html#ministerio-eventos" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
-                                <i class="ph-fill ph-calendar-star text-purple-500 text-lg"></i> Eventos Nacionales
-                            </a>
-                            <a href="index.html#ministerio-musica" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
-                                <i class="ph-fill ph-music-notes text-pink-500 text-lg"></i> Música Nacional
-                            </a>
-                            <a href="index.html#mision-femenil" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
-                                <i class="ph-fill ph-heart text-rose-500 text-lg"></i> Misión Femenil
                             </a>
                             <a href="pages/page_ministerio_juvenil.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-fire text-orange-500 text-lg"></i> Misión Juvenil
@@ -133,16 +133,12 @@
                     <button class="flex items-center gap-1 hover:text-ipul-blue hover:scale-105 transition-all py-4 text-panama-blue font-extrabold">
                         IPUL Digital <i class="ph-bold ph-caret-down text-ipul-gold"></i>
                     </button>
-                    <!-- Dropdown Menu -->
                     <div class="absolute left-0 top-full w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
                         <div class="py-2 grid grid-cols-1">
-                            <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-red-50 text-gray-700 hover:text-red-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
+                            <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" class="px-4 py-2.5 hover:bg-red-50 text-gray-700 hover:text-red-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
                                 <i class="ph-fill ph-youtube-logo text-xl text-red-500"></i> YouTube
                             </a>
-                            <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
-                                <i class="ph-fill ph-facebook-logo text-xl text-blue-500"></i> Facebook
-                            </a>
-                            <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-pink-50 text-gray-700 hover:text-pink-600 transition-colors flex items-center gap-3 text-sm font-semibold">
+                            <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" class="px-4 py-2.5 hover:bg-pink-50 text-gray-700 hover:text-pink-600 transition-colors flex items-center gap-3 text-sm font-semibold">
                                 <i class="ph-fill ph-instagram-logo text-xl text-pink-500"></i> Instagram
                             </a>
                         </div>
@@ -166,170 +162,280 @@
                 <a href="index.html#inicio" class="block text-gray-600 hover:text-ipul-blue font-medium">Inicio</a>
                 <a href="#" class="block text-ipul-blue font-bold">Historia</a>
                 <a href="index.html#doctrina" class="block text-gray-600 hover:text-ipul-blue font-medium">Doctrina</a>
-                
-                <!-- Mobile Submenu for Ministerios -->
-                <div class="border-l-2 border-gray-100 pl-4 space-y-3">
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Ministerios</p>
-                    <a href="index.html#ministerio-decom" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-broadcast text-blue-500"></i> Decom
-                    </a>
-                    <a href="index.html#ministerio-misiones" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-globe-hemisphere-west text-green-500"></i> Misiones
-                    </a>
-                    <a href="index.html#ministerio-crecimiento" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-plant text-emerald-500"></i> Crecimiento Espiritual
-                    </a>
-                    <a href="index.html#mision-familia" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-users-three text-indigo-500"></i> Misión Familia
-                    </a>
-                    <a href="index.html#ministerio-eventos" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-calendar-star text-purple-500"></i> Eventos Nacionales
-                    </a>
-                    <a href="index.html#ministerio-musica" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-music-notes text-pink-500"></i> Música Nacional
-                    </a>
-                    <a href="index.html#mision-femenil" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-heart text-rose-500"></i> Misión Femenil
-                    </a>
-                    <a href="pages/page_ministerio_juvenil.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-fire text-orange-500"></i> Misión Juvenil
-                    </a>
-                    <a href="index.html#iglesia-infantil" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-smiley text-amber-500"></i> Iglesia Infantil
-                    </a>
-                </div>
-
+                <a href="pages/page_ministerio_juvenil.html" class="block text-gray-600 hover:text-ipul-blue font-medium">Misión Juvenil</a>
                 <a href="index.html#mapa-sedes" class="block text-gray-600 hover:text-ipul-blue font-medium mt-4">Sedes</a>
                 <a href="index.html#contacto" class="block text-ipul-blue font-bold mt-4">Contacto</a>
             </div>
         </div>
     </nav>
 
-    <!-- Header de Historia -->
-    <header class="relative pt-32 pb-20 bg-ipul-blue overflow-hidden">
-        <!-- Abstract Decoration -->
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-white opacity-5 transform -skew-x-12 translate-x-20"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-ipul-gold opacity-10 rounded-full blur-3xl"></div>
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-44 lg:pb-32 bg-ipul-blue overflow-hidden text-white">
+        <!-- Decoration -->
+        <div class="absolute inset-0 bg-panama-pattern opacity-10"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-ipul-gold/20 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
 
-        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <span class="text-ipul-gold font-bold tracking-widest text-sm uppercase mb-4 block">Nuestro Legado</span>
-            <h1 class="font-heading text-4xl md:text-6xl font-bold text-white mb-6">
-                Raíces de Avivamiento <br> en el Istmo
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <span class="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-ipul-gold text-xs font-bold uppercase tracking-widest mb-6">Un Legado de Fe y Sacrificio</span>
+            <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+                Línea de <span class="text-ipul-gold">Tiempo</span>
             </h1>
-            <p class="text-blue-100 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-                Una mirada a cómo la llama del Espíritu Santo comenzó a arder en Panamá y cómo ha crecido hasta convertirse en una familia nacional.
+            <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-light">
+                Descubre cómo Dios ha trazado el camino de la IPUL en Panamá, desde las selvas profundas hasta la proyección nacional.
             </p>
         </div>
     </header>
 
-    <!-- Sección de Timeline -->
-    <section class="py-24 bg-pattern-dots relative">
-        <div class="max-w-5xl mx-auto px-6 relative timeline-line">
-            
-            <!-- Hito 1: Los Inicios -->
-            <div class="mb-16 flex flex-col md:flex-row items-center justify-between w-full relative z-10">
-                <div class="md:w-5/12 order-2 md:order-1 bg-white p-6 rounded-xl shadow-lg border-t-4 border-ipul-blue hover:-translate-y-1 transition duration-300">
-                    <span class="text-4xl font-heading font-bold text-gray-200 absolute top-4 right-6 select-none">1935</span>
-                    <h3 class="font-heading font-bold text-xl text-ipul-blue mb-2">La Semilla es Plantada</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        El avivamiento del Nombre de Jesús llega a tierras panameñas. La obra surge como resultado de la pasión misionera del <strong>Rvdo. J. H. Ingram</strong>, quien fue invitado a predicar en la provincia de Colón.
-                    </p>
+    <!-- Timeline Content -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative timeline-container">
+
+            <!-- FASE I -->
+            <div class="mb-32 relative flex flex-col md:flex-row items-center justify-between">
+                <div class="hidden md:block w-1/2"></div>
+                <!-- Node -->
+                <div class="absolute left-[31px] md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-ipul-gold border-4 border-white shadow-xl z-10 flex items-center justify-center">
+                    <i class="ph-fill ph-plant text-ipul-blue text-lg"></i>
                 </div>
-                
-                <div class="w-10 h-10 bg-ipul-gold rounded-full border-4 border-white shadow flex items-center justify-center order-1 md:order-2 my-4 md:my-0 absolute md:static left-0 md:left-auto">
-                    <span class="w-3 h-3 bg-ipul-blue rounded-full"></span>
-                </div>
-                
-                <div class="md:w-5/12 order-3 md:order-3 pl-12 md:pl-0 text-left md:text-left">
-                    <span class="text-sm font-bold text-gray-400 uppercase tracking-wider block mb-2">Colón, Panamá</span>
-                    <div class="rounded-lg overflow-hidden shadow-md h-48 w-full relative group">
-                        <div class="absolute inset-0 bg-sepia-500 mix-blend-multiply opacity-20"></div>
-                        <img src="https://images.unsplash.com/photo-1547820875-1a89c3722e40?q=80&w=1000&auto=format&fit=crop" alt="Colón Antiguo" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                <!-- Content -->
+                <div class="md:w-[45%] pl-16 md:pl-0">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-ipul-gold hover:shadow-2xl transition-all phase-card">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-black text-ipul-blue bg-ipul-gold px-3 py-1 rounded-full uppercase">Etapa I</span>
+                            <span class="text-sm font-bold text-slate-400">1964 - 1990</span>
+                        </div>
+                        <h2 class="text-2xl font-heading font-extrabold text-ipul-blue mb-4">La siembra en la frontera: Dios abre camino en la selva</h2>
+                        <p class="text-slate-600 leading-relaxed mb-8">
+                            Marcó el inicio del evangelio en el Darién. En medio de selvas y ríos, los primeros pioneros establecieron las bases con fe, sacrificio y perseverancia.
+                        </p>
+
+                        <!-- Pioneros -->
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-users text-ipul-gold"></i> Pioneros</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="font-bold text-slate-800">Aníbal Cansarí <span class="text-xs font-normal text-slate-400 ml-2">(1964)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Abrió camino a la predicación en comunidades de pueblos originarios.</p>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800">Gabriel Ají <span class="text-xs font-normal text-slate-400 ml-2">(1974)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Extendió la doctrina apostólica entre las comunidades autóctonas con valentía.</p>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800">Ember Ochoa <span class="text-xs font-normal text-slate-400 ml-2">(12 May 1937)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Líder regional que sostuvo la obra en circunstancias difíciles.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-crosshair text-ipul-gold"></i> Misionero</h3>
+                            <div>
+                                <p class="font-bold text-slate-800">Arnaldo Betancourt Zea <span class="text-xs font-normal text-slate-400 ml-2">(1970)</span></p>
+                                <p class="text-xs text-slate-500 mt-1">Acompañante estratégico que respaldó el crecimiento de los primeros núcleos.</p>
+                            </div>
+
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-church text-ipul-gold"></i> Iglesias Establecidas</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Reti</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Tucuti</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">La Bonga</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Yaviza</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Villa Caleta</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Unión Chocó</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Puerto Obaldía</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Hito 2: Primer Pastor -->
-            <div class="mb-16 flex flex-col md:flex-row items-center justify-between w-full relative z-10">
-                <div class="md:w-5/12 order-3 md:order-1 text-right pl-12 md:pl-0">
-                    <span class="text-sm font-bold text-gray-400 uppercase tracking-wider block mb-2">El Chorrillo</span>
-                    <div class="rounded-lg overflow-hidden shadow-md h-48 w-full relative group ml-auto">
-                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1000&auto=format&fit=crop" alt="Primeros Creyentes" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+            <!-- FASE II -->
+            <div class="mb-32 relative flex flex-col md:flex-row items-center justify-between">
+                <!-- Content Left -->
+                <div class="md:w-[45%] pl-16 md:pl-0 order-2 md:order-1">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-r-4 border-panama-red hover:shadow-2xl transition-all md:text-right phase-card">
+                        <div class="flex items-center md:justify-end gap-3 mb-4">
+                            <span class="text-sm font-bold text-slate-400">1991 - 1998</span>
+                            <span class="text-xs font-black text-white bg-panama-red px-3 py-1 rounded-full uppercase">Etapa II</span>
+                        </div>
+                        <h2 class="text-2xl font-heading font-extrabold text-ipul-blue mb-4">Tiempo del llamado: Dios abre puertas en la ciudad</h2>
+                        <p class="text-slate-600 leading-relaxed mb-8">
+                            Transición hacia contextos urbanos. Un tiempo de organización y arraigo para consolidar una presencia estable y visible en la capital.
+                        </p>
+
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center md:justify-end gap-2 border-b pb-2"><i class="ph-bold ph-globe text-panama-red"></i> Misioneros</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="font-bold text-slate-800">Orlando y Teresa Jiménez <span class="text-xs font-normal text-slate-400 ml-2">(1991)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Visionarios en el establecimiento de bases congregacionales urbanas.</p>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800">Fernando Sierra y Claribel Calvo <span class="text-xs font-normal text-slate-400 ml-2">(1995)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Fortalecieron la transición hacia una presencia organizada y visible.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center md:justify-end gap-2 border-b pb-2"><i class="ph-bold ph-map-pin text-panama-red"></i> Iglesias Establecidas</h3>
+                            <div class="flex flex-wrap md:justify-end gap-2">
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">Mañanitas</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-xs font-semibold">24 de Diciembre</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="w-10 h-10 bg-white rounded-full border-4 border-ipul-blue shadow flex items-center justify-center order-1 md:order-2 my-4 md:my-0 absolute md:static left-0 md:left-auto">
-                    <i class="ph-fill ph-user text-ipul-blue"></i>
+                <!-- Node -->
+                <div class="absolute left-[31px] md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-panama-red border-4 border-white shadow-xl z-10 flex items-center justify-center">
+                    <i class="ph-fill ph-city text-white text-lg"></i>
                 </div>
+                <div class="hidden md:block w-1/2"></div>
+            </div>
 
-                <div class="md:w-5/12 order-2 md:order-3 bg-white p-6 rounded-xl shadow-lg border-t-4 border-panama-red hover:-translate-y-1 transition duration-300">
-                    <span class="text-4xl font-heading font-bold text-gray-200 absolute top-4 right-6 select-none">1936</span>
-                    <h3 class="font-heading font-bold text-xl text-ipul-blue mb-2">Consolidación Temprana</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Se establece oficialmente la primera obra. El pastor <strong>Bolívar De Sousa</strong> se convierte en el primer pastor nacional en el área de El Chorrillo, marcando el inicio del liderazgo local.
-                    </p>
+            <!-- FASE III -->
+            <div class="mb-32 relative flex flex-col md:flex-row items-center justify-between">
+                <div class="hidden md:block w-1/2"></div>
+                <!-- Node -->
+                <div class="absolute left-[31px] md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-blue-600 border-4 border-white shadow-xl z-10 flex items-center justify-center">
+                    <i class="ph-fill ph-trend-up text-white text-lg"></i>
+                </div>
+                <!-- Content -->
+                <div class="md:w-[45%] pl-16 md:pl-0">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-blue-600 hover:shadow-2xl transition-all phase-card">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-black text-white bg-blue-600 px-3 py-1 rounded-full uppercase">Fase III</span>
+                            <span class="text-sm font-bold text-slate-400">2000 - 2010</span>
+                        </div>
+                        <h2 class="text-2xl font-heading font-extrabold text-ipul-blue mb-4">Tiempo de la multiplicación: Dios extiende la obra</h2>
+                        <p class="text-slate-600 leading-relaxed mb-8">
+                            Crecimiento acelerado y fortalecimiento institucional. La obra avanzó hacia nuevas regiones con una estructura ministerial organizada.
+                        </p>
+
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-users-three text-blue-600"></i> Misioneros</h3>
+                            <div>
+                                <p class="font-bold text-slate-800">Esdras y Elsa Barranco <span class="text-xs font-normal text-slate-400 ml-2">(2000-2010)</span></p>
+                                <p class="text-xs text-slate-500 mt-1">Estructuraron la administración nacional e impulsaron campamentos y ministerios.</p>
+                            </div>
+
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-globe-hemisphere-west text-blue-600"></i> Iglesias Establecidas</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Palmira</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Pixvae</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">La Palma</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Don Bosco</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">San Félix</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Santiago</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">David</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Chorrera</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Vacamonte</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Tierra Prometida</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Hito 3: Expansión Nacional -->
-            <div class="mb-16 flex flex-col md:flex-row items-center justify-between w-full relative z-10">
-                <div class="md:w-5/12 order-2 md:order-1 bg-white p-6 rounded-xl shadow-lg border-t-4 border-ipul-gold hover:-translate-y-1 transition duration-300">
-                    <span class="text-4xl font-heading font-bold text-gray-200 absolute top-4 right-6 select-none">1960s</span>
-                    <h3 class="font-heading font-bold text-xl text-ipul-blue mb-2">Hacia el Interior</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        El evangelio cruza el Puente de las Américas. Comienza la expansión hacia el interior del país, alcanzando provincias centrales como Herrera y Chiriquí, estableciendo puntos de predicación que hoy son grandes congregaciones.
-                    </p>
-                </div>
-                
-                <div class="w-10 h-10 bg-ipul-blue rounded-full border-4 border-white shadow flex items-center justify-center order-1 md:order-2 my-4 md:my-0 absolute md:static left-0 md:left-auto">
-                    <i class="ph-fill ph-trend-up text-white"></i>
-                </div>
-                
-                <div class="md:w-5/12 order-3 md:order-3 pl-12 md:pl-0">
-                    <span class="text-sm font-bold text-gray-400 uppercase tracking-wider block mb-2">Crecimiento</span>
-                    <div class="grid grid-cols-2 gap-2">
-                        <img src="https://images.unsplash.com/photo-1544717301-9cdcb1f5940f?auto=format&fit=crop&q=80&w=200" class="rounded shadow grayscale hover:grayscale-0 transition" alt="Campaña antigua">
-                        <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?auto=format&fit=crop&q=80&w=200" class="rounded shadow grayscale hover:grayscale-0 transition" alt="Bautismos">
+            <!-- FASE IV -->
+            <div class="mb-32 relative flex flex-col md:flex-row items-center justify-between">
+                <!-- Content Left -->
+                <div class="md:w-[45%] pl-16 md:pl-0 order-2 md:order-1">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-r-4 border-emerald-500 hover:shadow-2xl transition-all md:text-right phase-card">
+                        <div class="flex items-center md:justify-end gap-3 mb-4">
+                            <span class="text-sm font-bold text-slate-400">2011 - 2023</span>
+                            <span class="text-xs font-black text-white bg-emerald-500 px-3 py-1 rounded-full uppercase">Fase IV</span>
+                        </div>
+                        <h2 class="text-2xl font-heading font-extrabold text-ipul-blue mb-4">Tiempo De Consolidación: Dios Afirma El Fundamento</h2>
+                        <p class="text-slate-600 leading-relaxed mb-8">
+                            Fortalecimiento ministerial y administrativo. Afirmación de una presencia sólida y ordenada en todo Panamá.
+                        </p>
+
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center md:justify-end gap-2 border-b pb-2"><i class="ph-bold ph-shield-check text-emerald-500"></i> Misioneros</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="font-bold text-slate-800">Jafeth y Patricia Masmela <span class="text-xs font-normal text-slate-400 ml-2">(2011)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Trabajo de continuidad y firmeza en el crecimiento doctrinal.</p>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800">José Martínez y Mirna Parra <span class="text-xs font-normal text-slate-400 ml-2">(2017)</span></p>
+                                    <p class="text-xs text-slate-500 mt-1">Intensa capacitación de liderazgo, talleres y desarrollo musical.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center md:justify-end gap-2 border-b pb-2"><i class="ph-bold ph-seal-check text-emerald-500"></i> Iglesias Establecidas</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Burunga</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Emberá Purú</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Las Tablas</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Chilibre</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Penonomé</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Sabanitas</span>
+                                <span class="church-badge px-3 py-1 rounded-full text-[10px] font-semibold text-center">Cerro Silvestre</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- Node -->
+                <div class="absolute left-[31px] md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-emerald-500 border-4 border-white shadow-xl z-10 flex items-center justify-center">
+                    <i class="ph-fill ph-check-circle text-white text-lg"></i>
+                </div>
+                <div class="hidden md:block w-1/2"></div>
             </div>
 
-            <!-- Hito 4: Presente -->
-            <div class="flex flex-col md:flex-row items-center justify-between w-full relative z-10">
-                <div class="md:w-5/12 order-3 md:order-1 text-right pl-12 md:pl-0">
-                    <div class="bg-gradient-to-br from-ipul-blue to-blue-900 text-white p-6 rounded-xl shadow-xl">
-                        <h4 class="font-bold text-2xl mb-1">Hoy</h4>
-                        <p class="text-blue-200 text-sm">Somos miles de creyentes en todo el territorio nacional.</p>
+            <!-- FASE V -->
+            <div class="relative flex flex-col md:flex-row items-center justify-between">
+                <div class="hidden md:block w-1/2"></div>
+                <!-- Node -->
+                <div class="absolute left-[31px] md:left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-ipul-gold border-4 border-white shadow-2xl z-10 flex items-center justify-center animate-pulse">
+                    <i class="ph-fill ph-rocket-launch text-ipul-blue text-xl"></i>
+                </div>
+                <!-- Content -->
+                <div class="md:w-[45%] pl-16 md:pl-0">
+                    <div class="bg-gradient-to-br from-white to-blue-50 p-8 rounded-2xl shadow-xl border-l-4 border-ipul-blue hover:shadow-2xl transition-all phase-card">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-black text-white bg-ipul-blue px-3 py-1 rounded-full uppercase">Fase V</span>
+                            <span class="text-sm font-bold text-slate-400">2024 en adelante</span>
+                        </div>
+                        <h2 class="text-2xl font-heading font-extrabold text-ipul-blue mb-4">Tiempo de la Proyección: La misión avanza</h2>
+                        <p class="text-slate-600 leading-relaxed mb-8 italic">
+                            "Etapa de madurez, continuidad y proyección. Una iglesia establecida administrativamente fortaleciendo las bases y principios doctrinales."
+                        </p>
+
+                        <div class="space-y-6">
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-star text-ipul-gold"></i> Misionero Actual</h3>
+                            <div>
+                                <p class="font-bold text-slate-800">Guillermo Rativa y Janeth Otalvaro <span class="text-xs font-normal text-slate-400 ml-2">(2024)</span></p>
+                                <p class="text-xs text-slate-500 mt-1">Preservan el legado de los pioneros proyectando la obra hacia nuevos retos con una base sólida y organizada.</p>
+                            </div>
+
+                            <h3 class="text-sm font-bold text-ipul-blue flex items-center gap-2 border-b pb-2"><i class="ph-bold ph-flag text-ipul-gold"></i> Iglesias Recientes</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="church-badge px-4 py-1.5 rounded-full text-xs font-bold text-ipul-blue bg-ipul-gold/20 border-ipul-gold">Chivo Chivo</span>
+                                <span class="church-badge px-4 py-1.5 rounded-full text-xs font-bold text-ipul-blue bg-ipul-gold/20 border-ipul-gold">Caimitillo</span>
+                                <span class="church-badge px-4 py-1.5 rounded-full text-xs font-bold text-ipul-blue bg-ipul-gold/20 border-ipul-gold">Chagres</span>
+                                <span class="church-badge px-4 py-1.5 rounded-full text-xs font-bold text-ipul-blue bg-ipul-gold/20 border-ipul-gold">Puerto Piña</span>
+                                <span class="church-badge px-4 py-1.5 rounded-full text-xs font-bold text-ipul-blue bg-ipul-gold/20 border-ipul-gold">La Siesta Tocumen</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="w-10 h-10 bg-ipul-gold rounded-full border-4 border-white shadow-lg shadow-yellow-200 flex items-center justify-center order-1 md:order-2 my-4 md:my-0 absolute md:static left-0 md:left-auto animate-pulse">
-                    <i class="ph-fill ph-star text-ipul-blue"></i>
-                </div>
-
-                <div class="md:w-5/12 order-2 md:order-3 bg-white p-6 rounded-xl shadow-lg border-l-4 border-ipul-blue">
-                    <h3 class="font-heading font-bold text-xl text-ipul-blue mb-2">Un Futuro Glorioso</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Hoy, la IPUL en Panamá cuenta con sedes desde Darién hasta Bocas del Toro. Seguimos comprometidos con la Gran Comisión, utilizando tecnología y nuevos métodos sin cambiar el mensaje antiguo.
-                    </p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Footer Simple -->
+    <!-- Footer -->
     <footer class="bg-ipul-blue text-white pt-20 pb-10 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16 relative z-10 text-left">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-3 mb-6">
                     <i class="ph-fill ph-globe-hemisphere-west text-4xl text-ipul-gold"></i>
                     <div>
-                        <span class="font-heading font-bold text-2xl block leading-none">IPUL PANAMÁ</span>
-                        <span class="text-xs text-blue-300 tracking-wider">Unidos en la Fe</span>
+                        <span class="font-heading font-bold text-2xl block leading-none text-white">IPUL PANAMÁ</span>
+                        <span class="text-xs text-blue-300 tracking-wider uppercase">Unidos en la Fe</span>
                     </div>
                 </div>
-                <p class="text-blue-100 max-w-sm mb-6">
+                <p class="text-blue-100 max-w-sm mb-6 font-light">
                     Llevando el evangelio a cada rincón del istmo. Una iglesia comprometida con Dios y con nuestra nación.
                 </p>
             </div>
@@ -338,7 +444,7 @@
                 <h4 class="font-bold text-lg mb-6 text-white border-b-2 border-ipul-gold inline-block pb-1">Enlaces</h4>
                 <ul class="space-y-3 text-blue-200">
                     <li><a href="index.html" class="hover:text-white transition-colors">Inicio</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Historia</a></li>
+                    <li><a href="#" class="text-white font-bold">Historia</a></li>
                     <li><a href="index.html#mapa-sedes" class="hover:text-white transition-colors">Sedes</a></li>
                 </ul>
             </div>
@@ -346,7 +452,6 @@
             <div>
                 <h4 class="font-bold text-lg mb-6 text-white border-b-2 border-ipul-gold inline-block pb-1">Social</h4>
                 <div class="flex gap-4 mt-2">
-                    <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-blue-900 transition"><i class="ph-fill ph-facebook-logo"></i></a>
                     <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-pink-600 transition"><i class="ph-fill ph-instagram-logo"></i></a>
                     <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-red-600 transition"><i class="ph-fill ph-youtube-logo"></i></a>
                 </div>
@@ -359,7 +464,6 @@
     </footer>
 
     <script>
-        // Funcionalidad del menú móvil
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
         if (btn && menu) {
