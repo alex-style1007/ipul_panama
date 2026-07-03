@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+on:
+  release:
+    types: [published]
+
+# Only one deploy runs at a time; in-progress deploys are NOT cancelled
+# (we want the latest release to always finish deploying).
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ${{ github.event.release.tag_name }} to ipulpanama.com
+    runs-on: ubuntu-latest
+
+    # Required permissions for the GITHUB_TOKEN to deploy Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      # GitHub Pages needs the CNAME file at the root — it's already in the repo.
+      # We upload the entire repo as the Pages artifact.
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the whole repo root (index.html, src/, vendor/, pages/, etc.)
+          path: "."
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
