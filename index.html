@@ -48,10 +48,15 @@
         #map { height: 100%; min-height: 500px; width: 100%; z-index: 1; border-radius: 0.75rem; }
         
         .hero-gradient {
-            background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%), url('https://raw.githubusercontent.com/alex-style1007/ipul_panama/main/src/Heandler.png');
+            background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%), url('src/hero.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+        }
+        
+        @supports (background-attachment: fixed) {
+            @media (min-width: 768px) {
+                .hero-gradient { background-attachment: fixed; }
+            }
         }
         
         .glass-nav {
@@ -138,26 +143,6 @@
                     </div>
                 </div>
 
-                <!-- IPUL Digital Dropdown -->
-                <div class="relative group">
-                    <button class="flex items-center gap-1 hover:text-ipul-blue hover:scale-105 transition-all py-4 text-panama-blue font-extrabold">
-                        IPUL Digital <i class="ph-bold ph-caret-down text-ipul-gold"></i>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div class="absolute left-0 top-full w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
-                        <div class="py-2 grid grid-cols-1">
-                            <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-red-50 text-gray-700 hover:text-red-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
-                                <i class="ph-fill ph-youtube-logo text-xl text-red-500"></i> YouTube
-                            </a>
-                            <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-3 text-sm border-b border-gray-50 font-semibold">
-                                <i class="ph-fill ph-facebook-logo text-xl text-blue-500"></i> Facebook
-                            </a>
-                            <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 hover:bg-pink-50 text-gray-700 hover:text-pink-600 transition-colors flex items-center gap-3 text-sm font-semibold">
-                                <i class="ph-fill ph-instagram-logo text-xl text-pink-500"></i> Instagram
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
                 <a href="#mapa-sedes" class="hover:text-ipul-blue hover:scale-105 transition-all">Sedes</a>
                 
@@ -210,19 +195,6 @@
                     </a>
                 </div>
 
-                <!-- Mobile Submenu for IPUL Digital -->
-                <div class="border-l-2 border-gray-100 pl-4 space-y-3 mt-4">
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">IPUL Digital</p>
-                    <a href="https://www.youtube.com/@IPULPANAMA" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:text-red-600 font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-youtube-logo text-red-500 text-lg"></i> YouTube
-                    </a>
-                    <a href="https://www.facebook.com/share/1DoLU3V9hm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:text-blue-600 font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-facebook-logo text-blue-500 text-lg"></i> Facebook
-                    </a>
-                    <a href="https://www.instagram.com/ipulpanamaoficial?igsh=MXhodTBsa3YyNmZpZA==" target="_blank" rel="noopener noreferrer" class="block text-gray-600 hover:text-pink-600 font-medium text-sm flex items-center gap-2">
-                        <i class="ph-fill ph-instagram-logo text-pink-500 text-lg"></i> Instagram
-                    </a>
-                </div>
 
                 <a href="#mapa-sedes" class="block text-gray-600 hover:text-ipul-blue font-medium mt-4">Sedes</a>
                 <a href="#contacto" class="block text-ipul-blue font-bold mt-4">Contacto</a>
@@ -231,7 +203,7 @@
     </nav>
 
     <!-- Floating Nearest Location Button -->
-    <button id="find-nearest-btn" onclick="findNearestChurch()" class="fixed bottom-6 left-6 z-40 bg-white text-ipul-blue p-3 pr-4 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 group border border-gray-200 flex items-center gap-2 overflow-hidden max-w-[200px] md:max-w-[50px] md:hover:max-w-[200px]">
+    <button id="find-nearest-btn" class="fixed bottom-6 left-6 z-40 bg-white text-ipul-blue p-3 pr-4 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 group border border-gray-200 flex items-center gap-2 overflow-hidden max-w-[200px] md:max-w-[50px] md:hover:max-w-[200px]">
         <div class="bg-panama-red text-white rounded-full p-2 flex items-center justify-center shrink-0">
             <i class="ph-bold ph-crosshair text-xl group-hover:rotate-90 transition-transform"></i>
         </div>
@@ -239,6 +211,7 @@
     </button>
 
     <!-- Hero Section -->
+    <main>
     <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
         <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
             <!-- Text Content -->
@@ -253,7 +226,7 @@
                     <span class="text-ipul-gold">Todo Panamá</span>
                 </h1>
                 
-                <p class="text-lg text-blue-100 max-w-lg leading-relaxed border-l-4 border-panama-red pl-6">
+                <p class="text-lg text-blue-50 max-w-lg leading-relaxed pl-1">
                     Desde Chiriquí hasta Darién, proclamamos un solo Señor, una sola fe y un solo bautismo. Bienvenidos a la Iglesia Pentecostal Unida Latinoamericana.
                 </p>
 
@@ -273,68 +246,22 @@
                     <circle cx="450" cy="150" r="10" fill="white" /> 
                 </svg>
                 
-                <!-- CAROUSEL CONTAINER -->
-                <div class="absolute right-10 bottom-20 w-[340px] h-[180px] perspective-1000">
-                    <div id="committee-carousel" class="relative w-full h-full">
-                        <!-- Slide 1: Iglesia Infantil -->
-                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-100 translate-x-0">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white shrink-0">
-                                    <i class="ph-fill ph-smiley text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-amber-200 uppercase font-bold tracking-wider">Instruyendo al Niño</p>
-                                    <p class="text-white font-bold text-lg leading-tight">Iglesia Infantil</p>
-                                </div>
+                <!-- Ministry Highlight Card -->
+                <div class="absolute right-10 bottom-20 w-[340px]">
+                    <div class="bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-ipul-gold to-amber-600 flex items-center justify-center text-white shrink-0">
+                                <i class="ph-fill ph-globe-hemisphere-west text-xl"></i>
                             </div>
-                            <p class="text-sm text-gray-200 italic leading-relaxed">"Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos."</p>
-                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Mateo 19:14</p>
-                        </div>
-
-                        <!-- Slide 2: Misión Femenil -->
-                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-0 translate-x-10 pointer-events-none">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center text-white shrink-0">
-                                    <i class="ph-fill ph-heart text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-rose-200 uppercase font-bold tracking-wider">Mujeres de Fe</p>
-                                    <p class="text-white font-bold text-lg leading-tight">Misión Femenil</p>
-                                </div>
+                            <div>
+                                <p class="text-xs text-amber-200 uppercase font-bold tracking-wider">9 Ministerios Activos</p>
+                                <p class="text-white font-bold text-lg leading-tight">Una Iglesia Integral</p>
                             </div>
-                            <p class="text-sm text-gray-200 italic leading-relaxed">"Mujer virtuosa, ¿quién la hallará? Porque su estima sobrepasa largamente a la de las piedras preciosas."</p>
-                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Proverbios 31:10</p>
                         </div>
-
-                        <!-- Slide 3: Misión Juvenil -->
-                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-0 translate-x-10 pointer-events-none">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white shrink-0">
-                                    <i class="ph-fill ph-fire text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-orange-200 uppercase font-bold tracking-wider">Generación de Fuego</p>
-                                    <p class="text-white font-bold text-lg leading-tight">Misión Juvenil</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-200 italic leading-relaxed">"Acuérdate de tu Creador en los días de tu juventud..."</p>
-                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Eclesiastés 12:1</p>
-                        </div>
-
-                        <!-- Slide 4: Misión Familia -->
-                        <div class="carousel-slide absolute inset-0 bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl transform transition-all duration-1000 opacity-0 translate-x-10 pointer-events-none">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white shrink-0">
-                                    <i class="ph-fill ph-users-three text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-indigo-200 uppercase font-bold tracking-wider">Hogares Sólidos</p>
-                                    <p class="text-white font-bold text-lg leading-tight">Misión Familia</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-200 italic leading-relaxed">"Pero yo y mi casa serviremos a Jehová."</p>
-                            <p class="text-xs text-ipul-gold mt-2 text-right font-bold">- Josué 24:15</p>
-                        </div>
+                        <p class="text-sm text-gray-200 leading-relaxed">Familia, juventud, niños, misiones, música, eventos y más. Cada miembro tiene un lugar para servir y crecer.</p>
+                        <a href="#ministerios" class="inline-flex items-center gap-2 text-xs text-ipul-gold font-bold mt-3 hover:text-white transition-colors">
+                            Conoce nuestros ministerios <i class="ph-bold ph-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -637,6 +564,8 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer class="bg-ipul-blue text-white pt-20 pb-10 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16 relative z-10">
@@ -838,24 +767,6 @@
             );
         }
 
-        function startHeroCarousel() {
-            const slides = document.querySelectorAll('.carousel-slide');
-            if (slides.length === 0) return;
-            
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-
-            setInterval(() => {
-                slides[currentSlide].classList.remove('opacity-100', 'translate-x-0');
-                slides[currentSlide].classList.add('opacity-0', 'translate-x-10', 'pointer-events-none');
-
-                currentSlide = (currentSlide + 1) % totalSlides;
-
-                slides[currentSlide].classList.remove('opacity-0', 'translate-x-10', 'pointer-events-none');
-                slides[currentSlide].classList.add('opacity-100', 'translate-x-0');
-            }, 4000); 
-        }
-
         // --- INICIALIZACIÓN CON DOMContentLoaded ---
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -868,7 +779,13 @@
                 });
             }
 
-            // 2. Inicialización del Mapa Leaflet
+            // 2. Floating button
+            const nearestBtn = document.getElementById('find-nearest-btn');
+            if (nearestBtn) {
+                nearestBtn.addEventListener('click', findNearestChurch);
+            }
+
+            // 3. Inicialización del Mapa Leaflet
             const mapContainer = document.getElementById('map');
             if (mapContainer) {
                 map = L.map('map', { scrollWheelZoom: false }).setView([8.538, -80.782], 8);
@@ -906,7 +823,6 @@
             }
 
             // 3. Carrusel
-            startHeroCarousel();
 
             // 4. Accessible dropdowns (keyboard navigation)
             document.querySelectorAll('nav .group').forEach(dropdown => {
