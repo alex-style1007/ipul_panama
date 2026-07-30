@@ -1,0 +1,13 @@
+# IPUL Panamá - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ipulpanama.com/sitemap.xml
+
+# Crawl-delay for respectful bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
