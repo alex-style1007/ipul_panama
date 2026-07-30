@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Tailwind CSS (local, v3.4.15 — no CDN dependency) -->
-    <script src="vendor/tailwind.3.4.15.min.js"></script>
+    <link rel="stylesheet" href="vendor/tailwind.min.css">
     
     <!-- Leaflet CSS (Para el mapa) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -24,30 +24,6 @@
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'ipul-blue': '#002855',    // Azul Institucional
-                        'ipul-gold': '#FFC72C',    // Dorado Institucional
-                        'panama-red': '#DA121A',   // Rojo Bandera Panamá
-                        'panama-blue': '#072357',  // Azul Bandera Panamá
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'panama-pattern': "url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23002855\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
-                    },
-                    animation: {
-                        'bounce-slow': 'bounce 3s infinite',
-                    }
-                }
-            }
-        }
-    </script>
     
     <style>
         body { color: #1e293b; }
@@ -130,32 +106,32 @@
                     <!-- Dropdown Menu -->
                     <div class="absolute left-0 top-full w-64 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
                         <div class="py-2 grid grid-cols-1 max-h-80 overflow-y-auto">
-                            <a href="#ministerio-decom" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_decom.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-broadcast text-blue-500 text-lg"></i> Decom
                             </a>
-                            <a href="#ministerio-misiones" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_misiones.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-globe-hemisphere-west text-green-500 text-lg"></i> Misiones
                             </a>
-                            <a href="#ministerio-crecimiento" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_crecimiento_espiritual.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-plant text-emerald-500 text-lg"></i> Crecimiento Espiritual
                             </a>
-                            <a href="#mision-familia" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_mision_familia.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-users-three text-indigo-500 text-lg"></i> Misión Familia
                             </a>
-                            <a href="#ministerio-eventos" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_eventos_nacionales.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-calendar-star text-purple-500 text-lg"></i> Eventos Nacionales
                             </a>
-                            <a href="#ministerio-musica" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_musica_nacional.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-music-notes text-pink-500 text-lg"></i> Música Nacional
                             </a>
-                            <a href="#mision-femenil" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
+                            <a href="pages/page_mision_femenil.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-heart text-rose-500 text-lg"></i> Misión Femenil
                             </a>
                             <!-- Link Actualizado Ministerio Juvenil -->
                             <a href="pages/page_ministerio_juvenil.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm border-b border-gray-50">
                                 <i class="ph-fill ph-fire text-orange-500 text-lg"></i> Misión Juvenil
                             </a>
-                            <a href="#iglesia-infantil" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm">
+                            <a href="pages/page_iglesia_infantil.html" class="px-4 py-2.5 hover:bg-blue-50 text-gray-700 hover:text-ipul-blue transition-colors flex items-center gap-3 text-sm">
                                 <i class="ph-fill ph-smiley text-amber-500 text-lg"></i> Iglesia Infantil
                             </a>
                         </div>
@@ -204,32 +180,32 @@
                 <!-- Mobile Submenu for Ministerios -->
                 <div class="border-l-2 border-gray-100 pl-4 space-y-3">
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Ministerios</p>
-                    <a href="#ministerio-decom" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_decom.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-broadcast text-blue-500"></i> Decom
                     </a>
-                    <a href="#ministerio-misiones" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_misiones.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-globe-hemisphere-west text-green-500"></i> Misiones
                     </a>
-                    <a href="#ministerio-crecimiento" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_crecimiento_espiritual.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-plant text-emerald-500"></i> Crecimiento Espiritual
                     </a>
-                    <a href="#mision-familia" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_mision_familia.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-users-three text-indigo-500"></i> Misión Familia
                     </a>
-                    <a href="#ministerio-eventos" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_eventos_nacionales.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-calendar-star text-purple-500"></i> Eventos Nacionales
                     </a>
-                    <a href="#ministerio-musica" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_musica_nacional.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-music-notes text-pink-500"></i> Música Nacional
                     </a>
-                    <a href="#mision-femenil" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_mision_femenil.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-heart text-rose-500"></i> Misión Femenil
                     </a>
                     <!-- Link Actualizado Ministerio Juvenil Móvil -->
                     <a href="pages/page_ministerio_juvenil.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-fire text-orange-500"></i> Misión Juvenil
                     </a>
-                    <a href="#iglesia-infantil" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
+                    <a href="pages/page_iglesia_infantil.html" class="block text-gray-600 hover:text-ipul-blue font-medium text-sm flex items-center gap-2">
                         <i class="ph-fill ph-smiley text-amber-500"></i> Iglesia Infantil
                     </a>
                 </div>
@@ -931,6 +907,50 @@
 
             // 3. Carrusel
             startHeroCarousel();
+
+            // 4. Accessible dropdowns (keyboard navigation)
+            document.querySelectorAll('nav .group').forEach(dropdown => {
+                const btn = dropdown.querySelector('button');
+                const menu = dropdown.querySelector('[class*="absolute"]');
+                if (!btn || !menu) return;
+
+                btn.setAttribute('aria-expanded', 'false');
+                btn.setAttribute('aria-haspopup', 'true');
+
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const isOpen = menu.classList.contains('opacity-100');
+                        if (isOpen) {
+                            menu.classList.remove('opacity-100', 'visible');
+                            menu.classList.add('opacity-0', 'invisible');
+                            btn.setAttribute('aria-expanded', 'false');
+                        } else {
+                            menu.classList.remove('opacity-0', 'invisible');
+                            menu.classList.add('opacity-100', 'visible');
+                            btn.setAttribute('aria-expanded', 'true');
+                            menu.querySelector('a')?.focus();
+                        }
+                    }
+                });
+
+                menu.addEventListener('keydown', (e) => {
+                    const links = [...menu.querySelectorAll('a')];
+                    const idx = links.indexOf(document.activeElement);
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        links[(idx + 1) % links.length]?.focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        links[(idx - 1 + links.length) % links.length]?.focus();
+                    } else if (e.key === 'Escape') {
+                        menu.classList.remove('opacity-100', 'visible');
+                        menu.classList.add('opacity-0', 'invisible');
+                        btn.setAttribute('aria-expanded', 'false');
+                        btn.focus();
+                    }
+                });
+            });
         });
     </script>
 </body>
