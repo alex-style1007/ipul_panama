@@ -7,11 +7,16 @@
     <link rel="icon" type="image/png" href="src/ipul_logo-removebg-preview.png">
     <meta name="description" content="Cronología oficial de la Iglesia Pentecostal Unida Latinoamericana en Panamá. Un legado apostólico desde el Pentecostés hasta hoy.">
     
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Tailwind CSS (local, v3.4.15 — no CDN dependency) -->
     <script src="vendor/tailwind.3.4.15.min.js"></script>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts (only weights used) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -39,6 +44,23 @@
     </script>
     
     <style>
+        /* Accessibility: Focus ring for keyboard users */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #FFC72C;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        
+        /* Accessibility: Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
         .glass-nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
