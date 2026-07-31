@@ -1,76 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Spanish Pages -->
   <url>
     <loc>https://ipulpanama.com/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/predicas.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/predicas.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/sermons.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/historia.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/historia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/history.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_ministerio_juvenil.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_ministerio_juvenil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_youth_ministry.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_decom.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_decom.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_decom.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_misiones.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_misiones.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_missions.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_crecimiento_espiritual.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_crecimiento_espiritual.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_spiritual_growth.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_mision_familia.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_mision_familia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_family_mission.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_eventos_nacionales.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_eventos_nacionales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_national_events.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_musica_nacional.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_musica_nacional.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_national_music.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_mision_femenil.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_mision_femenil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_womens_mission.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ipulpanama.com/pages/page_iglesia_infantil.html</loc>
-    <lastmod>2026-07-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/pages/page_iglesia_infantil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/pages/page_childrens_church.html"/>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- English Pages -->
+  <url>
+    <loc>https://ipulpanama.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/"/>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/sermons.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/predicas.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/sermons.html"/>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/history.html</loc>
+    <xhtml:link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/historia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/history.html"/>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_youth_ministry.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_decom.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_missions.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_spiritual_growth.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_family_mission.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_national_events.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_national_music.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_womens_mission.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ipulpanama.com/en/pages/page_childrens_church.html</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
