@@ -254,16 +254,74 @@
         #map { height: 100%; min-height: 500px; width: 100%; z-index: 1; border-radius: 0.75rem; }
         
         .hero-gradient {
-            background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%), url('src/hero.jpg');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(160deg, #001a3e 0%, #002855 40%, #001f3f 100%);
         }
-        
-        @supports (background-attachment: fixed) {
-            @media (min-width: 768px) {
-                .hero-gradient { background-attachment: fixed; }
-            }
+
+        /* Panama Canal SVG animation */
+        #canal-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
         }
+
+        /* Stars twinkle */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.7; }
+        }
+        /* Water shimmer */
+        @keyframes shimmer {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        /* Ship sailing left→right across the canal */
+        @keyframes sail {
+            0%   { transform: translateX(-80px); }
+            100% { transform: translateX(calc(100vw + 80px)); }
+        }
+        /* Gentle ship rock */
+        @keyframes rock {
+            0%, 100% { transform: rotate(-0.8deg) translateY(0px); }
+            50%       { transform: rotate(0.8deg)  translateY(-2px); }
+        }
+        /* Wake ripple */
+        @keyframes wake {
+            0%   { opacity: 0.6; transform: scaleX(1) translateX(0); }
+            100% { opacity: 0;   transform: scaleX(2.5) translateX(24px); }
+        }
+        /* Birds */
+        @keyframes flyBird {
+            0%   { transform: translateX(-60px) translateY(0px); }
+            100% { transform: translateX(calc(100vw + 60px)) translateY(-30px); }
+        }
+        @keyframes wingFlap {
+            0%, 100% { d: path("M0,4 Q-5,0 -10,4"); }
+            50%       { d: path("M0,4 Q-5,8 -10,4"); }
+        }
+        /* Buoy bob */
+        @keyframes bob {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-4px); }
+        }
+
+        .canal-ship-group {
+            animation: sail 28s linear infinite;
+        }
+        .ship-body {
+            animation: rock 3s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+        .wake-ring {
+            animation: wake 1.8s ease-out infinite;
+        }
+        .bird-1 { animation: flyBird 22s linear infinite; }
+        .bird-2 { animation: flyBird 32s linear 6s infinite; }
+        .buoy-1 { animation: bob 2.8s ease-in-out infinite; }
+        .buoy-2 { animation: bob 3.4s ease-in-out 0.9s infinite; }
         
         .glass-nav {
             background: rgba(255, 255, 255, 0.95);
@@ -445,6 +503,260 @@
     <!-- Hero Section -->
     <main>
     <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
+
+        <!-- ══ Panama Canal Animated Background ══ -->
+        <div id="canal-bg" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <!-- Sky gradient -->
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#000d1a"/>
+                <stop offset="55%"  stop-color="#001f3f"/>
+                <stop offset="100%" stop-color="#002855"/>
+              </linearGradient>
+              <!-- Water gradient -->
+              <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  stop-color="#0c2d5e"/>
+                <stop offset="100%" stop-color="#061428"/>
+              </linearGradient>
+              <!-- Water shimmer tile (repeating) -->
+              <linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"   stop-color="#ffffff" stop-opacity="0"/>
+                <stop offset="48%"  stop-color="#ffffff" stop-opacity="0.04"/>
+                <stop offset="50%"  stop-color="#ffffff" stop-opacity="0.07"/>
+                <stop offset="52%"  stop-color="#ffffff" stop-opacity="0.04"/>
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+              </linearGradient>
+              <!-- Moon glow -->
+              <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stop-color="#fffde7" stop-opacity="0.9"/>
+                <stop offset="60%"  stop-color="#ffd54f" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#ffd54f" stop-opacity="0"/>
+              </radialGradient>
+              <!-- Ship hull gradient -->
+              <linearGradient id="hullGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  stop-color="#e8e8e8"/>
+                <stop offset="100%" stop-color="#9e9e9e"/>
+              </linearGradient>
+              <!-- Ship cabin gradient -->
+              <linearGradient id="cabinGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  stop-color="#f5f5f5"/>
+                <stop offset="100%" stop-color="#bdbdbd"/>
+              </linearGradient>
+              <!-- Moon reflection on water -->
+              <linearGradient id="moonReflect" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  stop-color="#fffde7" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#fffde7" stop-opacity="0"/>
+              </linearGradient>
+              <!-- Clip path for water area -->
+              <clipPath id="waterClip">
+                <rect x="0" y="490" width="1440" height="410"/>
+              </clipPath>
+            </defs>
+
+            <!-- ── Sky ── -->
+            <rect width="1440" height="900" fill="url(#skyGrad)"/>
+
+            <!-- Stars (static, varied opacity with CSS twinkle on a few) -->
+            <g fill="#ffffff">
+              <!-- Static dim stars -->
+              <circle cx="80"  cy="40"  r="0.8" opacity="0.3"/>
+              <circle cx="200" cy="70"  r="0.6" opacity="0.25"/>
+              <circle cx="350" cy="30"  r="1"   opacity="0.35"/>
+              <circle cx="500" cy="55"  r="0.7" opacity="0.2"/>
+              <circle cx="680" cy="25"  r="0.9" opacity="0.3"/>
+              <circle cx="820" cy="60"  r="0.6" opacity="0.22"/>
+              <circle cx="960" cy="35"  r="1.1" opacity="0.3"/>
+              <circle cx="1100" cy="50" r="0.7" opacity="0.25"/>
+              <circle cx="1260" cy="20" r="0.9" opacity="0.3"/>
+              <circle cx="1380" cy="65" r="0.6" opacity="0.2"/>
+              <circle cx="140"  cy="110" r="0.7" opacity="0.2"/>
+              <circle cx="440"  cy="90"  r="0.8" opacity="0.28"/>
+              <circle cx="740"  cy="100" r="0.6" opacity="0.18"/>
+              <circle cx="1020" cy="80"  r="0.9" opacity="0.25"/>
+              <circle cx="1320" cy="110" r="0.7" opacity="0.2"/>
+              <!-- Twinkle stars -->
+              <circle cx="290" cy="55"  r="1.2" style="animation: twinkle 3.1s ease-in-out infinite;"/>
+              <circle cx="610" cy="45"  r="1.0" style="animation: twinkle 4.3s ease-in-out 1.2s infinite;"/>
+              <circle cx="890" cy="70"  r="1.3" style="animation: twinkle 3.7s ease-in-out 0.6s infinite;"/>
+              <circle cx="1180" cy="35" r="1.1" style="animation: twinkle 5.1s ease-in-out 2s infinite;"/>
+              <circle cx="50"   cy="90"  r="1.0" style="animation: twinkle 4.8s ease-in-out 0.3s infinite;"/>
+            </g>
+
+            <!-- ── Moon ── -->
+            <circle cx="1260" cy="80" r="44" fill="url(#moonGlow)"/>
+            <circle cx="1260" cy="80" r="22" fill="#fffde7" opacity="0.92"/>
+            <!-- Subtle moon crater marks -->
+            <circle cx="1252" cy="74" r="3"  fill="#f9e44d" opacity="0.25"/>
+            <circle cx="1268" cy="82" r="2"  fill="#f9e44d" opacity="0.2"/>
+            <circle cx="1258" cy="88" r="1.5" fill="#f9e44d" opacity="0.18"/>
+
+            <!-- ── Distant jungle silhouette (both banks) ── -->
+            <!-- Far-left bank -->
+            <path d="M0,480 L0,430 Q20,410 50,425 Q80,410 110,428 Q140,408 170,422 Q200,405 230,420 Q260,402 290,418 Q320,400 350,416 L350,480 Z" fill="#001428" opacity="0.85"/>
+            <!-- Far-right bank -->
+            <path d="M1090,480 L1090,418 Q1120,400 1150,415 Q1180,398 1210,414 Q1240,396 1270,412 Q1300,395 1330,410 Q1360,393 1390,408 L1440,412 L1440,480 Z" fill="#001428" opacity="0.85"/>
+
+            <!-- ── Canal banks ── -->
+            <!-- Left bank (land strip) -->
+            <path d="M0,480 Q80,474 160,478 Q280,472 380,476 L380,900 L0,900 Z" fill="#0a1f0d"/>
+            <path d="M0,480 Q80,474 160,478 Q280,472 380,476 L380,498 Q280,494 160,498 Q80,494 0,500 Z" fill="#0d2610" opacity="0.9"/>
+            <!-- Right bank -->
+            <path d="M1060,476 Q1180,472 1300,474 Q1380,476 1440,478 L1440,900 L1060,900 Z" fill="#0a1f0d"/>
+            <path d="M1060,476 Q1180,472 1300,474 Q1380,476 1440,478 L1440,498 Q1380,496 1300,494 Q1180,492 1060,496 Z" fill="#0d2610" opacity="0.9"/>
+
+            <!-- ── Grass / vegetation detail on banks ── -->
+            <g fill="#0f3014" opacity="0.7">
+              <!-- Left bank vegetation bumps -->
+              <ellipse cx="60"  cy="478" rx="18" ry="8"/>
+              <ellipse cx="130" cy="476" rx="14" ry="6"/>
+              <ellipse cx="210" cy="477" rx="20" ry="9"/>
+              <ellipse cx="310" cy="476" rx="16" ry="7"/>
+              <!-- Right bank -->
+              <ellipse cx="1110" cy="477" rx="18" ry="8"/>
+              <ellipse cx="1190" cy="476" rx="14" ry="6"/>
+              <ellipse cx="1280" cy="477" rx="20" ry="9"/>
+              <ellipse cx="1380" cy="476" rx="16" ry="7"/>
+            </g>
+
+            <!-- ── Water ── -->
+            <rect x="380" y="476" width="680" height="424" fill="url(#waterGrad)"/>
+            <!-- Subtle horizontal water line separating banks -->
+            <line x1="0" y1="482" x2="380" y2="482" stroke="#0f3014" stroke-width="1" opacity="0.4"/>
+            <line x1="1060" y1="482" x2="1440" y2="482" stroke="#0f3014" stroke-width="1" opacity="0.4"/>
+
+            <!-- Water shimmer (repeating animated stripe) -->
+            <g clip-path="url(#waterClip)">
+              <rect x="380" y="476" width="1360" height="424" fill="url(#shimmerGrad)"
+                style="animation: shimmer 6s linear infinite; transform-origin: left center;"/>
+              <rect x="380" y="476" width="1360" height="424" fill="url(#shimmerGrad)"
+                style="animation: shimmer 6s linear -3s infinite; transform-origin: left center;"/>
+            </g>
+
+            <!-- Gentle horizontal water ripple lines -->
+            <g stroke="#4a90d9" stroke-width="0.6" opacity="0.12" clip-path="url(#waterClip)">
+              <line x1="400" y1="530" x2="1040" y2="530"/>
+              <line x1="420" y1="570" x2="1020" y2="570"/>
+              <line x1="400" y1="620" x2="1040" y2="620"/>
+              <line x1="410" y1="670" x2="1030" y2="670"/>
+              <line x1="400" y1="720" x2="1040" y2="720"/>
+            </g>
+
+            <!-- Moon reflection column on water -->
+            <rect x="1235" y="476" width="50" height="424" fill="url(#moonReflect)" opacity="0.5"/>
+
+            <!-- ── Buoys ── -->
+            <!-- Buoy 1 (left side of canal) -->
+            <g class="buoy-1" transform="translate(490, 508)">
+              <rect x="-1" y="-12" width="2" height="14" fill="#e53935" opacity="0.7"/>
+              <polygon points="0,-14 -4,-8 4,-8" fill="#e53935" opacity="0.8"/>
+              <ellipse cx="0" cy="2" rx="5" ry="3" fill="#b71c1c" opacity="0.6"/>
+            </g>
+            <!-- Buoy 2 (right side) -->
+            <g class="buoy-2" transform="translate(990, 514)">
+              <rect x="-1" y="-12" width="2" height="14" fill="#1565c0" opacity="0.7"/>
+              <polygon points="0,-14 -4,-8 4,-8" fill="#1565c0" opacity="0.8"/>
+              <ellipse cx="0" cy="2" rx="5" ry="3" fill="#0d47a1" opacity="0.6"/>
+            </g>
+
+            <!-- ── Navigation light posts on banks ── -->
+            <g opacity="0.6">
+              <!-- Left post -->
+              <rect x="378" y="450" width="4" height="32" fill="#546e7a"/>
+              <circle cx="380" cy="448" r="4" fill="#ffd54f" opacity="0.9">
+                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              <!-- Right post -->
+              <rect x="1058" y="450" width="4" height="32" fill="#546e7a"/>
+              <circle cx="1060" cy="448" r="4" fill="#ffd54f" opacity="0.9">
+                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+
+            <!-- ── Ship (animated, sailing left→right) ── -->
+            <g class="canal-ship-group" transform="translate(0, 0)">
+              <g class="ship-body" transform="translate(0, 500)">
+                <!-- Wake / water displacement ahead of ship -->
+                <g transform="translate(-10, 8)">
+                  <ellipse class="wake-ring" cx="0" cy="0" rx="18" ry="6" fill="none" stroke="#90caf9" stroke-width="1.2" opacity="0.5"/>
+                  <ellipse class="wake-ring" cx="0" cy="0" rx="18" ry="6" fill="none" stroke="#90caf9" stroke-width="1.2" opacity="0.5" style="animation-delay: 0.6s;"/>
+                </g>
+                <!-- Hull -->
+                <path d="M-65,0 L-60,14 H60 L65,0 Q30,-6 0,-7 Q-30,-6 -65,0 Z" fill="url(#hullGrad)"/>
+                <!-- Hull waterline stripe -->
+                <path d="M-65,0 L-60,14 H60 L65,0 Q30,2 0,2 Q-30,2 -65,0 Z" fill="#e53935" opacity="0.55"/>
+                <!-- Deck -->
+                <rect x="-52" y="-8" width="104" height="8" rx="1" fill="#eeeeee" opacity="0.95"/>
+                <!-- Cargo containers (3 stacks) -->
+                <rect x="-44" y="-22" width="22" height="14" rx="1" fill="#1565c0" opacity="0.85"/>
+                <rect x="-20" y="-22" width="22" height="14" rx="1" fill="#e53935" opacity="0.85"/>
+                <rect x="4"   y="-22" width="22" height="14" rx="1" fill="#fbc02d" opacity="0.85"/>
+                <!-- Second layer containers -->
+                <rect x="-36" y="-34" width="18" height="12" rx="1" fill="#388e3c" opacity="0.8"/>
+                <rect x="-16" y="-34" width="18" height="12" rx="1" fill="#1565c0" opacity="0.8"/>
+                <rect x="4"   y="-34" width="18" height="12" rx="1" fill="#e53935" opacity="0.8"/>
+                <!-- Bridge/cabin -->
+                <rect x="28" y="-44" width="24" height="22" rx="2" fill="url(#cabinGrad)"/>
+                <!-- Bridge windows -->
+                <rect x="31" y="-40" width="6" height="4" rx="0.5" fill="#4fc3f7" opacity="0.85"/>
+                <rect x="40" y="-40" width="6" height="4" rx="0.5" fill="#4fc3f7" opacity="0.85"/>
+                <!-- Smokestack -->
+                <rect x="36" y="-56" width="7" height="14" rx="1" fill="#424242"/>
+                <rect x="35" y="-58" width="9" height="4" rx="1" fill="#616161"/>
+                <!-- Smoke puff -->
+                <g opacity="0.25">
+                  <circle cx="39" cy="-64" r="4" fill="#9e9e9e">
+                    <animate attributeName="cy" values="-64;-74;-84" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.25;0.1;0" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="4;6;8" dur="2.5s" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="42" cy="-68" r="3" fill="#9e9e9e">
+                    <animate attributeName="cy" values="-68;-78;-90" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.2;0.08;0" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="3;5;7" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+                  </circle>
+                </g>
+                <!-- Bow anchor light -->
+                <circle cx="-62" cy="-5" r="2.5" fill="#ffffff" opacity="0.9">
+                  <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Stern light -->
+                <circle cx="62" cy="-5" r="2" fill="#e53935" opacity="0.9">
+                  <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" begin="1s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+            </g>
+
+            <!-- ── Wake trail behind ship ── -->
+            <!-- (this stays static in the water as the ship moves over it; real wake via CSS would need JS — simplified visual) -->
+
+            <!-- ── Birds ── -->
+            <!-- Bird 1 -->
+            <g class="bird-1" transform="translate(0, 200)">
+              <path d="M0,0 Q-6,-4 -12,0" fill="none" stroke="#90caf9" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M0,0 Q6,-4 12,0"  fill="none" stroke="#90caf9" stroke-width="1.4" stroke-linecap="round"/>
+            </g>
+            <!-- Bird 2 (smaller, higher) -->
+            <g class="bird-2" transform="translate(0, 150)">
+              <path d="M0,0 Q-4,-3 -8,0"  fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/>
+              <path d="M0,0 Q4,-3 8,0"    fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/>
+            </g>
+            <!-- Bird 3 (companion of bird 2) -->
+            <g class="bird-2" transform="translate(25, 140)" style="animation-delay: 2s;">
+              <path d="M0,0 Q-4,-3 -8,0"  fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/>
+              <path d="M0,0 Q4,-3 8,0"    fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/>
+            </g>
+
+            <!-- ── Subtle overlay vignette (darkens edges so text stays readable) ── -->
+            <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+            </radialGradient>
+            <rect width="1440" height="900" fill="url(#vignette)"/>
+
+          </svg>
+        </div>
+        <!-- ══ End Canal Background ══ -->
         <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
             <!-- Text Content -->
             <div class="text-white space-y-8 animate-fade-in-up pt-10 lg:pt-0">
