@@ -254,7 +254,7 @@
         #map { height: 100%; min-height: 500px; width: 100%; z-index: 1; border-radius: 0.75rem; }
         
         .hero-gradient {
-            background: linear-gradient(160deg, #001a3e 0%, #002855 40%, #001f3f 100%);
+            background: #f5f9ff;
         }
 
         /* Panama Canal canvas animation */
@@ -487,723 +487,193 @@
     <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
 
         <!-- ══ Panama Canal Animated Background ══ -->
-        <!-- ══ Panama Canal Animated Background ══ -->
         <canvas id="canal-bg" aria-hidden="true"></canvas>
         <script>
         (function(){
-          const canvas = document.getElementById('canal-bg');
-          const ctx = canvas.getContext('2d');
-
-          function resize(){
-            canvas.width  = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-          }
+          const cv = document.getElementById('canal-bg');
+          const cx = cv.getContext('2d');
+          function resize(){ cv.width = cv.offsetWidth; cv.height = cv.offsetHeight; }
           resize();
           window.addEventListener('resize', resize);
 
-          // ── Isometric helpers ──────────────────────────────────────────
-          // Standard iso projection: x' = (x-z)*cos30, y' = y + (x+z)*sin30
-          const COS = Math.cos(Math.PI/6);
-          const SIN = Math.sin(Math.PI/6);
-          function iso(x, y, z){ return { x: (x-z)*COS, y: -y + (x+z)*SIN }; }
+          // Isometric projection
+          const COS = Math.cos(Math.PI/6), SIN = Math.sin(Math.PI/6);
+          function iso(x,y,z){ return {x:(x-z)*COS, y:-y+(x+z)*SIN}; }
+          function pt(ox,oy,x,y,z,s){ const v=iso(x,y,z); return {x:ox+v.x*s, y:oy+v.y*s}; }
 
-          // ── State ──────────────────────────────────────────────────────
-          let t = 0;
-          // Ship position in world units (moves along X axis)
-          const SHIP_Z = 0;
-          let shipX = -300;
-          const shipSpeed = 0.4; // world units per frame
+          let t=0, shipX=-350;
+          const rings=[];
 
-          // Water waves: array of { x, z, phase, amp, r }
-          const NUM_RINGS = 5;
-          const rings = [];
+          // Blueprint palette
+          const BG   = 'rgba(0,15,40,0)';       // fully transparent — hero bg shows
+          const LINE  = 'rgba(160,210,255,0.55)'; // main lines
+          const LINE2 = 'rgba(120,180,255,0.30)'; // secondary / dim lines
+          const LINE3 = 'rgba(200,230,255,0.80)'; // bright accent lines
+          const FILL  = 'rgba(100,170,255,0.04)'; // ghost fill (barely there)
+          const FILL2 = 'rgba(100,170,255,0.08)';
 
-          // ── Draw ───────────────────────────────────────────────────────
           function draw(){
-            const W = canvas.width, H = canvas.height;
-            ctx.clearRect(0,0,W,H);
+            const W=cv.width, H=cv.height;
+            cx.clearRect(0,0,W,H);
 
-            // Origin point: centre of canvas, slightly below middle
-            const OX = W * 0.5, OY = H * 0.58;
-            // Scale
-            const S = Math.min(W,H) / 520;
+            const OX=W*0.5, OY=H*0.60;
+            const S=Math.min(W,H)/500;
+            function p(x,y,z){ return pt(OX,OY,x,y,z,S); }
 
-            function p(x,y,z){
-              const v = iso(x,y,z);
-              return { x: OX + v.x*S, y: OY + v.y*S };
+            // ── Helpers ──
+            function stroke(pts, color, lw, close=false){
+              if(pts.length<2) return;
+              cx.beginPath();
+              cx.moveTo(pts[0].x, pts[0].y);
+              for(let i=1;i<pts.length;i++) cx.lineTo(pts[i].x,pts[i].y);
+              if(close) cx.closePath();
+              cx.strokeStyle=color; cx.lineWidth=lw*S; cx.lineJoin='round'; cx.lineCap='round';
+              cx.stroke();
+            }
+            function face(corners, fillC, strokeC, lw){
+              cx.beginPath();
+              cx.moveTo(corners[0].x,corners[0].y);
+              for(let i=1;i<corners.length;i++) cx.lineTo(corners[i].x,corners[i].y);
+              cx.closePath();
+              if(fillC){ cx.fillStyle=fillC; cx.fill(); }
+              if(strokeC){ cx.strokeStyle=strokeC; cx.lineWidth=lw*S; cx.lineJoin='round'; cx.stroke(); }
             }
 
-            // ── Sky gradient (simple rect) ──
-            const sky = ctx.createLinearGradient(0,0,0,H);
-            sky.addColorStop(0,   '#000d20');
-            sky.addColorStop(0.6, '#001d40');
-            sky.addColorStop(1,   '#00274d');
-            ctx.fillStyle = sky;
-            ctx.fillRect(0,0,W,H);
+            // ── Water plane (iso quad) ──
+            const W2=210, L2=580;
+            const wc=[p(-L2,0,-W2),p(L2,0,-W2),p(L2,0,W2),p(-L2,0,W2)];
+            face(wc, FILL, LINE2, 0.7);
 
-            // ── Stars ──
-            ctx.save();
-            const starData = [
-              [0.08,0.06,0.7],[0.18,0.12,0.5],[0.28,0.04,0.9],[0.4,0.09,0.6],
-              [0.55,0.03,0.8],[0.65,0.13,0.5],[0.76,0.06,0.7],[0.88,0.10,0.6],
-              [0.95,0.04,0.9],[0.12,0.18,0.4],[0.35,0.15,0.6],[0.6,0.18,0.5],
-              [0.82,0.15,0.7],[0.47,0.22,0.4],[0.72,0.22,0.5],
-            ];
-            starData.forEach(([fx,fy,br]) => {
-              const flicker = 0.5 + 0.5*Math.sin(t*0.8 + fx*31.7 + fy*17.3);
-              ctx.globalAlpha = br * (0.4 + 0.6*flicker) * 0.6;
-              ctx.fillStyle = '#e8f4ff';
-              ctx.beginPath();
-              ctx.arc(fx*W, fy*H*0.55, 1.2, 0, Math.PI*2);
-              ctx.fill();
+            // Water iso-perspective lines (horizontal across canal)
+            cx.save(); cx.globalAlpha=0.35;
+            [-140,-70,0,70,140].forEach((zl,i)=>{
+              const wave = Math.sin(t*0.5+i*1.1)*5;
+              stroke([p(-L2+wave,0,zl), p(L2+wave,0,zl)], LINE2, 0.5);
             });
-            ctx.globalAlpha = 1;
-            ctx.restore();
+            cx.restore();
 
-            // ── Moon ──
-            const mx = W*0.82, my = H*0.12;
-            const gm = ctx.createRadialGradient(mx,my,0,mx,my,55);
-            gm.addColorStop(0,   'rgba(255,245,200,0.25)');
-            gm.addColorStop(0.4, 'rgba(255,240,180,0.12)');
-            gm.addColorStop(1,   'rgba(255,230,150,0)');
-            ctx.fillStyle = gm;
-            ctx.beginPath(); ctx.arc(mx,my,55,0,Math.PI*2); ctx.fill();
-            ctx.fillStyle = '#fdf6e0';
-            ctx.beginPath(); ctx.arc(mx,my,20,0,Math.PI*2); ctx.fill();
-
-            // ── Water plane (iso quad, tilted towards viewer) ──
-            // Canal runs along X axis, Z from -200 to +200
-            const W2 = 200, L2 = 600;
-            const wCorners = [
-              p(-L2, 0, -W2), p( L2, 0, -W2),
-              p( L2, 0,  W2), p(-L2, 0,  W2),
-            ];
-            const wg = ctx.createLinearGradient(
-              wCorners[0].x, wCorners[0].y,
-              wCorners[3].x, wCorners[3].y
-            );
-            wg.addColorStop(0, '#051c3a');
-            wg.addColorStop(1, '#0a2d55');
-            ctx.beginPath();
-            ctx.moveTo(wCorners[0].x, wCorners[0].y);
-            wCorners.slice(1).forEach(c => ctx.lineTo(c.x, c.y));
-            ctx.closePath();
-            ctx.fillStyle = wg;
-            ctx.fill();
-            // Water edge lines (canal banks) — clean strokes
-            ctx.strokeStyle = 'rgba(100,180,255,0.12)';
-            ctx.lineWidth = 1*S;
-            ctx.stroke();
-
-            // Moon reflection on water (shimmer column)
-            const reflX = OX + iso(0,0,0).x*S + W*0.25;
-            const refGrad = ctx.createLinearGradient(reflX-20, wCorners[0].y, reflX+20, wCorners[3].y);
-            refGrad.addColorStop(0, 'rgba(253,246,224,0.12)');
-            refGrad.addColorStop(0.5,'rgba(253,246,224,0.07)');
-            refGrad.addColorStop(1, 'rgba(253,246,224,0)');
-            ctx.fillStyle = refGrad;
-            ctx.beginPath();
-            ctx.moveTo(reflX-20, wCorners[0].y);
-            ctx.lineTo(reflX+20, wCorners[0].y);
-            ctx.lineTo(reflX+8, wCorners[3].y);
-            ctx.lineTo(reflX-8, wCorners[3].y);
-            ctx.closePath();
-            ctx.fill();
-
-            // Water ripple lines (iso perspective)
-            ctx.save();
-            ctx.globalAlpha = 0.08;
-            ctx.strokeStyle = '#7ec8e3';
-            ctx.lineWidth = 0.8*S;
-            [-100,-40,20,80,140].forEach((zLine, i) => {
-              const offset = Math.sin(t*0.4 + i*1.3) * 8;
-              const a = p(-L2+offset, 0, zLine);
-              const b = p( L2+offset, 0, zLine);
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
+            // ── Banks (raised edges, wireframe) ──
+            [1,-1].forEach(zs=>{
+              const zo=zs*W2, zi=zs*(W2-16), bh=20, BL=-L2, BR=L2;
+              // top edge
+              face([p(BL,bh,zo),p(BR,bh,zo),p(BR,bh,zi),p(BL,bh,zi)], FILL, LINE2, 0.6);
+              // inner vertical face
+              face([p(BL,0,zi),p(BR,0,zi),p(BR,bh,zi),p(BL,bh,zi)], FILL, LINE2, 0.5);
+              // top ridge line — brighter
+              stroke([p(BL,bh,zo),p(BR,bh,zo)], LINE, 0.8);
             });
-            ctx.restore();
 
-            // ── Canal banks (thin raised edges) ──
-            function drawBank(zSign){
-              const zOuter = zSign * W2;
-              const zInner = zSign * (W2 - 18);
-              const bankH  = 22;
-              const BL = -L2, BR = L2;
-              // Top face
-              const top = [p(BL,bankH,zOuter), p(BR,bankH,zOuter), p(BR,bankH,zInner), p(BL,bankH,zInner)];
-              ctx.beginPath();
-              ctx.moveTo(top[0].x,top[0].y);
-              top.slice(1).forEach(c=>ctx.lineTo(c.x,c.y));
-              ctx.closePath();
-              ctx.fillStyle = '#0d2e10';
-              ctx.fill();
-              // Side face facing viewer
-              const side = [p(BL,0,zInner), p(BR,0,zInner), p(BR,bankH,zInner), p(BL,bankH,zInner)];
-              ctx.beginPath();
-              ctx.moveTo(side[0].x,side[0].y);
-              side.slice(1).forEach(c=>ctx.lineTo(c.x,c.y));
-              ctx.closePath();
-              ctx.fillStyle = '#0a2410';
-              ctx.fill();
-              // Edge highlight
-              ctx.beginPath();
-              ctx.moveTo(top[0].x,top[0].y); ctx.lineTo(top[1].x,top[1].y);
-              ctx.strokeStyle = 'rgba(80,160,80,0.25)';
-              ctx.lineWidth = 1*S;
-              ctx.stroke();
-            }
-            drawBank( 1);
-            drawBank(-1);
-
-            // ── Wake rings (expanding ellipses behind the ship) ──
-            rings.forEach(r => {
-              r.radius += 1.2;
-              r.alpha  -= 0.012;
-              if(r.alpha <= 0) return;
-              const cx = p(r.ox, 0, r.oz);
-              ctx.save();
-              ctx.globalAlpha = r.alpha * 0.5;
-              ctx.strokeStyle = '#a0d8ef';
-              ctx.lineWidth   = 1.2 * S;
-              // Draw ellipse in iso space by sampling the circle
-              ctx.beginPath();
-              let first = true;
-              for(let a=0; a<Math.PI*2; a+=0.15){
-                const wx = r.ox + Math.cos(a)*r.radius*0.35;
-                const wz = r.oz + Math.sin(a)*r.radius;
-                const sp = p(wx, 0, wz);
-                if(first){ ctx.moveTo(sp.x,sp.y); first=false; }
-                else       ctx.lineTo(sp.x,sp.y);
+            // ── Wake rings behind ship ──
+            rings.forEach(r=>{
+              r.radius+=1.0; r.alpha-=0.014;
+              if(r.alpha<=0) return;
+              cx.save(); cx.globalAlpha=r.alpha*0.6;
+              cx.beginPath();
+              let first=true;
+              for(let a=0;a<Math.PI*2;a+=0.12){
+                const wp=p(r.ox+Math.cos(a)*r.radius*0.3, 0, r.oz+Math.sin(a)*r.radius);
+                if(first){cx.moveTo(wp.x,wp.y);first=false;}else cx.lineTo(wp.x,wp.y);
               }
-              ctx.closePath();
-              ctx.stroke();
-              ctx.restore();
+              cx.closePath();
+              cx.strokeStyle=LINE3; cx.lineWidth=0.7*S; cx.stroke();
+              cx.restore();
             });
-            // Spawn new rings behind the ship
-            if(Math.floor(t) % 8 === 0){
-              rings.push({ ox: shipX - 60, oz: SHIP_Z, radius: 8, alpha: 0.7 });
-            }
-            // Clean dead rings
-            for(let i=rings.length-1; i>=0; i--){
-              if(rings[i].alpha<=0) rings.splice(i,1);
-            }
+            if(Math.round(t*4)%12===0) rings.push({ox:shipX-55,oz:0,radius:6,alpha:0.7});
+            for(let i=rings.length-1;i>=0;i--) if(rings[i].alpha<=0) rings.splice(i,1);
 
-            // ── Ship (isometric, clean line-art style) ──
-            ctx.save();
-            const sy = 2.5 + Math.sin(t*0.6)*1.5;    // gentle bob
-            const roll = Math.sin(t*0.4)*0.008;         // subtle roll in iso
+            // ── Ship ──
+            cx.save();
+            const sy = Math.sin(t*0.6)*2.2;   // bob
+            const SX=shipX, SY=sy, SZ=0;
+            const HL=115, HW=28, HH=15;
 
-            // Helper: draw an iso box face
-            // face: array of [worldX,worldY,worldZ] corners
-            function isoFace(corners, fill, stroke, lw){
-              ctx.beginPath();
-              const first = p(...corners[0]);
-              ctx.moveTo(first.x, first.y);
-              for(let i=1;i<corners.length;i++){
-                const pt = p(...corners[i]); ctx.lineTo(pt.x,pt.y);
-              }
-              ctx.closePath();
-              if(fill){   ctx.fillStyle=fill;       ctx.fill(); }
-              if(stroke){
-                ctx.strokeStyle=stroke;
-                ctx.lineWidth=lw*S;
-                ctx.lineJoin='round';
-                ctx.stroke();
-              }
-            }
+            // Hull — 3 faces, ghost fill + line
+            face([p(SX-HL,SY,SZ-HW),p(SX+HL,SY,SZ-HW),p(SX+HL,SY,SZ+HW),p(SX-HL,SY,SZ+HW)], FILL, null,0);            // bottom
+            face([p(SX-HL,SY,SZ+HW),p(SX+HL,SY,SZ+HW),p(SX+HL,SY+HH,SZ+HW),p(SX-HL,SY+HH,SZ+HW)], FILL2, LINE, 0.9); // port
+            face([p(SX-HL,SY,SZ-HW),p(SX+HL,SY,SZ-HW),p(SX+HL,SY+HH,SZ-HW),p(SX-HL,SY+HH,SZ-HW)], FILL,  LINE2,0.5); // starboard
+            face([p(SX-HL,SY+HH,SZ-HW),p(SX+HL,SY+HH,SZ-HW),p(SX+HL,SY+HH,SZ+HW),p(SX-HL,SY+HH,SZ+HW)], FILL2, LINE, 0.9); // deck
 
-            const SX = shipX, SY = sy, SZ = SHIP_Z;
-            const HL = 120, HW = 30, HH = 16;   // hull half-length, half-width, height
+            // Bow wedge
+            const bowTip = p(SX+HL+18, SY+HH*0.5, SZ);
+            face([p(SX+HL,SY+HH,SZ-HW),p(SX+HL,SY+HH,SZ+HW),bowTip], FILL2, LINE, 0.9);
+            face([p(SX+HL,SY,SZ-HW),p(SX+HL,SY,SZ+HW),p(SX+HL,SY+HH,SZ+HW),p(SX+HL,SY+HH,SZ-HW)], FILL, LINE, 0.7);
 
-            // ── Hull (3 visible faces) ──
-            // Bottom face (waterline, barely visible)
-            isoFace([
-              [SX-HL, SY,    SZ-HW],
-              [SX+HL, SY,    SZ-HW],
-              [SX+HL, SY,    SZ+HW],
-              [SX-HL, SY,    SZ+HW],
-            ], 'rgba(18,40,70,0.4)', null, 0);
+            // Waterline stripe — single line
+            stroke([p(SX-HL,SY+HH*0.28,SZ+HW+0.1), p(SX+HL,SY+HH*0.28,SZ+HW+0.1)], LINE3, 0.7);
 
-            // Port side face (left of ship going right, faces viewer)
-            isoFace([
-              [SX-HL, SY,      SZ+HW],
-              [SX+HL, SY,      SZ+HW],
-              [SX+HL, SY+HH,   SZ+HW],
-              [SX-HL, SY+HH,   SZ+HW],
-            ], '#1a3a5c', 'rgba(100,180,255,0.18)', 0.8);
-
-            // Starboard face (right of ship going right, faces away — darker)
-            isoFace([
-              [SX-HL, SY,      SZ-HW],
-              [SX+HL, SY,      SZ-HW],
-              [SX+HL, SY+HH,   SZ-HW],
-              [SX-HL, SY+HH,   SZ-HW],
-            ], '#0f2540', 'rgba(60,120,200,0.12)', 0.5);
-
-            // Deck top face
-            isoFace([
-              [SX-HL, SY+HH, SZ-HW],
-              [SX+HL, SY+HH, SZ-HW],
-              [SX+HL, SY+HH, SZ+HW],
-              [SX-HL, SY+HH, SZ+HW],
-            ], '#1e4976', 'rgba(120,200,255,0.22)', 0.9);
-
-            // Bow (pointed front face, right side)
-            const bowTip = [SX+HL+20, SY+HH*0.5, SZ];
-            isoFace([
-              [SX+HL, SY,    SZ-HW],
-              [SX+HL, SY,    SZ+HW],
-              [SX+HL, SY+HH, SZ+HW],
-              [SX+HL, SY+HH, SZ-HW],
-            ], '#1a3a5c', 'rgba(100,180,255,0.2)', 0.8);
-            // bow tip triangle on deck
-            ctx.beginPath();
-            const bA=p(SX+HL,SY+HH,SZ-HW), bB=p(SX+HL,SY+HH,SZ+HW), bC=p(...bowTip);
-            ctx.moveTo(bA.x,bA.y); ctx.lineTo(bB.x,bB.y); ctx.lineTo(bC.x,bC.y);
-            ctx.closePath();
-            ctx.fillStyle='#1e4976'; ctx.fill();
-            ctx.strokeStyle='rgba(120,200,255,0.22)'; ctx.lineWidth=0.9*S; ctx.stroke();
-
-            // Waterline red stripe (port side)
-            isoFace([
-              [SX-HL, SY+HH*0.15, SZ+HW],
-              [SX+HL, SY+HH*0.15, SZ+HW],
-              [SX+HL, SY+HH*0.4,  SZ+HW],
-              [SX-HL, SY+HH*0.4,  SZ+HW],
-            ], 'rgba(180,40,40,0.55)', null, 0);
-
-            // ── Superstructure / Bridge ──
-            const BX = SX+50, BY = SY+HH, BZ = SZ, BW = 22, BL2= 36, BH = 38;
-            // Bridge port face
-            isoFace([
-              [BX-BL2, BY,    BZ+BW],
-              [BX+BL2, BY,    BZ+BW],
-              [BX+BL2, BY+BH, BZ+BW],
-              [BX-BL2, BY+BH, BZ+BW],
-            ], '#203d60', 'rgba(150,210,255,0.25)', 1);
-            // Bridge top
-            isoFace([
-              [BX-BL2, BY+BH, BZ-BW],
-              [BX+BL2, BY+BH, BZ-BW],
-              [BX+BL2, BY+BH, BZ+BW],
-              [BX-BL2, BY+BH, BZ+BW],
-            ], '#2a4e7a', 'rgba(150,210,255,0.3)', 1);
-            // Bridge dark side
-            isoFace([
-              [BX-BL2, BY,    BZ-BW],
-              [BX+BL2, BY,    BZ-BW],
-              [BX+BL2, BY+BH, BZ-BW],
-              [BX-BL2, BY+BH, BZ-BW],
-            ], '#122035', 'rgba(80,150,220,0.15)', 0.6);
-
-            // Bridge windows (small lit rectangles on port face)
-            const winY1 = BY + BH*0.55, winY2 = BY + BH*0.8;
-            [-20,-5,10].forEach(dz => {
-              isoFace([
-                [BX-BL2*0.9, winY1, BZ+BW+0.5+dz-4],
-                [BX-BL2*0.9, winY1, BZ+BW+0.5+dz+4],
-                [BX-BL2*0.9, winY2, BZ+BW+0.5+dz+4],
-                [BX-BL2*0.9, winY2, BZ+BW+0.5+dz-4],
-              ], null, null, 0);
-              // project onto port face
-              const cz = BZ+BW+dz;
-              const wpts = [
-                p(BX-16, winY1, cz-3.5), p(BX-16, winY1, cz+3.5),
-                p(BX-16, winY2, cz+3.5), p(BX-16, winY2, cz-3.5),
-              ];
-              ctx.beginPath();
-              ctx.moveTo(wpts[0].x,wpts[0].y);
-              wpts.slice(1).forEach(q=>ctx.lineTo(q.x,q.y));
-              ctx.closePath();
-              const wFlicker = 0.7 + 0.3*Math.sin(t*1.2+dz);
-              ctx.fillStyle = `rgba(255,220,120,${0.55*wFlicker})`;
-              ctx.fill();
+            // Cargo containers — wireframe boxes only
+            const C_W=20, C_L=17, C_H=13;
+            [[-68,0],[-48,0],[-27,0],[-6,0],[-58,C_H+1],[-37,C_H+1]].forEach(([dx,dy])=>{
+              const bx=SX+dx, by=SY+HH+dy, bz=SZ-6;
+              face([p(bx,by+C_H,bz),p(bx+C_L,by+C_H,bz),p(bx+C_L,by+C_H,bz+C_W),p(bx,by+C_H,bz+C_W)], FILL, LINE2, 0.6);
+              face([p(bx,by,bz+C_W),p(bx+C_L,by,bz+C_W),p(bx+C_L,by+C_H,bz+C_W),p(bx,by+C_H,bz+C_W)], FILL2, LINE, 0.8);
+              face([p(bx+C_L,by,bz),p(bx+C_L,by,bz+C_W),p(bx+C_L,by+C_H,bz+C_W),p(bx+C_L,by+C_H,bz)], FILL, LINE2, 0.55);
             });
 
-            // ── Smokestack ──
-            const STX=BX-10, STZ=BZ, STH=28;
-            isoFace([
-              [STX-6, BY+BH,      STZ-5],
-              [STX+6, BY+BH,      STZ-5],
-              [STX+6, BY+BH,      STZ+5],
-              [STX-6, BY+BH,      STZ+5],
-            ], '#0a1a2e', null, 0);
-            isoFace([
-              [STX-6, BY+BH,      STZ+5],
-              [STX+6, BY+BH,      STZ+5],
-              [STX+6, BY+BH+STH,  STZ+5],
-              [STX-6, BY+BH+STH,  STZ+5],
-            ], '#0d2240', 'rgba(80,130,200,0.2)', 0.7);
-            isoFace([
-              [STX-6, BY+BH,      STZ-5],
-              [STX+6, BY+BH,      STZ-5],
-              [STX+6, BY+BH+STH,  STZ-5],
-              [STX-6, BY+BH+STH,  STZ-5],
-            ], '#070f1a', null, 0);
-
-            // ── Smoke puffs ──
-            const smokeTop = p(STX, BY+BH+STH+4, STZ);
-            for(let i=0; i<3; i++){
-              const phase = (t*0.3 + i*0.9) % 3;
-              const alpha = (1 - phase/3) * 0.12;
-              const radius = (6 + phase*10) * S;
-              ctx.save();
-              ctx.globalAlpha = alpha;
-              ctx.fillStyle = '#8eb0d0';
-              ctx.beginPath();
-              ctx.arc(
-                smokeTop.x + Math.sin(t*0.2+i)*4*S,
-                smokeTop.y - phase*14*S,
-                radius, 0, Math.PI*2
-              );
-              ctx.fill();
-              ctx.restore();
-            }
-
-            // ── Cargo containers on deck (3 rows, isometric boxes) ──
-            const cColors = [
-              ['#1a4a7a','#0d2d50','#1f5590'],   // blue
-              ['#7a1a1a','#501010','#9a2020'],    // red
-              ['#6a5a10','#453808','#8a7418'],    // gold
-              ['#1a5a2a','#0d3a18','#1f7030'],    // green
-            ];
-            const containerW = 22, containerL = 18, containerH = 15;
-            [[-70,-5],[-45,-5],[-20,-5],[5,-5],[-58,-5+containerH+2],[-33,-5+containerH+2]].forEach(([dx,dy], ci) => {
-              const cc = cColors[ci % cColors.length];
-              const cx2 = SX + dx, cz2 = SZ - 8;
-              const baseY = SY + HH + dy;
-              // Top
-              isoFace([
-                [cx2,           baseY+containerH, cz2],
-                [cx2+containerL,baseY+containerH, cz2],
-                [cx2+containerL,baseY+containerH, cz2+containerW],
-                [cx2,           baseY+containerH, cz2+containerW],
-              ], cc[0], 'rgba(200,230,255,0.1)', 0.5);
-              // Port side
-              isoFace([
-                [cx2,           baseY,            cz2+containerW],
-                [cx2+containerL,baseY,            cz2+containerW],
-                [cx2+containerL,baseY+containerH, cz2+containerW],
-                [cx2,           baseY+containerH, cz2+containerW],
-              ], cc[1], 'rgba(200,230,255,0.12)', 0.6);
-              // Dark side
-              isoFace([
-                [cx2+containerL,baseY,            cz2],
-                [cx2+containerL,baseY,            cz2+containerW],
-                [cx2+containerL,baseY+containerH, cz2+containerW],
-                [cx2+containerL,baseY+containerH, cz2],
-              ], cc[2], 'rgba(200,230,255,0.08)', 0.4);
+            // Bridge
+            const BX=SX+48, BY=SY+HH, BZ=SZ, BW2=20, BL2=34, BH=36;
+            face([p(BX-BL2,BY,BZ+BW2),p(BX+BL2,BY,BZ+BW2),p(BX+BL2,BY+BH,BZ+BW2),p(BX-BL2,BY+BH,BZ+BW2)], FILL2, LINE, 1.0);
+            face([p(BX-BL2,BY+BH,BZ-BW2),p(BX+BL2,BY+BH,BZ-BW2),p(BX+BL2,BY+BH,BZ+BW2),p(BX-BL2,BY+BH,BZ+BW2)], FILL2, LINE, 1.0);
+            face([p(BX-BL2,BY,BZ-BW2),p(BX+BL2,BY,BZ-BW2),p(BX+BL2,BY+BH,BZ-BW2),p(BX-BL2,BY+BH,BZ-BW2)], FILL, LINE2, 0.5);
+            // Bridge windows (3 dots on port face)
+            [-16,0,16].forEach(dz=>{
+              const wy=BY+BH*0.6, wc=p(BX-BL2+1, wy, BZ+BW2+dz);
+              cx.beginPath(); cx.arc(wc.x,wc.y,2.2*S,0,Math.PI*2);
+              cx.strokeStyle=LINE3; cx.lineWidth=0.8*S; cx.stroke();
             });
 
-            // ── Crane / mast (single thin pole) ──
-            const mast1 = p(SX-80, SY+HH, SZ);
-            const mast2 = p(SX-80, SY+HH+70, SZ);
-            ctx.beginPath(); ctx.moveTo(mast1.x,mast1.y); ctx.lineTo(mast2.x,mast2.y);
-            ctx.strokeStyle='rgba(140,200,255,0.35)'; ctx.lineWidth=1.5*S; ctx.stroke();
-            // Mast crossbar
-            const mb1 = p(SX-80, SY+HH+65, SZ-14);
-            const mb2 = p(SX-80, SY+HH+65, SZ+14);
-            ctx.beginPath(); ctx.moveTo(mb1.x,mb1.y); ctx.lineTo(mb2.x,mb2.y);
-            ctx.strokeStyle='rgba(140,200,255,0.25)'; ctx.lineWidth=1*S; ctx.stroke();
-
-            // Navigation lights
-            const bowLight  = p(SX+HL+22, SY+HH+4, SZ);
-            const sternLight = p(SX-HL,   SY+HH+4, SZ);
-            function navLight(pt, color){
-              ctx.save();
-              ctx.globalAlpha = 0.6 + 0.4*Math.sin(t*1.5);
-              const ng = ctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,10*S);
-              ng.addColorStop(0, color);
-              ng.addColorStop(1, 'transparent');
-              ctx.fillStyle = ng;
-              ctx.beginPath(); ctx.arc(pt.x,pt.y,10*S,0,Math.PI*2); ctx.fill();
-              ctx.globalAlpha = 1;
-              ctx.fillStyle = color;
-              ctx.beginPath(); ctx.arc(pt.x,pt.y,2.5*S,0,Math.PI*2); ctx.fill();
-              ctx.restore();
+            // Smokestack (single thin iso column)
+            const STX=BX-8, STH=26;
+            face([p(STX-4,BY+BH,BZ-3),p(STX+4,BY+BH,BZ-3),p(STX+4,BY+BH+STH,BZ-3),p(STX-4,BY+BH+STH,BZ-3)], FILL, LINE2, 0.6);
+            face([p(STX-4,BY+BH,BZ+3),p(STX+4,BY+BH,BZ+3),p(STX+4,BY+BH+STH,BZ+3),p(STX-4,BY+BH+STH,BZ+3)], FILL, LINE2, 0.5);
+            stroke([p(STX-4,BY+BH+STH,BZ-3),p(STX+4,BY+BH+STH,BZ-3),p(STX+4,BY+BH+STH,BZ+3),p(STX-4,BY+BH+STH,BZ+3)], LINE, 0.7, true);
+            // Smoke (faint expanding circles)
+            for(let i=0;i<3;i++){
+              const ph=(t*0.25+i*0.9)%3;
+              const sp=p(STX,BY+BH+STH+4,BZ);
+              cx.save(); cx.globalAlpha=(1-ph/3)*0.12;
+              cx.beginPath(); cx.arc(sp.x, sp.y-ph*12*S, (5+ph*9)*S, 0, Math.PI*2);
+              cx.strokeStyle=LINE3; cx.lineWidth=0.6*S; cx.stroke();
+              cx.restore();
             }
-            navLight(bowLight,  'rgba(255,255,220,0.95)');
-            navLight(sternLight,'rgba(220,80,80,0.9)');
 
-            ctx.restore();
+            // Mast
+            const m1=p(SX-78,SY+HH,SZ), m2=p(SX-78,SY+HH+68,SZ);
+            stroke([m1,m2], LINE2, 0.7);
+            stroke([p(SX-78,SY+HH+62,SZ-12), p(SX-78,SY+HH+62,SZ+12)], LINE2, 0.6);
 
-            // ── Vignette overlay ──
-            const vg = ctx.createRadialGradient(W*0.5,H*0.5,H*0.1, W*0.5,H*0.5,H*0.9);
-            vg.addColorStop(0, 'rgba(0,0,0,0)');
-            vg.addColorStop(1, 'rgba(0,8,20,0.6)');
-            ctx.fillStyle = vg;
-            ctx.fillRect(0,0,W,H);
+            // Nav lights — small glowing dots
+            function navDot(pt, color){
+              const pulse = 0.6+0.4*Math.sin(t*1.8);
+              cx.save(); cx.globalAlpha=pulse;
+              cx.strokeStyle=color; cx.lineWidth=0.8*S;
+              cx.beginPath(); cx.arc(pt.x,pt.y,3.5*S,0,Math.PI*2); cx.stroke();
+              cx.globalAlpha=pulse*0.5;
+              cx.fillStyle=color; cx.fill();
+              cx.restore();
+            }
+            navDot(p(SX+HL+20,SY+HH+3,SZ), LINE3);
+            navDot(p(SX-HL-2, SY+HH+3,SZ), 'rgba(255,160,160,0.8)');
 
-            // ── Advance state ──
-            t += 0.016;
-            shipX += shipSpeed;
-            if(shipX > 700) shipX = -400;
+            cx.restore();
 
+
+
+            t+=0.016;
+            shipX+=0.42;
+            if(shipX>680) shipX=-380;
             requestAnimationFrame(draw);
           }
-
-          // Respect reduced motion
-          if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-            // Draw one static frame and stop
-            draw();
-          } else {
-            draw();
-          }
+          draw();
         })();
         </script>
         <!-- ══ End Canal Background ══ -->
-              <!-- Water gradient -->
-              <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"  stop-color="#0c2d5e"/>
-                <stop offset="100%" stop-color="#061428"/>
-              </linearGradient>
-              <!-- Water shimmer tile (repeating) -->
-              <linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%"   stop-color="#ffffff" stop-opacity="0"/>
-                <stop offset="48%"  stop-color="#ffffff" stop-opacity="0.04"/>
-                <stop offset="50%"  stop-color="#ffffff" stop-opacity="0.07"/>
-                <stop offset="52%"  stop-color="#ffffff" stop-opacity="0.04"/>
-                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-              </linearGradient>
-              <!-- Moon glow -->
-              <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"   stop-color="#fffde7" stop-opacity="0.9"/>
-                <stop offset="60%"  stop-color="#ffd54f" stop-opacity="0.15"/>
-                <stop offset="100%" stop-color="#ffd54f" stop-opacity="0"/>
-              </radialGradient>
-              <!-- Ship hull gradient -->
-              <linearGradient id="hullGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"  stop-color="#e8e8e8"/>
-                <stop offset="100%" stop-color="#9e9e9e"/>
-              </linearGradient>
-              <!-- Ship cabin gradient -->
-              <linearGradient id="cabinGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"  stop-color="#f5f5f5"/>
-                <stop offset="100%" stop-color="#bdbdbd"/>
-              </linearGradient>
-              <!-- Moon reflection on water -->
-              <linearGradient id="moonReflect" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"  stop-color="#fffde7" stop-opacity="0.18"/>
-                <stop offset="100%" stop-color="#fffde7" stop-opacity="0"/>
-              </linearGradient>
-              <!-- Clip path for water area -->
-              <clipPath id="waterClip">
-                <rect x="0" y="490" width="1440" height="410"/>
-              </clipPath>
-            </defs>
-
-            <!-- ── Sky ── -->
-            <rect width="1440" height="900" fill="url(#skyGrad)"/>
-
-            <!-- Stars (static, varied opacity with CSS twinkle on a few) -->
-            <g fill="#ffffff">
-              <!-- Static dim stars -->
-              <circle cx="80"  cy="40"  r="0.8" opacity="0.3"/>
-              <circle cx="200" cy="70"  r="0.6" opacity="0.25"/>
-              <circle cx="350" cy="30"  r="1"   opacity="0.35"/>
-              <circle cx="500" cy="55"  r="0.7" opacity="0.2"/>
-              <circle cx="680" cy="25"  r="0.9" opacity="0.3"/>
-              <circle cx="820" cy="60"  r="0.6" opacity="0.22"/>
-              <circle cx="960" cy="35"  r="1.1" opacity="0.3"/>
-              <circle cx="1100" cy="50" r="0.7" opacity="0.25"/>
-              <circle cx="1260" cy="20" r="0.9" opacity="0.3"/>
-              <circle cx="1380" cy="65" r="0.6" opacity="0.2"/>
-              <circle cx="140"  cy="110" r="0.7" opacity="0.2"/>
-              <circle cx="440"  cy="90"  r="0.8" opacity="0.28"/>
-              <circle cx="740"  cy="100" r="0.6" opacity="0.18"/>
-              <circle cx="1020" cy="80"  r="0.9" opacity="0.25"/>
-              <circle cx="1320" cy="110" r="0.7" opacity="0.2"/>
-              <!-- Twinkle stars -->
-              <circle cx="290" cy="55"  r="1.2" style="animation: twinkle 3.1s ease-in-out infinite;"/>
-              <circle cx="610" cy="45"  r="1.0" style="animation: twinkle 4.3s ease-in-out 1.2s infinite;"/>
-              <circle cx="890" cy="70"  r="1.3" style="animation: twinkle 3.7s ease-in-out 0.6s infinite;"/>
-              <circle cx="1180" cy="35" r="1.1" style="animation: twinkle 5.1s ease-in-out 2s infinite;"/>
-              <circle cx="50"   cy="90"  r="1.0" style="animation: twinkle 4.8s ease-in-out 0.3s infinite;"/>
-            </g>
-
-            <!-- ── Moon ── -->
-            <circle cx="1260" cy="80" r="44" fill="url(#moonGlow)"/>
-            <circle cx="1260" cy="80" r="22" fill="#fffde7" opacity="0.92"/>
-            <!-- Subtle moon crater marks -->
-            <circle cx="1252" cy="74" r="3"  fill="#f9e44d" opacity="0.25"/>
-            <circle cx="1268" cy="82" r="2"  fill="#f9e44d" opacity="0.2"/>
-            <circle cx="1258" cy="88" r="1.5" fill="#f9e44d" opacity="0.18"/>
-
-            <!-- ── Distant jungle silhouette (both banks) ── -->
-            <!-- Far-left bank -->
-            <path d="M0,480 L0,430 Q20,410 50,425 Q80,410 110,428 Q140,408 170,422 Q200,405 230,420 Q260,402 290,418 Q320,400 350,416 L350,480 Z" fill="#001428" opacity="0.85"/>
-            <!-- Far-right bank -->
-            <path d="M1090,480 L1090,418 Q1120,400 1150,415 Q1180,398 1210,414 Q1240,396 1270,412 Q1300,395 1330,410 Q1360,393 1390,408 L1440,412 L1440,480 Z" fill="#001428" opacity="0.85"/>
-
-            <!-- ── Canal banks ── -->
-            <!-- Left bank (land strip) -->
-            <path d="M0,480 Q80,474 160,478 Q280,472 380,476 L380,900 L0,900 Z" fill="#0a1f0d"/>
-            <path d="M0,480 Q80,474 160,478 Q280,472 380,476 L380,498 Q280,494 160,498 Q80,494 0,500 Z" fill="#0d2610" opacity="0.9"/>
-            <!-- Right bank -->
-            <path d="M1060,476 Q1180,472 1300,474 Q1380,476 1440,478 L1440,900 L1060,900 Z" fill="#0a1f0d"/>
-            <path d="M1060,476 Q1180,472 1300,474 Q1380,476 1440,478 L1440,498 Q1380,496 1300,494 Q1180,492 1060,496 Z" fill="#0d2610" opacity="0.9"/>
-
-            <!-- ── Grass / vegetation detail on banks ── -->
-            <g fill="#0f3014" opacity="0.7">
-              <!-- Left bank vegetation bumps -->
-              <ellipse cx="60"  cy="478" rx="18" ry="8"/>
-              <ellipse cx="130" cy="476" rx="14" ry="6"/>
-              <ellipse cx="210" cy="477" rx="20" ry="9"/>
-              <ellipse cx="310" cy="476" rx="16" ry="7"/>
-              <!-- Right bank -->
-              <ellipse cx="1110" cy="477" rx="18" ry="8"/>
-              <ellipse cx="1190" cy="476" rx="14" ry="6"/>
-              <ellipse cx="1280" cy="477" rx="20" ry="9"/>
-              <ellipse cx="1380" cy="476" rx="16" ry="7"/>
-            </g>
-
-            <!-- ── Water ── -->
-            <rect x="380" y="476" width="680" height="424" fill="url(#waterGrad)"/>
-            <!-- Subtle horizontal water line separating banks -->
-            <line x1="0" y1="482" x2="380" y2="482" stroke="#0f3014" stroke-width="1" opacity="0.4"/>
-            <line x1="1060" y1="482" x2="1440" y2="482" stroke="#0f3014" stroke-width="1" opacity="0.4"/>
-
-            <!-- Water shimmer (repeating animated stripe) -->
-            <g clip-path="url(#waterClip)">
-              <rect x="380" y="476" width="1360" height="424" fill="url(#shimmerGrad)"
-                style="animation: shimmer 6s linear infinite; transform-origin: left center;"/>
-              <rect x="380" y="476" width="1360" height="424" fill="url(#shimmerGrad)"
-                style="animation: shimmer 6s linear -3s infinite; transform-origin: left center;"/>
-            </g>
-
-            <!-- Gentle horizontal water ripple lines -->
-            <g stroke="#4a90d9" stroke-width="0.6" opacity="0.12" clip-path="url(#waterClip)">
-              <line x1="400" y1="530" x2="1040" y2="530"/>
-              <line x1="420" y1="570" x2="1020" y2="570"/>
-              <line x1="400" y1="620" x2="1040" y2="620"/>
-              <line x1="410" y1="670" x2="1030" y2="670"/>
-              <line x1="400" y1="720" x2="1040" y2="720"/>
-            </g>
-
-            <!-- Moon reflection column on water -->
-            <rect x="1235" y="476" width="50" height="424" fill="url(#moonReflect)" opacity="0.5"/>
-
-            <!-- ── Buoys ── -->
-            <!-- Buoy 1 (left side of canal) -->
-            <g class="buoy-1" transform="translate(490, 508)">
-              <rect x="-1" y="-12" width="2" height="14" fill="#e53935" opacity="0.7"/>
-              <polygon points="0,-14 -4,-8 4,-8" fill="#e53935" opacity="0.8"/>
-              <ellipse cx="0" cy="2" rx="5" ry="3" fill="#b71c1c" opacity="0.6"/>
-            </g>
-            <!-- Buoy 2 (right side) -->
-            <g class="buoy-2" transform="translate(990, 514)">
-              <rect x="-1" y="-12" width="2" height="14" fill="#1565c0" opacity="0.7"/>
-              <polygon points="0,-14 -4,-8 4,-8" fill="#1565c0" opacity="0.8"/>
-              <ellipse cx="0" cy="2" rx="5" ry="3" fill="#0d47a1" opacity="0.6"/>
-            </g>
-
-            <!-- ── Navigation light posts on banks ── -->
-            <g opacity="0.6">
-              <!-- Left post -->
-              <rect x="378" y="450" width="4" height="32" fill="#546e7a"/>
-              <circle cx="380" cy="448" r="4" fill="#ffd54f" opacity="0.9">
-                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="3s" repeatCount="indefinite"/>
-              </circle>
-              <!-- Right post -->
-              <rect x="1058" y="450" width="4" height="32" fill="#546e7a"/>
-              <circle cx="1060" cy="448" r="4" fill="#ffd54f" opacity="0.9">
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite"/>
-              </circle>
-            </g>
-
-            <!-- ── Ship (animated, sailing left→right) ── -->
-            <g class="canal-ship-group" transform="translate(0, 0)">
-              <g class="ship-body" transform="translate(0, 500)">
-                <!-- Wake / water displacement ahead of ship -->
-                <g transform="translate(-10, 8)">
-                  <ellipse class="wake-ring" cx="0" cy="0" rx="18" ry="6" fill="none" stroke="#90caf9" stroke-width="1.2" opacity="0.5"/>
-                  <ellipse class="wake-ring" cx="0" cy="0" rx="18" ry="6" fill="none" stroke="#90caf9" stroke-width="1.2" opacity="0.5" style="animation-delay: 0.6s;"/>
-                </g>
-                <!-- Hull -->
-                <path d="M-65,0 L-60,14 H60 L65,0 Q30,-6 0,-7 Q-30,-6 -65,0 Z" fill="url(#hullGrad)"/>
-                <!-- Hull waterline stripe -->
-                <path d="M-65,0 L-60,14 H60 L65,0 Q30,2 0,2 Q-30,2 -65,0 Z" fill="#e53935" opacity="0.55"/>
-                <!-- Deck -->
-                <rect x="-52" y="-8" width="104" height="8" rx="1" fill="#eeeeee" opacity="0.95"/>
-                <!-- Cargo containers (3 stacks) -->
-                <rect x="-44" y="-22" width="22" height="14" rx="1" fill="#1565c0" opacity="0.85"/>
-                <rect x="-20" y="-22" width="22" height="14" rx="1" fill="#e53935" opacity="0.85"/>
-                <rect x="4"   y="-22" width="22" height="14" rx="1" fill="#fbc02d" opacity="0.85"/>
-                <!-- Second layer containers -->
-                <rect x="-36" y="-34" width="18" height="12" rx="1" fill="#388e3c" opacity="0.8"/>
-                <rect x="-16" y="-34" width="18" height="12" rx="1" fill="#1565c0" opacity="0.8"/>
-                <rect x="4"   y="-34" width="18" height="12" rx="1" fill="#e53935" opacity="0.8"/>
-                <!-- Bridge/cabin -->
-                <rect x="28" y="-44" width="24" height="22" rx="2" fill="url(#cabinGrad)"/>
-                <!-- Bridge windows -->
-                <rect x="31" y="-40" width="6" height="4" rx="0.5" fill="#4fc3f7" opacity="0.85"/>
-                <rect x="40" y="-40" width="6" height="4" rx="0.5" fill="#4fc3f7" opacity="0.85"/>
-                <!-- Smokestack -->
-                <rect x="36" y="-56" width="7" height="14" rx="1" fill="#424242"/>
-                <rect x="35" y="-58" width="9" height="4" rx="1" fill="#616161"/>
-                <!-- Smoke puff -->
-                <g opacity="0.25">
-                  <circle cx="39" cy="-64" r="4" fill="#9e9e9e">
-                    <animate attributeName="cy" values="-64;-74;-84" dur="2.5s" repeatCount="indefinite"/>
-                    <animate attributeName="opacity" values="0.25;0.1;0" dur="2.5s" repeatCount="indefinite"/>
-                    <animate attributeName="r" values="4;6;8" dur="2.5s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="42" cy="-68" r="3" fill="#9e9e9e">
-                    <animate attributeName="cy" values="-68;-78;-90" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-                    <animate attributeName="opacity" values="0.2;0.08;0" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-                    <animate attributeName="r" values="3;5;7" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
-                  </circle>
-                </g>
-                <!-- Bow anchor light -->
-                <circle cx="-62" cy="-5" r="2.5" fill="#ffffff" opacity="0.9">
-                  <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
-                </circle>
-                <!-- Stern light -->
-                <circle cx="62" cy="-5" r="2" fill="#e53935" opacity="0.9">
-                  <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" begin="1s" repeatCount="indefinite"/>
-                </circle>
-              </g>
-            </g>
-
-            <!-- ── Wake trail behind ship ── -->
-            <!-- (this stays static in the water as the ship moves over it; real wake via CSS would need JS — simplified visual) -->
-
-            <!-- ── Birds ── -->
-            <!-- Bird 1 -->
-            <g class="bird-1" transform="translate(0, 200)">
-              <path d="M0,0 Q-6,-4 -12,0" fill="none" stroke="#90caf9" stroke-width="1.4" stroke-linecap="round"/>
-              <path d="M0,0 Q6,-4 12,0"  fill="none" stroke="#90caf9" stroke-width="1.4" stroke-linecap="round"/>
-            </g>
-            <!-- Bird 2 (smaller, higher) -->
-            <g class="bird-2" transform="translate(0, 150)">
-              <path d="M0,0 Q-4,-3 -8,0"  fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/>
-              <path d="M0,0 Q4,-3 8,0"    fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/>
-            </g>
-            <!-- Bird 3 (companion of bird 2) -->
-            <g class="bird-2" transform="translate(25, 140)" style="animation-delay: 2s;">
-              <path d="M0,0 Q-4,-3 -8,0"  fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/>
-              <path d="M0,0 Q4,-3 8,0"    fill="none" stroke="#90caf9" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/>
-            </g>
-
-            <!-- ── Subtle overlay vignette (darkens edges so text stays readable) ── -->
-            <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
-              <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
-            </radialGradient>
-            <rect width="1440" height="900" fill="url(#vignette)"/>
-
-          </svg>
-        </div>
-        <!-- ══ End Canal Background ══ -->
         <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
             <!-- Text Content -->
-            <div class="text-white space-y-8 animate-fade-in-up pt-10 lg:pt-0">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md">
+            <div class="text-ipul-blue space-y-8 animate-fade-in-up pt-10 lg:pt-0">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-ipul-blue/20 bg-ipul-blue/5 backdrop-blur-sm">
                     <span class="w-2 h-2 rounded-full bg-ipul-gold"></span>
-                    <span class="text-xs font-bold tracking-wider uppercase text-white">Puente del Mundo</span>
+                    <span class="text-xs font-bold tracking-wider uppercase text-ipul-blue">Puente del Mundo</span>
                 </div>
                 
                 <h1 class="font-heading text-5xl md:text-7xl font-bold leading-[1.1]">
@@ -1211,12 +681,12 @@
                     <span class="text-ipul-gold">Pentecostal en Panamá</span>
                 </h1>
                 
-                <p class="text-lg text-blue-50 max-w-lg leading-relaxed pl-1">
+                <p class="text-lg text-slate-600 max-w-lg leading-relaxed pl-1">
                     Desde Chiriquí hasta Darién, proclamamos un solo Señor, una sola fe y un solo bautismo. Somos la Iglesia Pentecostal Unida Latinoamericana — una comunidad cristiana con presencia nacional.
                 </p>
 
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="#mapa-sedes" class="px-8 py-4 bg-white text-ipul-blue font-bold rounded hover:bg-ipul-gold hover:text-ipul-blue transition duration-300 shadow-xl flex items-center gap-2 group">
+                    <a href="#mapa-sedes" class="px-8 py-4 bg-ipul-blue text-white font-bold rounded hover:bg-ipul-gold hover:text-ipul-blue transition duration-300 shadow-xl flex items-center gap-2 group">
                         <i class="ph-bold ph-map-trifold group-hover:rotate-12 transition-transform"></i>
                         Ver Sedes en el Mapa
                     </a>
@@ -1266,18 +736,18 @@
                 
                 <!-- Ministry Highlight Card -->
                 <div class="absolute right-10 bottom-20 w-[340px]">
-                    <div class="bg-white/10 backdrop-blur-xl p-6 rounded-2xl border border-white/20 shadow-2xl">
+                    <div class="bg-white/80 backdrop-blur-xl p-6 rounded-2xl border border-slate-200 shadow-2xl">
                         <div class="flex items-center gap-3 mb-3">
                             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-ipul-gold to-amber-600 flex items-center justify-center text-white shrink-0">
                                 <i class="ph-fill ph-globe-hemisphere-west text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-amber-200 uppercase font-bold tracking-wider">9 Ministerios Activos</p>
-                                <p class="text-white font-bold text-lg leading-tight">Una Iglesia Integral</p>
+                                <p class="text-xs text-amber-600 uppercase font-bold tracking-wider">9 Ministerios Activos</p>
+                                <p class="text-ipul-blue font-bold text-lg leading-tight">Una Iglesia Integral</p>
                             </div>
                         </div>
-                        <p class="text-sm text-gray-200 leading-relaxed">Familia, juventud, niños, misiones, música, eventos y más. Cada miembro tiene un lugar para servir y crecer.</p>
-                        <a href="#ministerios" class="inline-flex items-center gap-2 text-xs text-ipul-gold font-bold mt-3 hover:text-white transition-colors">
+                        <p class="text-sm text-slate-600 leading-relaxed">Familia, juventud, niños, misiones, música, eventos y más. Cada miembro tiene un lugar para servir y crecer.</p>
+                        <a href="#ministerios" class="inline-flex items-center gap-2 text-xs text-ipul-blue font-bold mt-3 hover:text-ipul-gold transition-colors">
                             Conoce nuestros ministerios <i class="ph-bold ph-arrow-right"></i>
                         </a>
                     </div>
