@@ -98,10 +98,13 @@
         "event": [
             {
                 "@type": "Event",
-                "name": "Culto General",
-                "description": "Servicio principal de adoración y predicación bíblica",
+                "name": "Sunday Service",
+                "description": "Main weekly worship and preaching service every Sunday at IPUL Central Panama.",
                 "startDate": "2026-08-03T07:30:00-05:00",
                 "endDate": "2026-08-03T09:30:00-05:00",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "image": "https://ipulpanama.com/src/ipul_logo.png",
                 "eventSchedule": {
                     "@type": "Schedule",
                     "byDay": "https://schema.org/Sunday",
@@ -111,7 +114,79 @@
                 },
                 "location": {
                     "@type": "Place",
-                    "name": "IPUL Central Panamá"
+                    "name": "IPUL Central Panama",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "Calle 50, San Francisco",
+                        "addressLocality": "Panama City",
+                        "addressRegion": "Panama",
+                        "postalCode": "0823",
+                        "addressCountry": "PA"
+                    }
+                },
+                "organizer": {
+                    "@type": "Organization",
+                    "name": "United Pentecostal Church of Latin America – Panama",
+                    "url": "https://ipulpanama.com/en/"
+                },
+                "performer": {
+                    "@type": "Organization",
+                    "name": "IPUL Panama – Preaching Ministry"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://ipulpanama.com/en/",
+                    "validFrom": "2026-01-01"
+                },
+                "isAccessibleForFree": true
+            },
+            {
+                "@type": "Event",
+                "name": "Prayer Service",
+                "description": "Weekly prayer and intercession service every Wednesday at IPUL Central Panama.",
+                "startDate": "2026-08-06T19:00:00-05:00",
+                "endDate": "2026-08-06T20:30:00-05:00",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "image": "https://ipulpanama.com/src/ipul_logo.png",
+                "eventSchedule": {
+                    "@type": "Schedule",
+                    "byDay": "https://schema.org/Wednesday",
+                    "startTime": "19:00",
+                    "endTime": "20:30",
+                    "repeatFrequency": "P1W"
+                },
+                "location": {
+                    "@type": "Place",
+                    "name": "IPUL Central Panama",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "Calle 50, San Francisco",
+                        "addressLocality": "Panama City",
+                        "addressRegion": "Panama",
+                        "postalCode": "0823",
+                        "addressCountry": "PA"
+                    }
+                },
+                "organizer": {
+                    "@type": "Organization",
+                    "name": "United Pentecostal Church of Latin America – Panama",
+                    "url": "https://ipulpanama.com/en/"
+                },
+                "performer": {
+                    "@type": "Organization",
+                    "name": "IPUL Panama – Preaching Ministry"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://ipulpanama.com/en/",
+                    "validFrom": "2026-01-01"
                 },
                 "isAccessibleForFree": true
             }
