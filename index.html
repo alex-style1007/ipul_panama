@@ -257,67 +257,49 @@
             background: linear-gradient(160deg, #001a3e 0%, #002855 40%, #001f3f 100%);
         }
 
-        /* Panama Canal SVG animation */
+        /* Panama Canal canvas animation */
         #canal-bg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            display: block;
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Stars twinkle */
         @keyframes twinkle {
             0%, 100% { opacity: 0.15; }
             50% { opacity: 0.7; }
         }
-        /* Water shimmer */
         @keyframes shimmer {
             0%   { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        /* Ship sailing left→right across the canal */
         @keyframes sail {
             0%   { transform: translateX(-80px); }
             100% { transform: translateX(calc(100vw + 80px)); }
         }
-        /* Gentle ship rock */
         @keyframes rock {
             0%, 100% { transform: rotate(-0.8deg) translateY(0px); }
             50%       { transform: rotate(0.8deg)  translateY(-2px); }
         }
-        /* Wake ripple */
         @keyframes wake {
             0%   { opacity: 0.6; transform: scaleX(1) translateX(0); }
             100% { opacity: 0;   transform: scaleX(2.5) translateX(24px); }
         }
-        /* Birds */
         @keyframes flyBird {
             0%   { transform: translateX(-60px) translateY(0px); }
             100% { transform: translateX(calc(100vw + 60px)) translateY(-30px); }
         }
-        @keyframes wingFlap {
-            0%, 100% { d: path("M0,4 Q-5,0 -10,4"); }
-            50%       { d: path("M0,4 Q-5,8 -10,4"); }
-        }
-        /* Buoy bob */
         @keyframes bob {
             0%, 100% { transform: translateY(0px); }
             50%       { transform: translateY(-4px); }
         }
 
-        .canal-ship-group {
-            animation: sail 28s linear infinite;
-        }
-        .ship-body {
-            animation: rock 3s ease-in-out infinite;
-            transform-origin: center bottom;
-        }
-        .wake-ring {
-            animation: wake 1.8s ease-out infinite;
-        }
+        .canal-ship-group { animation: sail 28s linear infinite; }
+        .ship-body { animation: rock 3s ease-in-out infinite; transform-origin: center bottom; }
+        .wake-ring { animation: wake 1.8s ease-out infinite; }
         .bird-1 { animation: flyBird 22s linear infinite; }
         .bird-2 { animation: flyBird 32s linear 6s infinite; }
         .buoy-1 { animation: bob 2.8s ease-in-out infinite; }
@@ -505,15 +487,474 @@
     <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
 
         <!-- ══ Panama Canal Animated Background ══ -->
-        <div id="canal-bg" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <!-- Sky gradient -->
-              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#000d1a"/>
-                <stop offset="55%"  stop-color="#001f3f"/>
-                <stop offset="100%" stop-color="#002855"/>
-              </linearGradient>
+        <!-- ══ Panama Canal Animated Background ══ -->
+        <canvas id="canal-bg" aria-hidden="true"></canvas>
+        <script>
+        (function(){
+          const canvas = document.getElementById('canal-bg');
+          const ctx = canvas.getContext('2d');
+
+          function resize(){
+            canvas.width  = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+          }
+          resize();
+          window.addEventListener('resize', resize);
+
+          // ── Isometric helpers ──────────────────────────────────────────
+          // Standard iso projection: x' = (x-z)*cos30, y' = y + (x+z)*sin30
+          const COS = Math.cos(Math.PI/6);
+          const SIN = Math.sin(Math.PI/6);
+          function iso(x, y, z){ return { x: (x-z)*COS, y: -y + (x+z)*SIN }; }
+
+          // ── State ──────────────────────────────────────────────────────
+          let t = 0;
+          // Ship position in world units (moves along X axis)
+          const SHIP_Z = 0;
+          let shipX = -300;
+          const shipSpeed = 0.4; // world units per frame
+
+          // Water waves: array of { x, z, phase, amp, r }
+          const NUM_RINGS = 5;
+          const rings = [];
+
+          // ── Draw ───────────────────────────────────────────────────────
+          function draw(){
+            const W = canvas.width, H = canvas.height;
+            ctx.clearRect(0,0,W,H);
+
+            // Origin point: centre of canvas, slightly below middle
+            const OX = W * 0.5, OY = H * 0.58;
+            // Scale
+            const S = Math.min(W,H) / 520;
+
+            function p(x,y,z){
+              const v = iso(x,y,z);
+              return { x: OX + v.x*S, y: OY + v.y*S };
+            }
+
+            // ── Sky gradient (simple rect) ──
+            const sky = ctx.createLinearGradient(0,0,0,H);
+            sky.addColorStop(0,   '#000d20');
+            sky.addColorStop(0.6, '#001d40');
+            sky.addColorStop(1,   '#00274d');
+            ctx.fillStyle = sky;
+            ctx.fillRect(0,0,W,H);
+
+            // ── Stars ──
+            ctx.save();
+            const starData = [
+              [0.08,0.06,0.7],[0.18,0.12,0.5],[0.28,0.04,0.9],[0.4,0.09,0.6],
+              [0.55,0.03,0.8],[0.65,0.13,0.5],[0.76,0.06,0.7],[0.88,0.10,0.6],
+              [0.95,0.04,0.9],[0.12,0.18,0.4],[0.35,0.15,0.6],[0.6,0.18,0.5],
+              [0.82,0.15,0.7],[0.47,0.22,0.4],[0.72,0.22,0.5],
+            ];
+            starData.forEach(([fx,fy,br]) => {
+              const flicker = 0.5 + 0.5*Math.sin(t*0.8 + fx*31.7 + fy*17.3);
+              ctx.globalAlpha = br * (0.4 + 0.6*flicker) * 0.6;
+              ctx.fillStyle = '#e8f4ff';
+              ctx.beginPath();
+              ctx.arc(fx*W, fy*H*0.55, 1.2, 0, Math.PI*2);
+              ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+            ctx.restore();
+
+            // ── Moon ──
+            const mx = W*0.82, my = H*0.12;
+            const gm = ctx.createRadialGradient(mx,my,0,mx,my,55);
+            gm.addColorStop(0,   'rgba(255,245,200,0.25)');
+            gm.addColorStop(0.4, 'rgba(255,240,180,0.12)');
+            gm.addColorStop(1,   'rgba(255,230,150,0)');
+            ctx.fillStyle = gm;
+            ctx.beginPath(); ctx.arc(mx,my,55,0,Math.PI*2); ctx.fill();
+            ctx.fillStyle = '#fdf6e0';
+            ctx.beginPath(); ctx.arc(mx,my,20,0,Math.PI*2); ctx.fill();
+
+            // ── Water plane (iso quad, tilted towards viewer) ──
+            // Canal runs along X axis, Z from -200 to +200
+            const W2 = 200, L2 = 600;
+            const wCorners = [
+              p(-L2, 0, -W2), p( L2, 0, -W2),
+              p( L2, 0,  W2), p(-L2, 0,  W2),
+            ];
+            const wg = ctx.createLinearGradient(
+              wCorners[0].x, wCorners[0].y,
+              wCorners[3].x, wCorners[3].y
+            );
+            wg.addColorStop(0, '#051c3a');
+            wg.addColorStop(1, '#0a2d55');
+            ctx.beginPath();
+            ctx.moveTo(wCorners[0].x, wCorners[0].y);
+            wCorners.slice(1).forEach(c => ctx.lineTo(c.x, c.y));
+            ctx.closePath();
+            ctx.fillStyle = wg;
+            ctx.fill();
+            // Water edge lines (canal banks) — clean strokes
+            ctx.strokeStyle = 'rgba(100,180,255,0.12)';
+            ctx.lineWidth = 1*S;
+            ctx.stroke();
+
+            // Moon reflection on water (shimmer column)
+            const reflX = OX + iso(0,0,0).x*S + W*0.25;
+            const refGrad = ctx.createLinearGradient(reflX-20, wCorners[0].y, reflX+20, wCorners[3].y);
+            refGrad.addColorStop(0, 'rgba(253,246,224,0.12)');
+            refGrad.addColorStop(0.5,'rgba(253,246,224,0.07)');
+            refGrad.addColorStop(1, 'rgba(253,246,224,0)');
+            ctx.fillStyle = refGrad;
+            ctx.beginPath();
+            ctx.moveTo(reflX-20, wCorners[0].y);
+            ctx.lineTo(reflX+20, wCorners[0].y);
+            ctx.lineTo(reflX+8, wCorners[3].y);
+            ctx.lineTo(reflX-8, wCorners[3].y);
+            ctx.closePath();
+            ctx.fill();
+
+            // Water ripple lines (iso perspective)
+            ctx.save();
+            ctx.globalAlpha = 0.08;
+            ctx.strokeStyle = '#7ec8e3';
+            ctx.lineWidth = 0.8*S;
+            [-100,-40,20,80,140].forEach((zLine, i) => {
+              const offset = Math.sin(t*0.4 + i*1.3) * 8;
+              const a = p(-L2+offset, 0, zLine);
+              const b = p( L2+offset, 0, zLine);
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            });
+            ctx.restore();
+
+            // ── Canal banks (thin raised edges) ──
+            function drawBank(zSign){
+              const zOuter = zSign * W2;
+              const zInner = zSign * (W2 - 18);
+              const bankH  = 22;
+              const BL = -L2, BR = L2;
+              // Top face
+              const top = [p(BL,bankH,zOuter), p(BR,bankH,zOuter), p(BR,bankH,zInner), p(BL,bankH,zInner)];
+              ctx.beginPath();
+              ctx.moveTo(top[0].x,top[0].y);
+              top.slice(1).forEach(c=>ctx.lineTo(c.x,c.y));
+              ctx.closePath();
+              ctx.fillStyle = '#0d2e10';
+              ctx.fill();
+              // Side face facing viewer
+              const side = [p(BL,0,zInner), p(BR,0,zInner), p(BR,bankH,zInner), p(BL,bankH,zInner)];
+              ctx.beginPath();
+              ctx.moveTo(side[0].x,side[0].y);
+              side.slice(1).forEach(c=>ctx.lineTo(c.x,c.y));
+              ctx.closePath();
+              ctx.fillStyle = '#0a2410';
+              ctx.fill();
+              // Edge highlight
+              ctx.beginPath();
+              ctx.moveTo(top[0].x,top[0].y); ctx.lineTo(top[1].x,top[1].y);
+              ctx.strokeStyle = 'rgba(80,160,80,0.25)';
+              ctx.lineWidth = 1*S;
+              ctx.stroke();
+            }
+            drawBank( 1);
+            drawBank(-1);
+
+            // ── Wake rings (expanding ellipses behind the ship) ──
+            rings.forEach(r => {
+              r.radius += 1.2;
+              r.alpha  -= 0.012;
+              if(r.alpha <= 0) return;
+              const cx = p(r.ox, 0, r.oz);
+              ctx.save();
+              ctx.globalAlpha = r.alpha * 0.5;
+              ctx.strokeStyle = '#a0d8ef';
+              ctx.lineWidth   = 1.2 * S;
+              // Draw ellipse in iso space by sampling the circle
+              ctx.beginPath();
+              let first = true;
+              for(let a=0; a<Math.PI*2; a+=0.15){
+                const wx = r.ox + Math.cos(a)*r.radius*0.35;
+                const wz = r.oz + Math.sin(a)*r.radius;
+                const sp = p(wx, 0, wz);
+                if(first){ ctx.moveTo(sp.x,sp.y); first=false; }
+                else       ctx.lineTo(sp.x,sp.y);
+              }
+              ctx.closePath();
+              ctx.stroke();
+              ctx.restore();
+            });
+            // Spawn new rings behind the ship
+            if(Math.floor(t) % 8 === 0){
+              rings.push({ ox: shipX - 60, oz: SHIP_Z, radius: 8, alpha: 0.7 });
+            }
+            // Clean dead rings
+            for(let i=rings.length-1; i>=0; i--){
+              if(rings[i].alpha<=0) rings.splice(i,1);
+            }
+
+            // ── Ship (isometric, clean line-art style) ──
+            ctx.save();
+            const sy = 2.5 + Math.sin(t*0.6)*1.5;    // gentle bob
+            const roll = Math.sin(t*0.4)*0.008;         // subtle roll in iso
+
+            // Helper: draw an iso box face
+            // face: array of [worldX,worldY,worldZ] corners
+            function isoFace(corners, fill, stroke, lw){
+              ctx.beginPath();
+              const first = p(...corners[0]);
+              ctx.moveTo(first.x, first.y);
+              for(let i=1;i<corners.length;i++){
+                const pt = p(...corners[i]); ctx.lineTo(pt.x,pt.y);
+              }
+              ctx.closePath();
+              if(fill){   ctx.fillStyle=fill;       ctx.fill(); }
+              if(stroke){
+                ctx.strokeStyle=stroke;
+                ctx.lineWidth=lw*S;
+                ctx.lineJoin='round';
+                ctx.stroke();
+              }
+            }
+
+            const SX = shipX, SY = sy, SZ = SHIP_Z;
+            const HL = 120, HW = 30, HH = 16;   // hull half-length, half-width, height
+
+            // ── Hull (3 visible faces) ──
+            // Bottom face (waterline, barely visible)
+            isoFace([
+              [SX-HL, SY,    SZ-HW],
+              [SX+HL, SY,    SZ-HW],
+              [SX+HL, SY,    SZ+HW],
+              [SX-HL, SY,    SZ+HW],
+            ], 'rgba(18,40,70,0.4)', null, 0);
+
+            // Port side face (left of ship going right, faces viewer)
+            isoFace([
+              [SX-HL, SY,      SZ+HW],
+              [SX+HL, SY,      SZ+HW],
+              [SX+HL, SY+HH,   SZ+HW],
+              [SX-HL, SY+HH,   SZ+HW],
+            ], '#1a3a5c', 'rgba(100,180,255,0.18)', 0.8);
+
+            // Starboard face (right of ship going right, faces away — darker)
+            isoFace([
+              [SX-HL, SY,      SZ-HW],
+              [SX+HL, SY,      SZ-HW],
+              [SX+HL, SY+HH,   SZ-HW],
+              [SX-HL, SY+HH,   SZ-HW],
+            ], '#0f2540', 'rgba(60,120,200,0.12)', 0.5);
+
+            // Deck top face
+            isoFace([
+              [SX-HL, SY+HH, SZ-HW],
+              [SX+HL, SY+HH, SZ-HW],
+              [SX+HL, SY+HH, SZ+HW],
+              [SX-HL, SY+HH, SZ+HW],
+            ], '#1e4976', 'rgba(120,200,255,0.22)', 0.9);
+
+            // Bow (pointed front face, right side)
+            const bowTip = [SX+HL+20, SY+HH*0.5, SZ];
+            isoFace([
+              [SX+HL, SY,    SZ-HW],
+              [SX+HL, SY,    SZ+HW],
+              [SX+HL, SY+HH, SZ+HW],
+              [SX+HL, SY+HH, SZ-HW],
+            ], '#1a3a5c', 'rgba(100,180,255,0.2)', 0.8);
+            // bow tip triangle on deck
+            ctx.beginPath();
+            const bA=p(SX+HL,SY+HH,SZ-HW), bB=p(SX+HL,SY+HH,SZ+HW), bC=p(...bowTip);
+            ctx.moveTo(bA.x,bA.y); ctx.lineTo(bB.x,bB.y); ctx.lineTo(bC.x,bC.y);
+            ctx.closePath();
+            ctx.fillStyle='#1e4976'; ctx.fill();
+            ctx.strokeStyle='rgba(120,200,255,0.22)'; ctx.lineWidth=0.9*S; ctx.stroke();
+
+            // Waterline red stripe (port side)
+            isoFace([
+              [SX-HL, SY+HH*0.15, SZ+HW],
+              [SX+HL, SY+HH*0.15, SZ+HW],
+              [SX+HL, SY+HH*0.4,  SZ+HW],
+              [SX-HL, SY+HH*0.4,  SZ+HW],
+            ], 'rgba(180,40,40,0.55)', null, 0);
+
+            // ── Superstructure / Bridge ──
+            const BX = SX+50, BY = SY+HH, BZ = SZ, BW = 22, BL2= 36, BH = 38;
+            // Bridge port face
+            isoFace([
+              [BX-BL2, BY,    BZ+BW],
+              [BX+BL2, BY,    BZ+BW],
+              [BX+BL2, BY+BH, BZ+BW],
+              [BX-BL2, BY+BH, BZ+BW],
+            ], '#203d60', 'rgba(150,210,255,0.25)', 1);
+            // Bridge top
+            isoFace([
+              [BX-BL2, BY+BH, BZ-BW],
+              [BX+BL2, BY+BH, BZ-BW],
+              [BX+BL2, BY+BH, BZ+BW],
+              [BX-BL2, BY+BH, BZ+BW],
+            ], '#2a4e7a', 'rgba(150,210,255,0.3)', 1);
+            // Bridge dark side
+            isoFace([
+              [BX-BL2, BY,    BZ-BW],
+              [BX+BL2, BY,    BZ-BW],
+              [BX+BL2, BY+BH, BZ-BW],
+              [BX-BL2, BY+BH, BZ-BW],
+            ], '#122035', 'rgba(80,150,220,0.15)', 0.6);
+
+            // Bridge windows (small lit rectangles on port face)
+            const winY1 = BY + BH*0.55, winY2 = BY + BH*0.8;
+            [-20,-5,10].forEach(dz => {
+              isoFace([
+                [BX-BL2*0.9, winY1, BZ+BW+0.5+dz-4],
+                [BX-BL2*0.9, winY1, BZ+BW+0.5+dz+4],
+                [BX-BL2*0.9, winY2, BZ+BW+0.5+dz+4],
+                [BX-BL2*0.9, winY2, BZ+BW+0.5+dz-4],
+              ], null, null, 0);
+              // project onto port face
+              const cz = BZ+BW+dz;
+              const wpts = [
+                p(BX-16, winY1, cz-3.5), p(BX-16, winY1, cz+3.5),
+                p(BX-16, winY2, cz+3.5), p(BX-16, winY2, cz-3.5),
+              ];
+              ctx.beginPath();
+              ctx.moveTo(wpts[0].x,wpts[0].y);
+              wpts.slice(1).forEach(q=>ctx.lineTo(q.x,q.y));
+              ctx.closePath();
+              const wFlicker = 0.7 + 0.3*Math.sin(t*1.2+dz);
+              ctx.fillStyle = `rgba(255,220,120,${0.55*wFlicker})`;
+              ctx.fill();
+            });
+
+            // ── Smokestack ──
+            const STX=BX-10, STZ=BZ, STH=28;
+            isoFace([
+              [STX-6, BY+BH,      STZ-5],
+              [STX+6, BY+BH,      STZ-5],
+              [STX+6, BY+BH,      STZ+5],
+              [STX-6, BY+BH,      STZ+5],
+            ], '#0a1a2e', null, 0);
+            isoFace([
+              [STX-6, BY+BH,      STZ+5],
+              [STX+6, BY+BH,      STZ+5],
+              [STX+6, BY+BH+STH,  STZ+5],
+              [STX-6, BY+BH+STH,  STZ+5],
+            ], '#0d2240', 'rgba(80,130,200,0.2)', 0.7);
+            isoFace([
+              [STX-6, BY+BH,      STZ-5],
+              [STX+6, BY+BH,      STZ-5],
+              [STX+6, BY+BH+STH,  STZ-5],
+              [STX-6, BY+BH+STH,  STZ-5],
+            ], '#070f1a', null, 0);
+
+            // ── Smoke puffs ──
+            const smokeTop = p(STX, BY+BH+STH+4, STZ);
+            for(let i=0; i<3; i++){
+              const phase = (t*0.3 + i*0.9) % 3;
+              const alpha = (1 - phase/3) * 0.12;
+              const radius = (6 + phase*10) * S;
+              ctx.save();
+              ctx.globalAlpha = alpha;
+              ctx.fillStyle = '#8eb0d0';
+              ctx.beginPath();
+              ctx.arc(
+                smokeTop.x + Math.sin(t*0.2+i)*4*S,
+                smokeTop.y - phase*14*S,
+                radius, 0, Math.PI*2
+              );
+              ctx.fill();
+              ctx.restore();
+            }
+
+            // ── Cargo containers on deck (3 rows, isometric boxes) ──
+            const cColors = [
+              ['#1a4a7a','#0d2d50','#1f5590'],   // blue
+              ['#7a1a1a','#501010','#9a2020'],    // red
+              ['#6a5a10','#453808','#8a7418'],    // gold
+              ['#1a5a2a','#0d3a18','#1f7030'],    // green
+            ];
+            const containerW = 22, containerL = 18, containerH = 15;
+            [[-70,-5],[-45,-5],[-20,-5],[5,-5],[-58,-5+containerH+2],[-33,-5+containerH+2]].forEach(([dx,dy], ci) => {
+              const cc = cColors[ci % cColors.length];
+              const cx2 = SX + dx, cz2 = SZ - 8;
+              const baseY = SY + HH + dy;
+              // Top
+              isoFace([
+                [cx2,           baseY+containerH, cz2],
+                [cx2+containerL,baseY+containerH, cz2],
+                [cx2+containerL,baseY+containerH, cz2+containerW],
+                [cx2,           baseY+containerH, cz2+containerW],
+              ], cc[0], 'rgba(200,230,255,0.1)', 0.5);
+              // Port side
+              isoFace([
+                [cx2,           baseY,            cz2+containerW],
+                [cx2+containerL,baseY,            cz2+containerW],
+                [cx2+containerL,baseY+containerH, cz2+containerW],
+                [cx2,           baseY+containerH, cz2+containerW],
+              ], cc[1], 'rgba(200,230,255,0.12)', 0.6);
+              // Dark side
+              isoFace([
+                [cx2+containerL,baseY,            cz2],
+                [cx2+containerL,baseY,            cz2+containerW],
+                [cx2+containerL,baseY+containerH, cz2+containerW],
+                [cx2+containerL,baseY+containerH, cz2],
+              ], cc[2], 'rgba(200,230,255,0.08)', 0.4);
+            });
+
+            // ── Crane / mast (single thin pole) ──
+            const mast1 = p(SX-80, SY+HH, SZ);
+            const mast2 = p(SX-80, SY+HH+70, SZ);
+            ctx.beginPath(); ctx.moveTo(mast1.x,mast1.y); ctx.lineTo(mast2.x,mast2.y);
+            ctx.strokeStyle='rgba(140,200,255,0.35)'; ctx.lineWidth=1.5*S; ctx.stroke();
+            // Mast crossbar
+            const mb1 = p(SX-80, SY+HH+65, SZ-14);
+            const mb2 = p(SX-80, SY+HH+65, SZ+14);
+            ctx.beginPath(); ctx.moveTo(mb1.x,mb1.y); ctx.lineTo(mb2.x,mb2.y);
+            ctx.strokeStyle='rgba(140,200,255,0.25)'; ctx.lineWidth=1*S; ctx.stroke();
+
+            // Navigation lights
+            const bowLight  = p(SX+HL+22, SY+HH+4, SZ);
+            const sternLight = p(SX-HL,   SY+HH+4, SZ);
+            function navLight(pt, color){
+              ctx.save();
+              ctx.globalAlpha = 0.6 + 0.4*Math.sin(t*1.5);
+              const ng = ctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,10*S);
+              ng.addColorStop(0, color);
+              ng.addColorStop(1, 'transparent');
+              ctx.fillStyle = ng;
+              ctx.beginPath(); ctx.arc(pt.x,pt.y,10*S,0,Math.PI*2); ctx.fill();
+              ctx.globalAlpha = 1;
+              ctx.fillStyle = color;
+              ctx.beginPath(); ctx.arc(pt.x,pt.y,2.5*S,0,Math.PI*2); ctx.fill();
+              ctx.restore();
+            }
+            navLight(bowLight,  'rgba(255,255,220,0.95)');
+            navLight(sternLight,'rgba(220,80,80,0.9)');
+
+            ctx.restore();
+
+            // ── Vignette overlay ──
+            const vg = ctx.createRadialGradient(W*0.5,H*0.5,H*0.1, W*0.5,H*0.5,H*0.9);
+            vg.addColorStop(0, 'rgba(0,0,0,0)');
+            vg.addColorStop(1, 'rgba(0,8,20,0.6)');
+            ctx.fillStyle = vg;
+            ctx.fillRect(0,0,W,H);
+
+            // ── Advance state ──
+            t += 0.016;
+            shipX += shipSpeed;
+            if(shipX > 700) shipX = -400;
+
+            requestAnimationFrame(draw);
+          }
+
+          // Respect reduced motion
+          if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+            // Draw one static frame and stop
+            draw();
+          } else {
+            draw();
+          }
+        })();
+        </script>
+        <!-- ══ End Canal Background ══ -->
               <!-- Water gradient -->
               <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%"  stop-color="#0c2d5e"/>
