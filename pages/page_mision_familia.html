@@ -75,9 +75,11 @@
     </style>
 </head>
 <body class="bg-white font-sans antialiased overflow-x-hidden selection:bg-ipul-gold selection:text-ipul-blue">
+    <!-- Panama Red Top Bar -->
+    <div id="panama-top-bar" class="fixed top-0 left-0 w-full h-1 z-[60]" style="background:linear-gradient(90deg,#DA121A 0%,#ef4444 50%,#DA121A 100%)"></div>
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
+    <nav class="fixed w-full z-50 top-1 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <!-- Logo Area -->
             <a href="../index.html" class="flex items-center gap-3 group">
@@ -262,7 +264,7 @@
                     [Aquí va el texto de la visión. Ejemplo: Fortalecer los hogares panameños fundamentándolos en principios bíblicos, ofreciendo consejería pastoral, talleres matrimoniales y programas de integración familiar que promuevan la unidad y el amor en el hogar.]
                 </p>
             </div>
-            <div class="w-16 h-1 bg-ipul-gold mx-auto mt-10 rounded-full"></div>
+            <div class="w-16 h-1 mx-auto mt-10 rounded-full" style="background:linear-gradient(90deg,#DA121A,#FFC72C)"></div>
         </div>
     </section>
 
@@ -282,7 +284,7 @@
             <!-- Contenedor del Video -->
             <div class="relative w-full overflow-hidden rounded-2xl shadow-2xl aspect-video bg-gray-900 border-4 border-white">
                 <!-- iframe actualizado con el video real de YouTube -->
-                <iframe 
+                <iframe loading="lazy" 
                     class="absolute top-0 left-0 w-full h-full" 
                     src="https://www.youtube.com/embed/JQb17kPST7k" 
                     title="Video Misión Familia" 
@@ -442,5 +444,6 @@
     </script>
 <script src="../vendor/live-stream.js"></script>
 <script src="../vendor/cookie-consent.js"></script>
+<script src="../vendor/whatsapp-button.js"></script>
 </body>
 </html>
