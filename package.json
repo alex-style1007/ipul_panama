@@ -1,0 +1,14 @@
+{
+  "name": "ipul-panama",
+  "version": "1.2.0",
+  "description": "Sitio web oficial de IPUL Panamá - Iglesia Pentecostal Unida Latinoamericana",
+  "private": true,
+  "scripts": {
+    "build:css": "npx tailwindcss -i src/input.css -o vendor/tailwind.min.css --minify",
+    "watch:css": "npx tailwindcss -i src/input.css -o vendor/tailwind.min.css --watch",
+    "build": "npm run build:css"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.15"
+  }
+}
