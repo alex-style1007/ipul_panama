@@ -301,9 +301,11 @@
     </style>
 </head>
 <body class="bg-slate-50 font-sans antialiased overflow-x-hidden selection:bg-ipul-gold selection:text-ipul-blue">
+    <!-- Panama Red Top Bar -->
+    <div id="panama-top-bar" class="fixed top-0 left-0 w-full h-1 z-[60]" style="background:linear-gradient(90deg,#DA121A 0%,#ef4444 50%,#DA121A 100%)"></div>
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
+    <nav class="fixed w-full z-50 top-1 transition-all duration-300 glass-nav border-b border-gray-100 shadow-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <!-- Logo Area -->
             <a href="#" class="flex items-center gap-3 group">
@@ -665,13 +667,13 @@
             <div class="mb-24 scroll-mt-28">
                 <div class="text-center mb-10">
                     <h3 class="text-3xl font-heading font-bold text-ipul-blue mb-2">National Departments</h3>
-                    <div class="w-16 h-1 bg-ipul-gold mx-auto rounded-full"></div>
+                    <div class="w-16 h-1 mx-auto rounded-full" style="background:linear-gradient(90deg,#DA121A,#FFC72C)"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Decom -->
-                    <div id="ministerio-decom" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="ministerio-decom" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/DecomNacional.webp" type="image/webp"><img src="../src/Nacional/DecomNacional.jpg" alt="Decom" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -687,7 +689,7 @@
                     </div>
 
                     <!-- Misiones -->
-                    <div id="ministerio-misiones" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="ministerio-misiones" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/MisionesNacionales.webp" type="image/webp"><img src="../src/Nacional/MisionesNacionales.jpg" alt="Misiones" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -703,7 +705,7 @@
                     </div>
 
                     <!-- Crecimiento Espiritual -->
-                    <div id="ministerio-crecimiento" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="ministerio-crecimiento" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/CrecimientoEspiritual.webp" type="image/webp"><img src="../src/Nacional/CrecimientoEspiritual.jpg" alt="Crecimiento Espiritual" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -719,7 +721,7 @@
                     </div>
 
                     <!-- Misión Familia -->
-                    <div id="mision-familia" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="mision-familia" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/MisionFamilia.webp" type="image/webp"><img src="../src/Nacional/MisionFamilia.jpg" alt="Misión Familia" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -735,7 +737,7 @@
                     </div>
 
                     <!-- Eventos Nacionales -->
-                    <div id="ministerio-eventos" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="ministerio-eventos" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/EventosNacionales.webp" type="image/webp"><img src="../src/Nacional/EventosNacionales.jpg" alt="Eventos Nacionales" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -751,7 +753,7 @@
                     </div>
 
                     <!-- Música Nacional -->
-                    <div id="ministerio-musica" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="ministerio-musica" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/MusicaNacional.webp" type="image/webp"><img src="../src/Nacional/MusicaNacional.jpg" alt="Música Nacional" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -767,7 +769,7 @@
                     </div>
 
                     <!-- Misión Femenil -->
-                    <div id="mision-femenil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="mision-femenil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/MisionFemenil.webp" type="image/webp"><img src="../src/Nacional/MisionFemenil.jpg" alt="Misión Femenil" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -783,7 +785,7 @@
                     </div>
 
                     <!-- Misión Juvenil (Link Actualizado en Tarjeta) -->
-                    <div id="mision-juvenil" onclick="window.location.href='pages/page_youth_ministry.html'" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="mision-juvenil" onclick="window.location.href='pages/page_youth_ministry.html'" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/MisionJuvenil.webp" type="image/webp"><img src="../src/Nacional/MisionJuvenil.jpg" alt="Youth Mission" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -799,7 +801,7 @@
                     </div>
 
                     <!-- Iglesia Infantil -->
-                    <div id="iglesia-infantil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer">
+                    <div id="iglesia-infantil" class="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 aspect-square sm:aspect-[4/3] cursor-pointer border-b-4 border-transparent hover:border-panama-red">
                         <picture><source srcset="../src/Nacional/IglesiaInfantil.webp" type="image/webp"><img src="../src/Nacional/IglesiaInfantil.jpg" alt="Iglesia Infantil" class="absolute inset-0 w-full h-full object-cover object-[center_40%] transition-transform duration-700 group-hover:scale-110" loading="lazy" width="1080" height="960"></picture>
 
                         <div class="absolute inset-0 bg-ipul-blue/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
@@ -831,7 +833,7 @@
             <div class="grid sm:grid-cols-3 gap-6">
                 <!-- Martes -->
                 <div class="bg-slate-50 rounded-xl p-6 text-center border border-gray-100">
-                    <div class="w-12 h-12 bg-ipul-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="w-12 h-12 bg-ipul-blue rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white outline outline-2 outline-panama-red/30">
                         <i class="ph-fill ph-calendar text-ipul-gold text-xl"></i>
                     </div>
                     <h3 class="font-heading font-bold text-ipul-blue text-lg mb-1">Tuesday</h3>
@@ -841,7 +843,7 @@
                 
                 <!-- Viernes -->
                 <div class="bg-slate-50 rounded-xl p-6 text-center border border-gray-100">
-                    <div class="w-12 h-12 bg-ipul-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="w-12 h-12 bg-ipul-blue rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white outline outline-2 outline-panama-red/30">
                         <i class="ph-fill ph-hands-praying text-ipul-gold text-xl"></i>
                     </div>
                     <h3 class="font-heading font-bold text-ipul-blue text-lg mb-1">Friday</h3>
@@ -851,7 +853,7 @@
                 
                 <!-- Domingo -->
                 <div class="bg-slate-50 rounded-xl p-6 text-center border border-gray-100">
-                    <div class="w-12 h-12 bg-ipul-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div class="w-12 h-12 bg-ipul-blue rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white outline outline-2 outline-panama-red/30">
                         <i class="ph-fill ph-church text-ipul-gold text-xl"></i>
                     </div>
                     <h3 class="font-heading font-bold text-ipul-blue text-lg mb-1">Sunday</h3>
