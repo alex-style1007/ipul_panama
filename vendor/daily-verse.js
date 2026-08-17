@@ -13,7 +13,7 @@
     var CACHE_DATE_KEY = 'ipul_daily_verse_date';
 
     // Curated verse references for the API (safe, doctrinally aligned)
-    var SAFE_REFS = [
+    var SAFE_REFS_ES = [
         'Salmos 23:1-3', 'Salmos 91:1-2', 'Salmos 27:1', 'Salmos 46:1',
         'Salmos 119:105', 'Salmos 37:4-5', 'Salmos 34:8', 'Salmos 121:1-2',
         'Salmos 51:10', 'Salmos 103:1-3', 'Proverbios 3:5-6', 'Proverbios 16:3',
@@ -23,6 +23,19 @@
         'Isaías 41:10', 'Jeremías 29:11', 'Filipenses 4:13',
         'Romanos 8:28', 'Mateo 11:28', 'Mateo 6:33', '1 Pedro 5:7'
     ];
+
+    var SAFE_REFS_EN = [
+        'Psalms 23:1-3', 'Psalms 91:1-2', 'Psalms 27:1', 'Psalms 46:1',
+        'Psalms 119:105', 'Psalms 37:4-5', 'Psalms 34:8', 'Psalms 121:1-2',
+        'Psalms 51:10', 'Psalms 103:1-3', 'Proverbs 3:5-6', 'Proverbs 16:3',
+        'Proverbs 18:10', 'Proverbs 22:6', 'Proverbs 15:1',
+        'John 3:16', 'John 14:6', 'John 14:27', 'John 8:12',
+        'John 10:10', 'John 11:25', 'John 15:5', 'John 16:33',
+        'Isaiah 41:10', 'Jeremiah 29:11', 'Philippians 4:13',
+        'Romans 8:28', 'Matthew 11:28', 'Matthew 6:33', '1 Peter 5:7'
+    ];
+
+    var SAFE_REFS = isEnglish ? SAFE_REFS_EN : SAFE_REFS_ES;
 
     var isEnglish = document.documentElement.lang === 'en';
 
@@ -91,7 +104,8 @@
         return new Promise(function(resolve, reject) {
             var dayIdx = getDayIndex();
             var ref = SAFE_REFS[dayIdx % SAFE_REFS.length];
-            var url = API_URL + encodeURIComponent(ref) + '?translation=reina-valera-1960';
+            var translation = isEnglish ? 'kjv' : 'reina-valera-1960';
+            var url = API_URL + encodeURIComponent(ref) + '?translation=' + translation;
 
             var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
             var timeoutId = setTimeout(function() {
@@ -120,7 +134,7 @@
                     resolve({
                         text: data.text.replace(/\n/g, ' ').trim(),
                         ref: data.reference,
-                        ver: 'RVR1960'
+                        ver: isEnglish ? 'KJV' : 'RVR1960'
                     });
                 })
                 .catch(function(err) {
@@ -131,7 +145,8 @@
     }
 
     function loadFallback(basePath) {
-        return fetch(basePath + '/vendor/versiculos.json')
+        var fallbackFile = isEnglish ? '/vendor/versiculos-en.json' : '/vendor/versiculos.json';
+        return fetch(basePath + fallbackFile)
             .then(function(res) { return res.json(); })
             .then(function(verses) {
                 if (!Array.isArray(verses) || verses.length === 0) {
@@ -178,11 +193,10 @@
                     })
                     .catch(function() {
                         // Ultimate fallback
-                        renderVerse({
-                            text: 'Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia.',
-                            ref: 'Proverbios 3:5',
-                            ver: 'RVR1960'
-                        });
+                        var ultimateFallback = isEnglish
+                            ? { text: 'Trust in the Lord with all your heart, and do not lean on your own understanding.', ref: 'Proverbs 3:5', ver: 'KJV' }
+                            : { text: 'Fíate de Jehová de todo tu corazón, y no te apoyes en tu propia prudencia.', ref: 'Proverbios 3:5', ver: 'RVR1960' };
+                        renderVerse(ultimateFallback);
                     });
             });
     }
