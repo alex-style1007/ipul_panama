@@ -7,7 +7,7 @@
     <link rel="manifest" href="/manifest.json">
     <title>Política de Privacidad | IPUL Panamá</title>
     <link rel="icon" type="image/png" href="src/ipul_logo-removebg-preview.png">
-    <meta name="description" content="Política de privacidad y protección de datos personales de IPUL Panamá.">
+    <meta name="description" content="Política de privacidad, protección de datos personales y términos de uso de IPUL Panamá.">
     <meta name="robots" content="noindex">
     <link rel="stylesheet" href="vendor/tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
@@ -16,92 +16,280 @@
     <div class="max-w-3xl mx-auto px-6 py-16">
         <a href="/" class="inline-flex items-center gap-2 text-sm text-[#002855] font-bold mb-8 hover:underline">&larr; Volver al inicio</a>
         
-        <h1 class="font-heading text-3xl font-bold text-[#002855] mb-2">Política de Privacidad</h1>
-        <p class="text-sm text-gray-400 mb-8">Última actualización: 30 de julio de 2026</p>
+        <h1 class="font-heading text-3xl font-bold text-[#002855] mb-2">Política de Privacidad y Términos de Uso</h1>
+        <p class="text-sm text-gray-400 mb-4">Última actualización: 17 de agosto de 2026</p>
+        <p class="text-sm text-gray-500 mb-8 border-l-4 border-[#FFC72C] pl-4">Este documento establece las condiciones bajo las cuales IPUL Panamá recopila, utiliza, almacena y protege la información de los visitantes de <strong>ipulpanama.com</strong>. Al acceder o utilizar este sitio web, usted acepta los términos descritos en esta política. Si no está de acuerdo, le solicitamos que no utilice el sitio.</p>
         
         <div class="prose prose-gray max-w-none space-y-6 text-sm leading-relaxed">
-            <h2 class="text-lg font-bold text-[#002855] mt-8">1. Responsable del tratamiento</h2>
-            <p>La Iglesia Pentecostal Unida Latinoamericana en Panamá (en adelante, "IPUL Panamá") es responsable del tratamiento de los datos personales recopilados a través de este sitio web: <strong>ipulpanama.com</strong>.</p>
-            
+
+            <!-- 1 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">1. Responsable del tratamiento de datos</h2>
+            <p>El responsable del tratamiento de los datos personales recopilados a través de este sitio web es:</p>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <p><strong>Iglesia Pentecostal Unida Latinoamericana en Panamá (IPUL Panamá)</strong><br>
+                Domicilio: Ciudad de Panamá, República de Panamá<br>
+                Correo electrónico: <a href="mailto:info@ipulpanama.org" class="text-[#002855] underline">info@ipulpanama.org</a><br>
+                Sitio web: <a href="https://ipulpanama.com" class="text-[#002855] underline">ipulpanama.com</a></p>
+            </div>
+
+            <!-- 2 -->
             <h2 class="text-lg font-bold text-[#002855] mt-8">2. Datos que recopilamos</h2>
-            <p>Este sitio web recopila información de forma automática mediante cookies de análisis (Google Analytics) con su consentimiento previo:</p>
-            <ul class="list-disc pl-6 space-y-1">
-                <li>Dirección IP (anonimizada)</li>
-                <li>Tipo de navegador y dispositivo</li>
-                <li>Páginas visitadas y tiempo de permanencia</li>
-                <li>Fuente de tráfico (cómo llegó al sitio)</li>
-                <li>Ubicación geográfica aproximada (país/ciudad)</li>
-            </ul>
-            <p><strong>No recopilamos</strong> nombres, correos electrónicos, números de teléfono ni datos de identificación personal a través de este sitio.</p>
             
+            <h3 class="text-base font-bold text-gray-800 mt-4">2.1. Datos recopilados de forma automática</h3>
+            <p>Mediante cookies de análisis (Google Analytics 4), sujeto a su consentimiento previo y explícito, se recopilan:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li>Dirección IP (anonimizada mediante truncamiento del último octeto)</li>
+                <li>Tipo y versión de navegador, sistema operativo y tipo de dispositivo</li>
+                <li>Páginas visitadas, tiempo de permanencia y secuencia de navegación</li>
+                <li>Fuente de tráfico (referrer, búsqueda orgánica, acceso directo)</li>
+                <li>Ubicación geográfica aproximada (país y ciudad, no dirección exacta)</li>
+                <li>Resolución de pantalla e idioma del navegador</li>
+            </ul>
+
+            <h3 class="text-base font-bold text-gray-800 mt-4">2.2. Datos almacenados localmente (localStorage)</h3>
+            <p>Este sitio almacena datos técnicos exclusivamente en su dispositivo mediante <code class="bg-gray-100 px-1 rounded">localStorage</code> del navegador. Estos datos <strong>nunca se transmiten a servidores externos</strong>:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li><code class="bg-gray-100 px-1 rounded">ipul_cookie_consent</code> — Su preferencia de consentimiento de cookies</li>
+                <li><code class="bg-gray-100 px-1 rounded">ipul_daily_verse_es</code> / <code class="bg-gray-100 px-1 rounded">ipul_daily_verse_en</code> — Versículo del día (cache temporal)</li>
+                <li><code class="bg-gray-100 px-1 rounded">ipul_wpp_bubble_closed</code> — Si cerró la burbuja de WhatsApp (sesión)</li>
+            </ul>
+            <p>Puede eliminar estos datos en cualquier momento desde la configuración de su navegador (Configuración → Datos del sitio → ipulpanama.com → Eliminar).</p>
+
+            <h3 class="text-base font-bold text-gray-800 mt-4">2.3. Datos que NO recopilamos</h3>
+            <p>IPUL Panamá declara explícitamente que a través de este sitio web <strong>no recopila, solicita, almacena ni procesa</strong>:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li>Nombres, apellidos o datos de identificación personal</li>
+                <li>Direcciones de correo electrónico</li>
+                <li>Números de teléfono o documentos de identidad</li>
+                <li>Datos financieros, bancarios o de tarjetas de crédito</li>
+                <li>Datos biométricos (huella, rostro, voz)</li>
+                <li>Información de salud o creencias religiosas específicas del visitante</li>
+                <li>Datos de menores de edad de forma intencional</li>
+            </ul>
+
+            <!-- 3 -->
             <h2 class="text-lg font-bold text-[#002855] mt-8">3. Finalidad del tratamiento</h2>
-            <p>Los datos recopilados se utilizan exclusivamente para:</p>
+            <p>Los datos recopilados se utilizan <strong>exclusivamente</strong> para las siguientes finalidades legítimas:</p>
             <ul class="list-disc pl-6 space-y-1">
-                <li>Analizar el uso del sitio web para mejorar su contenido y experiencia</li>
-                <li>Comprender qué secciones son más visitadas</li>
-                <li>Optimizar el rendimiento técnico del sitio</li>
+                <li>Comprender patrones de uso del sitio para mejorar contenido y navegación</li>
+                <li>Identificar secciones de mayor interés para los visitantes</li>
+                <li>Optimizar el rendimiento técnico y la velocidad de carga</li>
+                <li>Detectar y prevenir problemas técnicos o errores</li>
+                <li>Generar informes estadísticos agregados (nunca individuales)</li>
             </ul>
-            
-            <h2 class="text-lg font-bold text-[#002855] mt-8">4. Base legal</h2>
-            <p>El tratamiento de datos se basa en su <strong>consentimiento explícito</strong>, otorgado mediante la aceptación del banner de cookies al visitar el sitio. Puede retirar su consentimiento en cualquier momento eliminando las cookies de su navegador.</p>
-            
-            <h2 class="text-lg font-bold text-[#002855] mt-8">5. Cookies utilizadas</h2>
+            <p>Los datos <strong>nunca</strong> se utilizan para:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li>Publicidad personalizada o perfilamiento comercial</li>
+                <li>Venta, alquiler o cesión a terceros con fines comerciales</li>
+                <li>Toma de decisiones automatizadas que afecten al usuario</li>
+                <li>Contactar al usuario sin su consentimiento previo</li>
+            </ul>
+
+            <!-- 4 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">4. Base legal del tratamiento</h2>
+            <p>El tratamiento de datos se fundamenta en:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li><strong>Consentimiento explícito</strong> (Art. 7, Ley 81 de 2019): otorgado mediante la aceptación activa del banner de cookies. No se cargan cookies de análisis hasta que el usuario acepte explícitamente.</li>
+                <li><strong>Interés legítimo</strong>: para el funcionamiento técnico del sitio (almacenamiento local de preferencias, cache de contenido).</li>
+            </ul>
+            <p>El consentimiento puede ser retirado en cualquier momento mediante:</p>
+            <ol class="list-decimal pl-6 space-y-1">
+                <li>Eliminación de cookies del navegador (detiene Google Analytics inmediatamente)</li>
+                <li>Uso de la configuración "No rastrear" (Do Not Track) del navegador</li>
+                <li>Solicitud directa a <a href="mailto:info@ipulpanama.org" class="text-[#002855] underline">info@ipulpanama.org</a></li>
+            </ol>
+
+            <!-- 5 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">5. Cookies y tecnologías de seguimiento</h2>
             <table class="w-full text-sm border border-gray-200 mt-2">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-3 py-2 text-left border-b">Cookie</th>
+                        <th class="px-3 py-2 text-left border-b">Cookie/Storage</th>
                         <th class="px-3 py-2 text-left border-b">Proveedor</th>
                         <th class="px-3 py-2 text-left border-b">Finalidad</th>
+                        <th class="px-3 py-2 text-left border-b">Tipo</th>
                         <th class="px-3 py-2 text-left border-b">Duración</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="px-3 py-2 border-b font-mono">_ga</td>
-                        <td class="px-3 py-2 border-b">Google</td>
-                        <td class="px-3 py-2 border-b">Distinguir usuarios</td>
+                        <td class="px-3 py-2 border-b font-mono text-xs">_ga</td>
+                        <td class="px-3 py-2 border-b">Google LLC</td>
+                        <td class="px-3 py-2 border-b">Distinguir usuarios únicos</td>
+                        <td class="px-3 py-2 border-b">Analítica</td>
                         <td class="px-3 py-2 border-b">2 años</td>
                     </tr>
                     <tr>
-                        <td class="px-3 py-2 border-b font-mono">_ga_*</td>
-                        <td class="px-3 py-2 border-b">Google</td>
-                        <td class="px-3 py-2 border-b">Mantener estado de sesión</td>
+                        <td class="px-3 py-2 border-b font-mono text-xs">_ga_KQ2REW1G3Y</td>
+                        <td class="px-3 py-2 border-b">Google LLC</td>
+                        <td class="px-3 py-2 border-b">Mantener estado de sesión GA4</td>
+                        <td class="px-3 py-2 border-b">Analítica</td>
                         <td class="px-3 py-2 border-b">2 años</td>
                     </tr>
                     <tr>
-                        <td class="px-3 py-2 font-mono">ipul_cookie_consent</td>
+                        <td class="px-3 py-2 border-b font-mono text-xs">ipul_cookie_consent</td>
+                        <td class="px-3 py-2 border-b">IPUL Panamá</td>
+                        <td class="px-3 py-2 border-b">Recordar preferencia de cookies</td>
+                        <td class="px-3 py-2 border-b">Necesaria</td>
+                        <td class="px-3 py-2 border-b">1 año</td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-2 font-mono text-xs">localStorage (varios)</td>
                         <td class="px-3 py-2">IPUL Panamá</td>
-                        <td class="px-3 py-2">Recordar su preferencia de cookies</td>
-                        <td class="px-3 py-2">1 año</td>
+                        <td class="px-3 py-2">Cache local de contenido y preferencias UI</td>
+                        <td class="px-3 py-2">Funcional</td>
+                        <td class="px-3 py-2">Persistente (local)</td>
                     </tr>
                 </tbody>
             </table>
+            <p class="mt-3"><strong>Nota:</strong> Las cookies de Google Analytics solo se activan <em>después</em> de que el usuario haga clic en "Aceptar cookies". Si el usuario rechaza o ignora el banner, no se carga ningún script de terceros.</p>
+
+            <!-- 6 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">6. Servicios de terceros y transferencias internacionales</h2>
+            <p>Este sitio utiliza los siguientes servicios de terceros:</p>
             
-            <h2 class="text-lg font-bold text-[#002855] mt-8">6. Terceros con acceso a los datos</h2>
-            <p>Los datos de análisis son procesados por <strong>Google LLC</strong> bajo sus propias políticas de privacidad. Google puede almacenar esta información en servidores fuera de Panamá. Consulte la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-[#002855] underline">política de privacidad de Google</a>.</p>
-            
-            <h2 class="text-lg font-bold text-[#002855] mt-8">7. Sus derechos</h2>
-            <p>De acuerdo con la Ley 81 de 2019 de Protección de Datos Personales de Panamá, usted tiene derecho a:</p>
-            <ul class="list-disc pl-6 space-y-1">
-                <li><strong>Acceso</strong>: conocer qué datos tenemos sobre usted</li>
-                <li><strong>Rectificación</strong>: corregir datos inexactos</li>
-                <li><strong>Eliminación</strong>: solicitar la eliminación de sus datos</li>
-                <li><strong>Oposición</strong>: oponerse al tratamiento de sus datos</li>
-                <li><strong>Revocación</strong>: retirar su consentimiento en cualquier momento</li>
+            <div class="space-y-4 mt-3">
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <p class="font-bold text-gray-800">Google Analytics 4 (Google LLC)</p>
+                    <p>Servicio de análisis web. Los datos se procesan en servidores de Google que pueden estar ubicados en Estados Unidos u otros países. Google actúa como encargado del tratamiento bajo sus términos de procesamiento de datos.</p>
+                    <p class="text-xs mt-1">Política: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-[#002855] underline">policies.google.com/privacy</a></p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <p class="font-bold text-gray-800">Google Fonts (Google LLC)</p>
+                    <p>Servicio de tipografías web. Al cargar la página, su navegador establece conexión con servidores de Google para descargar las fuentes Inter y Montserrat. Google puede registrar la dirección IP del visitante.</p>
+                    <p class="text-xs mt-1">Política: <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener" class="text-[#002855] underline">developers.google.com/fonts/faq/privacy</a></p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <p class="font-bold text-gray-800">YouTube (Google LLC)</p>
+                    <p>Videos incrustados en páginas de ministerios. Los iframes de YouTube pueden establecer cookies propias al reproducir un video. Utilizamos el atributo <code class="bg-gray-100 px-1 rounded">loading="lazy"</code> para que el iframe no cargue hasta que sea visible.</p>
+                    <p class="text-xs mt-1">Política: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-[#002855] underline">policies.google.com/privacy</a></p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <p class="font-bold text-gray-800">bible-api.com</p>
+                    <p>API de versículos bíblicos utilizada en la sección "Versículo del Día" (solo versión en inglés). Se realiza una solicitud HTTP GET diaria sin transmitir datos personales del usuario. La respuesta se cachea localmente.</p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <p class="font-bold text-gray-800">WhatsApp (Meta Platforms, Inc.)</p>
+                    <p>El botón de WhatsApp redirige al usuario a <code class="bg-gray-100 px-1 rounded">wa.me</code> con un mensaje pre-llenado. No se comparten datos con Meta hasta que el usuario hace clic voluntariamente y abre WhatsApp. La decisión de contactarnos es libre y voluntaria.</p>
+                    <p class="text-xs mt-1">Política: <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener" class="text-[#002855] underline">whatsapp.com/legal/privacy-policy</a></p>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <p class="font-bold text-gray-800">OpenStreetMap / CartoDB (vía Leaflet)</p>
+                    <p>El mapa interactivo carga tiles desde servidores de CartoDB (CARTO). Pueden registrar la dirección IP. No se comparten datos personales más allá de la conexión HTTP necesaria para cargar los tiles del mapa.</p>
+                    <p class="text-xs mt-1">Política: <a href="https://carto.com/privacy" target="_blank" rel="noopener" class="text-[#002855] underline">carto.com/privacy</a></p>
+                </div>
+            </div>
+
+            <p class="mt-4"><strong>Transferencias internacionales:</strong> Al utilizar servicios de Google LLC y Meta Platforms Inc., sus datos pueden ser transferidos a servidores ubicados en Estados Unidos. Estas empresas cumplen con marcos de protección de datos reconocidos internacionalmente (EU-US Data Privacy Framework). IPUL Panamá no realiza transferencias internacionales de datos de forma directa.</p>
+
+            <!-- 7 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">7. Derechos del titular de los datos</h2>
+            <p>De conformidad con la <strong>Ley 81 de 26 de marzo de 2019</strong> sobre Protección de Datos Personales de la República de Panamá y su reglamentación, usted tiene los siguientes derechos:</p>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><strong>Derecho de Acceso</strong>: Solicitar confirmación de si sus datos están siendo tratados y obtener copia de los mismos.</li>
+                <li><strong>Derecho de Rectificación</strong>: Solicitar la corrección de datos inexactos o incompletos.</li>
+                <li><strong>Derecho de Cancelación/Eliminación</strong>: Solicitar la supresión de sus datos cuando ya no sean necesarios para la finalidad que fueron recogidos.</li>
+                <li><strong>Derecho de Oposición</strong>: Oponerse al tratamiento de sus datos por motivos legítimos.</li>
+                <li><strong>Derecho de Portabilidad</strong>: Recibir sus datos en un formato estructurado y de uso común.</li>
+                <li><strong>Derecho a la Limitación del Tratamiento</strong>: Solicitar que se restrinja el tratamiento en determinadas circunstancias.</li>
+                <li><strong>Derecho de Revocación</strong>: Retirar su consentimiento en cualquier momento sin que ello afecte la licitud del tratamiento previo.</li>
             </ul>
-            <p>Para ejercer estos derechos, escriba a: <strong>info@ipulpanama.org</strong></p>
-            
-            <h2 class="text-lg font-bold text-[#002855] mt-8">8. Seguridad</h2>
-            <p>Este sitio web se transmite de forma segura mediante HTTPS (certificado SSL). No almacenamos datos personales en servidores propios.</p>
-            
-            <h2 class="text-lg font-bold text-[#002855] mt-8">9. Cambios a esta política</h2>
-            <p>Nos reservamos el derecho de actualizar esta política. La fecha de última actualización se indica al inicio del documento. Le recomendamos revisarla periódicamente.</p>
-            
-            <h2 class="text-lg font-bold text-[#002855] mt-8">10. Contacto</h2>
-            <p>Para consultas sobre esta política:<br>
-            <strong>Iglesia Pentecostal Unida Latinoamericana - Panamá</strong><br>
-            Correo: info@ipulpanama.org<br>
-            Sitio web: ipulpanama.com</p>
+            <p>Para ejercer cualquiera de estos derechos, envíe una solicitud a <a href="mailto:info@ipulpanama.org" class="text-[#002855] underline font-bold">info@ipulpanama.org</a> indicando:</p>
+            <ol class="list-decimal pl-6 space-y-1">
+                <li>Su nombre completo e identificación</li>
+                <li>El derecho que desea ejercer</li>
+                <li>Descripción clara de su solicitud</li>
+                <li>Dirección de correo electrónico para respuesta</li>
+            </ol>
+            <p>IPUL Panamá responderá dentro de los <strong>quince (15) días hábiles</strong> siguientes a la recepción de la solicitud, conforme lo establece la Ley.</p>
+
+            <!-- 8 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">8. Protección de menores</h2>
+            <p>Este sitio web no está dirigido a menores de 14 años y no recopila intencionalmente información de menores. Si usted es padre, madre o tutor legal y cree que un menor ha proporcionado datos personales a través de algún canal vinculado a este sitio, contáctenos a <a href="mailto:info@ipulpanama.org" class="text-[#002855] underline">info@ipulpanama.org</a> para proceder a la eliminación inmediata.</p>
+            <p>Los menores de 14 años deben contar con el consentimiento de su padre, madre o tutor legal para navegar en internet. IPUL Panamá no se hace responsable de la navegación de menores sin supervisión parental.</p>
+
+            <!-- 9 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">9. Seguridad de los datos</h2>
+            <p>IPUL Panamá implementa las siguientes medidas de seguridad:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li><strong>Cifrado en tránsito:</strong> Todas las comunicaciones se realizan mediante protocolo HTTPS con certificado SSL/TLS válido.</li>
+                <li><strong>Anonimización:</strong> Las direcciones IP se anonimizan antes de su procesamiento en Google Analytics.</li>
+                <li><strong>Minimización de datos:</strong> Solo se recopilan los datos estrictamente necesarios para las finalidades declaradas.</li>
+                <li><strong>Sin almacenamiento propio:</strong> No mantenemos bases de datos de usuarios ni servidores que almacenen datos personales.</li>
+                <li><strong>Código abierto:</strong> El código fuente de este sitio es público y auditable en GitHub.</li>
+                <li><strong>Sin formularios:</strong> Este sitio no contiene formularios de contacto, registro ni suscripción que recopilen datos directamente.</li>
+            </ul>
+            <p>A pesar de estas medidas, ningún sistema es infalible. IPUL Panamá no puede garantizar la seguridad absoluta de la información transmitida por internet.</p>
+
+            <!-- 10 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">10. Enlaces a sitios de terceros</h2>
+            <p>Este sitio contiene enlaces a plataformas externas (YouTube, Facebook, Instagram, WhatsApp, Google Maps, Waze). Al hacer clic en estos enlaces, usted abandona ipulpanama.com y queda sujeto a las políticas de privacidad del sitio destino.</p>
+            <p>IPUL Panamá <strong>no se responsabiliza</strong> por:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li>Las prácticas de privacidad de sitios web de terceros</li>
+                <li>El contenido publicado en plataformas externas</li>
+                <li>La seguridad de la información que usted comparta en esos sitios</li>
+                <li>Cambios en las políticas de terceros sin previo aviso</li>
+            </ul>
+            <p>Le recomendamos revisar la política de privacidad de cada sitio externo antes de proporcionar información personal.</p>
+
+            <!-- 11 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">11. Limitación de responsabilidad</h2>
+            <p>IPUL Panamá proporciona este sitio web "tal como está" (<em>as is</em>) y "según disponibilidad" (<em>as available</em>). En la máxima medida permitida por la ley aplicable:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li>No garantizamos que el sitio estará disponible de forma ininterrumpida o libre de errores.</li>
+                <li>No seremos responsables por daños directos, indirectos, incidentales, especiales o consecuentes derivados del uso o imposibilidad de uso del sitio.</li>
+                <li>La información publicada tiene carácter informativo y espiritual; no constituye asesoramiento profesional de ningún tipo.</li>
+                <li>No nos hacemos responsables por la pérdida de datos resultante del uso del sitio o sus servicios.</li>
+                <li>El uso de la función de geolocalización (para ubicar la iglesia más cercana) es voluntario y la precisión depende de su dispositivo y proveedor de servicios.</li>
+            </ul>
+
+            <!-- 12 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">12. Propiedad intelectual</h2>
+            <p>Los textos bíblicos citados pertenecen a sus respectivos titulares (Sociedades Bíblicas Unidas para RVR1960, editores de TLA y KJV que son de dominio público). El logo, nombre "IPUL Panamá" y diseño del sitio son propiedad de la Iglesia Pentecostal Unida Latinoamericana en Panamá. Las fotografías utilizadas son propiedad de IPUL Panamá o se utilizan bajo licencias de uso libre (Unsplash).</p>
+            <p>Queda prohibida la reproducción, distribución o modificación del contenido de este sitio con fines comerciales sin autorización expresa por escrito.</p>
+
+            <!-- 13 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">13. Legislación aplicable y jurisdicción</h2>
+            <p>Esta política se rige por las leyes de la República de Panamá, en particular:</p>
+            <ul class="list-disc pl-6 space-y-1">
+                <li><strong>Ley 81 de 26 de marzo de 2019</strong> — Protección de Datos Personales</li>
+                <li><strong>Decreto Ejecutivo No. 285 de 28 de mayo de 2021</strong> — Reglamentación de la Ley 81</li>
+                <li><strong>Constitución Política de la República de Panamá</strong> — Art. 42 (derecho a la intimidad)</li>
+            </ul>
+            <p>Para cualquier controversia derivada del uso de este sitio o de esta política, las partes se someten a la jurisdicción de los tribunales ordinarios del Primer Circuito Judicial de Panamá, renunciando expresamente a cualquier otro fuero que pudiera corresponderles.</p>
+
+            <!-- 14 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">14. Modificaciones a esta política</h2>
+            <p>IPUL Panamá se reserva el derecho de modificar esta política en cualquier momento. Las modificaciones entrarán en vigor a partir de su publicación en esta página con la fecha de actualización correspondiente.</p>
+            <p>En caso de cambios sustanciales que afecten el tratamiento de datos personales, se notificará a los usuarios mediante un aviso visible en el sitio web durante un período razonable.</p>
+            <p>El uso continuado del sitio después de la publicación de modificaciones constituye la aceptación de los nuevos términos.</p>
+
+            <!-- 15 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">15. Autoridad de protección de datos</h2>
+            <p>Si considera que el tratamiento de sus datos personales vulnera la normativa vigente, tiene derecho a presentar una reclamación ante la <strong>Autoridad Nacional de Transparencia y Acceso a la Información (ANTAI)</strong> de la República de Panamá.</p>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 mt-2">
+                <p><strong>ANTAI</strong><br>
+                Sitio web: <a href="https://www.antai.gob.pa" target="_blank" rel="noopener" class="text-[#002855] underline">www.antai.gob.pa</a><br>
+                Dirección: Edificio OGAWA, Av. de los Mártires, Ciudad de Panamá</p>
+            </div>
+
+            <!-- 16 -->
+            <h2 class="text-lg font-bold text-[#002855] mt-8">16. Contacto</h2>
+            <p>Para consultas, solicitudes o reclamaciones relacionadas con esta política de privacidad:</p>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <p><strong>Iglesia Pentecostal Unida Latinoamericana — Panamá</strong><br>
+                Correo electrónico: <a href="mailto:info@ipulpanama.org" class="text-[#002855] underline">info@ipulpanama.org</a><br>
+                WhatsApp: <a href="https://wa.me/50767967816" class="text-[#002855] underline">+507 6796-7816</a><br>
+                Sitio web: <a href="https://ipulpanama.com" class="text-[#002855] underline">ipulpanama.com</a><br>
+                Tiempo de respuesta: máximo 15 días hábiles</p>
+            </div>
+
+            <!-- Separator -->
+            <div class="border-t border-gray-200 mt-10 pt-6">
+                <p class="text-xs text-gray-400 text-center">Este documento fue elaborado conforme a la Ley 81 de 2019 de la República de Panamá sobre Protección de Datos Personales y las mejores prácticas internacionales de privacidad digital. Versión 2.0.</p>
+            </div>
+
         </div>
     </div>
 <script src="vendor/whatsapp-button.js"></script>
