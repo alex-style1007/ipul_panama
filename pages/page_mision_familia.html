@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002855">
+    <link rel="manifest" href="/manifest.json">
     <title>Misión Familia | IPUL Panamá</title>
     <link rel="icon" type="image/png" href="../src/ipul_logo-removebg-preview.png">
     <meta name="description" content="Misión Familia de la IPUL Panamá. Fortaleciendo hogares con principios bíblicos.">
@@ -26,7 +28,6 @@
     <meta name="twitter:description" content="Misión Familia de la IPUL Panamá. Fortaleciendo hogares con principios bíblicos.">
 
     <!-- Preconnect hints -->
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
@@ -37,42 +38,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="../vendor/phosphor/phosphor-icons.js"></script>
 
     
-    <style>
-        body { color: #1e293b; }
-        
-        /* Accessibility: Focus ring for keyboard users */
-        a:focus-visible, button:focus-visible {
-            outline: 2px solid #FFC72C;
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-        
-        /* Accessibility: Respect reduced motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-        
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
-        .flag-icon:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-        .hero-mini-gradient {
-            background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%), url('https://images.unsplash.com/photo-1523580494112-071d1694d6e9?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../vendor/shared.css">
 </head>
 <body class="bg-white font-sans antialiased overflow-x-hidden selection:bg-ipul-gold selection:text-ipul-blue">
     <!-- Panama Red Top Bar -->
@@ -83,13 +52,13 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <!-- Logo Area -->
             <a href="../index.html" class="flex items-center gap-3 group">
-                <img src="../src/ipul_logo-removebg-preview.png" alt="Logo IPUL" class="h-12 w-auto object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-300" width="48" height="48" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'">
+                <img src="../src/ipul_logo-removebg-preview.png" alt="Logo IPUL" class="h-12 w-auto object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-300" width="48" height="48">
                 
                 <div class="flex flex-col justify-center">
                     <span class="font-heading font-extrabold text-xl text-ipul-blue leading-none tracking-tight">IPUL</span>
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase">PANAMÁ</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Bandera de Panamá" class="h-3 w-auto shadow-sm flag-icon transition-transform duration-300" width="20" height="12">
+                        <img src="../src/flag-panama.svg" alt="Bandera de Panamá" class="h-3 w-auto shadow-sm flag-icon transition-transform duration-300" width="20" height="12">
                     </div>
                 </div>
             </a>
@@ -387,7 +356,7 @@
                     Llevando el evangelio a cada rincón del istmo. Una iglesia comprometida con Dios y con nuestra nación.
                 </p>
                 <div class="flex items-center gap-2 text-sm font-semibold text-ipul-gold">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Panama" class="h-4 rounded-sm" loading="lazy" width="24" height="16">
+                    <img src="../src/flag-panama.svg" alt="Panama" class="h-4 rounded-sm" loading="lazy" width="24" height="16">
                     "Puente del mundo, corazón del universo"
                 </div>
             </div>

@@ -1,0 +1,35 @@
+/* IPUL Panamá — Shared Styles */
+body { color: #1e293b; }
+
+/* Accessibility: Focus ring for keyboard users */
+a:focus-visible, button:focus-visible {
+    outline: 2px solid #FFC72C;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.flag-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.hero-mini-gradient {
+    background: linear-gradient(135deg, rgba(0, 40, 85, 0.95) 0%, rgba(0, 31, 63, 0.85) 100%),
+                url('https://images.unsplash.com/photo-1523580494112-071d1694d6e9?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+}

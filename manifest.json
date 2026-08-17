@@ -1,0 +1,30 @@
+{
+  "name": "IPUL Panamá",
+  "short_name": "IPUL",
+  "description": "Iglesia Pentecostal Unida Latinoamericana — Panamá",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#002855",
+  "icons": [
+    {
+      "src": "/src/ipul_logo.png",
+      "sizes": "640x640",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/ipul_logo.webp",
+      "sizes": "640x640",
+      "type": "image/webp"
+    },
+    {
+      "src": "/src/ipul_logo-removebg-preview.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "lang": "es",
+  "dir": "ltr",
+  "categories": ["religion", "community"]
+}
