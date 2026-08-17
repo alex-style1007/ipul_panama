@@ -101,11 +101,16 @@
     }
 
     function loadFromAPI() {
+        // API only supports English translations (KJV/WEB)
+        // For Spanish, go directly to local fallback
+        if (!isEnglish) {
+            return Promise.reject(new Error('Spanish not supported by API'));
+        }
+
         return new Promise(function(resolve, reject) {
             var dayIdx = getDayIndex();
             var ref = SAFE_REFS[dayIdx % SAFE_REFS.length];
-            var translation = isEnglish ? 'kjv' : 'reina-valera-1960';
-            var url = API_URL + encodeURIComponent(ref) + '?translation=' + translation;
+            var url = API_URL + encodeURIComponent(ref) + '?translation=kjv';
 
             var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
             var timeoutId = setTimeout(function() {
@@ -134,7 +139,7 @@
                     resolve({
                         text: data.text.replace(/\n/g, ' ').trim(),
                         ref: data.reference,
-                        ver: isEnglish ? 'KJV' : 'RVR1960'
+                        ver: 'KJV'
                     });
                 })
                 .catch(function(err) {
