@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002855">
+    <link rel="manifest" href="/manifest.json">
     
     <!-- SEO: Title optimizado con keywords principales -->
     <title>Iglesia Cristiana en Panamá | IPUL - Pentecostal Unida Latinoamericana</title>
@@ -214,7 +216,6 @@
     <link rel="apple-touch-icon" href="src/ipul_logo.png">
     
     <!-- Preconnect hints -->
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
@@ -222,13 +223,13 @@
     <link rel="stylesheet" href="vendor/tailwind.min.css">
     
     <!-- Leaflet CSS (Para el mapa) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="vendor/leaflet.css">
     
     <!-- Google Fonts (only weights used) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="vendor/phosphor/phosphor-icons.js"></script>
 
     
     <style>
@@ -363,7 +364,7 @@
                     <span class="font-heading font-extrabold text-xl text-ipul-blue leading-none tracking-tight">IPUL</span>
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase">PANAMÁ</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Bandera de Panamá" class="h-3 w-auto shadow-sm flag-icon transition-transform duration-300" width="20" height="12">
+                        <img src="src/flag-panama.svg" alt="Bandera de Panamá" class="h-3 w-auto shadow-sm flag-icon transition-transform duration-300" width="20" height="12">
                     </div>
                 </div>
             </a>
@@ -1229,7 +1230,7 @@
                     Llevando el evangelio a cada rincón del istmo. Una iglesia comprometida con Dios y con nuestra nación.
                 </p>
                 <div class="flex items-center gap-2 text-sm font-semibold text-ipul-gold">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg" alt="Panama" class="h-4 rounded-sm" loading="lazy" width="24" height="16">
+                    <img src="src/flag-panama.svg" alt="Panama" class="h-4 rounded-sm" loading="lazy" width="24" height="16">
                     "Puente del mundo, corazón del universo"
                 </div>
             </div>
@@ -1273,7 +1274,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="vendor/leaflet.js"></script>
 
     <script>
         // Declaraciones Globales
