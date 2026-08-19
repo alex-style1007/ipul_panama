@@ -16,8 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="../../vendor/phosphor/phosphor-icons.js"></script>
     <!-- Pagefind Search -->
-    <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
-    <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-ui.js"></script>
 </head>
 <body class="bg-white font-sans antialiased text-gray-700">
     <div class="fixed top-0 left-0 w-full h-1 z-[60]" style="background:linear-gradient(90deg,#DA121A 0%,#ef4444 50%,#DA121A 100%)"></div>
@@ -39,9 +39,12 @@
 
 
             <!-- Search -->
-            <div class="mb-10">
-                <pagefind-search placeholder="Search articles..." class="block w-full"></pagefind-search>
-            </div>
+            <div id="search" class="mb-10"></div>
+            <script>
+                window.addEventListener('DOMContentLoaded', function() {
+                    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, placeholder: "Search articles..." });
+                });
+            </script>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <a href="christian-churches-panama.html" class="block p-6 bg-slate-50 rounded-2xl border border-gray-100 hover:border-ipul-gold hover:shadow-lg transition group">
