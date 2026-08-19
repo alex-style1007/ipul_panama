@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="../vendor/shared.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="../vendor/phosphor/phosphor-icons.js"></script>
+    <!-- Pagefind Search -->
+    <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 </head>
 <body class="bg-white font-sans antialiased text-gray-700">
     <div class="fixed top-0 left-0 w-full h-1 z-[60]" style="background:linear-gradient(90deg,#DA121A 0%,#ef4444 50%,#DA121A 100%)"></div>
@@ -33,6 +36,12 @@
             <h1 class="font-heading text-4xl md:text-5xl font-bold text-ipul-blue mb-4">Blog</h1>
             <p class="text-lg text-gray-500 mb-12">Artículos sobre fe cristiana, doctrina apostólica y la iglesia pentecostal.</p>
             <div class="w-16 h-1 rounded-full mb-12" style="background:linear-gradient(90deg,#DA121A,#FFC72C)"></div>
+
+
+            <!-- Search -->
+            <div class="mb-10">
+                <pagefind-search placeholder="Buscar artículos..." class="block w-full"></pagefind-search>
+            </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <a href="iglesias-cristianas-panama.html" class="block p-6 bg-slate-50 rounded-2xl border border-gray-100 hover:border-ipul-gold hover:shadow-lg transition group">
