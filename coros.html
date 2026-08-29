@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002855">
+    <link rel="manifest" href="/manifest.json">
+    <title>Coros Pentecostales | IPUL Panamá</title>
+    <meta name="description" content="Biblioteca de coros de IPUL Panamá: adoración, alabanza, unicidad de Dios, Espíritu Santo, bautismo en el nombre de Jesús y más.">
+    <link rel="canonical" href="https://ipulpanama.com/coros.html">
+    <link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/coros.html">
+    <link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/choruses.html">
+    <link rel="icon" type="image/png" href="src/ipul_logo-removebg-preview.png">
+    <link rel="apple-touch-icon" href="src/ipul_logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Coros Pentecostales | IPUL Panamá">
+    <meta property="og:description" content="Encuentra coros de adoración, alabanza y enseñanza bíblica en la biblioteca de IPUL Panamá.">
+    <meta property="og:url" content="https://ipulpanama.com/coros.html">
+    <meta property="og:image" content="https://ipulpanama.com/src/ipul_logo.png">
+    <meta property="og:site_name" content="IPUL Panamá">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Coros Pentecostales | IPUL Panamá">
+    <meta name="twitter:description" content="Biblioteca de coros para adorar, aprender y compartir la fe apostólica.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Coros Pentecostales - IPUL Panamá",
+        "description": "Biblioteca bilingüe de coros de adoración, alabanza y enseñanza bíblica.",
+        "url": "https://ipulpanama.com/coros.html",
+        "isPartOf": {"@type": "WebSite", "name": "IPUL Panamá", "url": "https://ipulpanama.com"}
+    }
+    </script>
+    <link rel="stylesheet" href="vendor/tailwind.min.css">
+    <link rel="stylesheet" href="vendor/shared.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="vendor/phosphor/phosphor-icons.js"></script>
+</head>
+<body class="bg-slate-50 font-sans antialiased text-slate-700">
+    <div class="fixed top-0 left-0 w-full h-1 z-[60]" style="background:linear-gradient(90deg,#DA121A 0%,#ef4444 50%,#DA121A 100%)"></div>
+    <header class="bg-ipul-blue text-white pt-20 pb-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(#FFC72C 1px,transparent 1px);background-size:24px 24px"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <nav class="flex justify-between items-center mb-12">
+                <a href="/" class="inline-flex items-center gap-2 text-sm text-blue-200 hover:text-white transition"><i class="ph-bold ph-arrow-left"></i> Volver al inicio</a>
+                <a href="en/choruses.html" class="inline-flex items-center gap-1.5 text-sm font-bold text-blue-100 hover:text-white border border-blue-300/40 px-3 py-1.5 rounded-full transition"><i class="ph-bold ph-translate"></i> EN</a>
+            </nav>
+            <div class="max-w-3xl">
+                <p class="text-ipul-gold font-bold tracking-[0.2em] uppercase text-xs mb-4">Música Nacional</p>
+                <h1 class="font-heading text-4xl md:text-6xl font-extrabold">Biblioteca de Coros</h1>
+                <p class="text-blue-100 text-lg mt-5 max-w-2xl">Coros para adorar a Jesucristo, afirmar la fe apostólica y servir a la iglesia. Busca por palabra, autor, tema o referencia bíblica.</p>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-14">
+        <section aria-labelledby="search-title">
+            <h2 id="search-title" class="sr-only">Buscar y filtrar coros</h2>
+            <label for="chorus-search" class="sr-only">Buscar coros</label>
+            <div class="relative max-w-3xl">
+                <i class="ph-bold ph-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-ipul-blue text-xl" aria-hidden="true"></i>
+                <input id="chorus-search" type="search" autocomplete="off" placeholder="Buscar por título, autor, tema o texto..." class="w-full rounded-2xl border border-slate-200 bg-white py-5 pl-14 pr-5 text-lg shadow-sm focus:border-ipul-blue focus:ring-2 focus:ring-ipul-gold outline-none">
+            </div>
+            <div id="chorus-categories" class="flex flex-wrap gap-2 mt-6" aria-label="Filtrar por categoría">
+                <button type="button" data-category="Todos" aria-pressed="true" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-ipul-blue text-white border-ipul-blue">Todos</button>
+                <button type="button" data-category="Adoración" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Adoración</button>
+                <button type="button" data-category="Alabanza" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Alabanza</button>
+                <button type="button" data-category="Unicidad" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Unicidad</button>
+                <button type="button" data-category="Espíritu Santo" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Espíritu Santo</button>
+                <button type="button" data-category="Salvación" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Salvación</button>
+                <button type="button" data-category="Bautismo" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Bautismo</button>
+                <button type="button" data-category="Consagración" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Consagración</button>
+                <button type="button" data-category="Victoria" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Victoria</button>
+                <button type="button" data-category="Misión" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Misión</button>
+                <button type="button" data-category="Esperanza" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Esperanza</button>
+            </div>
+            <p id="chorus-result-count" class="mt-7 text-sm font-semibold text-slate-500" aria-live="polite"></p>
+        </section>
+        <section class="mt-8" aria-label="Lista de coros">
+            <div id="chorus-list" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+            <div id="chorus-empty-state" class="hidden text-center bg-white border border-slate-200 rounded-2xl p-12 mt-6">
+                <i class="ph-duotone ph-music-notes text-5xl text-ipul-gold"></i>
+                <h2 class="font-heading text-xl font-bold text-ipul-blue mt-4">No encontramos ese coro</h2>
+                <p class="text-slate-500 mt-2">Prueba otra palabra, autor, categoría o referencia bíblica.</p>
+            </div>
+        </section>
+        <section class="mt-16 rounded-2xl border border-amber-200 bg-amber-50 p-7" aria-labelledby="rights-title">
+            <div class="flex gap-4">
+                <i class="ph-duotone ph-copyright text-3xl text-amber-700 shrink-0" aria-hidden="true"></i>
+                <div>
+                    <h2 id="rights-title" class="font-heading text-xl font-bold text-amber-950">Derechos de autor y revisión doctrinal</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-amber-950">Las letras de esta edición inicial son borradores editoriales originales preparados para este sitio; no reproducen canciones publicadas de terceros. Cada ficha identifica su autoría editorial y su estado de derechos. IPUL Central debe aprobar su contenido doctrinal, titularidad y uso musical antes de presentarlo como repertorio oficial o distribuirlo fuera de este sitio.</p>
+                    <p class="mt-3 text-sm text-amber-950">¿Eres titular de derechos o detectaste una coincidencia? Escríbenos a <a href="mailto:info@ipulpanama.org" class="font-bold underline">info@ipulpanama.org</a> para revisarla o retirarla.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-ipul-blue text-white py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between gap-4 text-sm text-blue-200"><p>IPUL Panamá — Iglesia Pentecostal Unida Latinoamericana</p><a href="/pages/page_musica_nacional.html" class="font-bold text-ipul-gold hover:text-white">Música Nacional</a></div>
+    </footer>
+    <script src="vendor/chorus-search.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const editorialRights = "Borrador editorial original; pendiente de aprobación doctrinal y de titularidad por IPUL Central.";
+            const source = "Colección editorial IPUL Panamá, edición inicial 2026";
+            const items = [
+                ["Ante Tu Trono", "Adoración", "Apocalipsis 4:11", ["Ante tu trono venimos, Jesús,", "con manos rendidas y un solo corazón;", "toda la gloria es tuya por siempre,", "digno Cordero de nuestra adoración."]],
+                ["Santo Es Jesús", "Adoración", "Isaías 6:3", ["Santo es Jesús, santo es el Rey,", "su nombre llena cielo y tierra de poder;", "con los redimidos cantaremos hoy,", "santo, santo, santo es el Señor."]],
+                ["Gloria al Cordero", "Adoración", "Apocalipsis 5:12", ["Gloria al Cordero que venció,", "gloria a Jesús que nos salvó;", "recibe honra, fuerza y canción,", "Rey de reyes, nuestra adoración."]],
+                ["Tú Eres Digno", "Adoración", "1 Crónicas 16:29", ["Tú eres digno de toda alabanza,", "Jesús, mi roca, mi seguridad;", "con gratitud levanto mi voz,", "tu nombre reinará por la eternidad."]],
+                ["Rey de Gloria", "Adoración", "Salmos 24:8", ["Rey de gloria, entra en este lugar,", "abre nuestros labios para celebrar;", "fuerte y valiente en la batalla,", "Jesús es el Rey que nunca falla."]],
+                ["Cantad con Gozo", "Alabanza", "Salmos 100:1", ["Cantad con gozo al Salvador,", "que su misericordia no terminó;", "con palmas y júbilo alabad,", "Jesús es bueno, celebrad."]],
+                ["Con Pandero", "Alabanza", "Salmos 150:4", ["Con pandero, con danza y canción,", "levantamos al Rey del corazón;", "todo lo que respira alabara,", "a Jesucristo por la eternidad."]],
+                ["Voz de Victoria", "Alabanza", "Éxodo 15:1", ["Hay voz de victoria en el campamento,", "Jesús ha vencido, no hay desaliento;", "cantamos su triunfo con fe y amor,", "nuestro estandarte es el Señor."]],
+                ["Celebra al Señor", "Alabanza", "Filipenses 4:4", ["Celebra al Señor en todo tiempo,", "su gozo renueva nuestro aliento;", "si Él está cerca, ¿quién temerá?", "Jesús gobierna, Él reinará."]],
+                ["Toda la Tierra", "Alabanza", "Salmos 96:1", ["Toda la tierra cante a Jesús,", "su gracia nos sacó a la luz;", "naciones y pueblos proclamarán,", "su santo nombre exaltarán."]],
+                ["Jesús, Nombre Supremo", "Unicidad", "Filipenses 2:9-11", ["Jesús, nombre supremo y fiel,", "Dios manifestado, Emanuel;", "ante tu nombre se doblará", "toda rodilla y te confesará."]],
+                ["En Cristo Habita", "Unicidad", "Colosenses 2:9", ["En Cristo habita toda plenitud,", "Dios se acercó con amor y virtud;", "no hay otro nombre que pueda salvar,", "Jesús, en ti quiero confiar."]],
+                ["Uno Es Nuestro Dios", "Unicidad", "Deuteronomio 6:4", ["Uno es nuestro Dios, uno es el Señor,", "Padre revelado en Cristo Redentor;", "con fe apostólica proclamamos hoy,", "Jesús es Dios, mi esperanza y mi Rey."]],
+                ["El Padre Revelado", "Unicidad", "Juan 14:9", ["El Padre revelado vino a rescatar,", "en el rostro de Cristo le podemos mirar;", "Jesús es la imagen del Dios eternal,", "nuestra roca firme, verdad celestial."]],
+                ["Jesús Es el Señor", "Unicidad", "Hechos 2:36", ["Jesús es el Señor, cantamos con poder,", "crucificado y resucitado es Él;", "su nombre es refugio, su nombre es verdad,", "Jesús por siempre reinará."]],
+                ["Sopla Espíritu Santo", "Espíritu Santo", "Juan 3:8", ["Sopla, Espíritu Santo, en este lugar,", "aviva tu iglesia, enséñanos a amar;", "con santo poder danos dirección,", "que Cristo sea exaltado en canción."]],
+                ["Promesa del Padre", "Espíritu Santo", "Hechos 1:8", ["La promesa del Padre llegó con poder,", "para ser testigos y permanecer;", "Espíritu Santo, guía nuestro andar,", "hasta que el mundo pueda escuchar."]],
+                ["Llenos de Tu Poder", "Espíritu Santo", "Efesios 5:18", ["Llenos de tu poder queremos vivir,", "con labios de alabanza y fuerza para servir;", "renueva tu pueblo, aviva la fe,", "Espíritu Santo, obra otra vez."]],
+                ["Río de Vida", "Espíritu Santo", "Juan 7:38", ["Río de vida fluye en mi ser,", "Cristo prometió su poder;", "desde lo profundo nace adoración,", "agua que renueva mi corazón."]],
+                ["Fuego Santo", "Espíritu Santo", "Hechos 2:3-4", ["Fuego santo, enciende mi altar,", "quita el temor, enséñame a hablar;", "que cada palabra proclame a Jesús,", "la esperanza que al mundo da luz."]],
+                ["Gracia Redentora", "Salvación", "Efesios 2:8", ["Gracia redentora me alcanzó,", "cuando mi camino se perdió;", "Jesús me llamó por nombre y amor,", "ahora le sigo, mi Salvador."]],
+                ["Cristo Me Encontró", "Salvación", "Lucas 19:10", ["Cristo me encontró en mi necesidad,", "me dio perdón, me dio libertad;", "su cruz anuncia restauración,", "Jesús es la vida de mi corazón."]],
+                ["Nueva Criatura", "Salvación", "2 Corintios 5:17", ["Nueva criatura soy en Jesús,", "lo viejo pasó, camino en su luz;", "su gracia me enseña a comenzar,", "con esperanza para avanzar."]],
+                ["Ven al Salvador", "Salvación", "Mateo 11:28", ["Ven al Salvador, Él te recibirá,", "carga tus dolores y paz te dará;", "Jesús es camino, verdad y vida,", "su amor transforma toda herida."]],
+                ["Misericordia Fiel", "Salvación", "Lamentaciones 3:22-23", ["Tu misericordia fiel es, Señor,", "nueva cada día, fuente de amor;", "en tu promesa descansaré,", "porque tú nunca cambias, mi Rey."]],
+                ["En Tu Nombre", "Bautismo", "Hechos 2:38", ["En tu nombre, Jesús, quiero caminar,", "en obediencia me quiero entregar;", "sepultado contigo, al mundo diré,", "tu vida nueva viviré."]],
+                ["Sepultados con Cristo", "Bautismo", "Romanos 6:4", ["Sepultados con Cristo en el bautismo,", "levantados a un nuevo camino;", "por tu gracia nacemos para andar,", "con Jesús en santidad."]],
+                ["Aguas de Obediencia", "Bautismo", "Hechos 22:16", ["Aguas de obediencia, paso de fe,", "en el nombre de Jesús yo descenderé;", "su perdón me alcanza, su amor me da", "un nuevo comienzo y libertad."]],
+                ["La Buena Noticia", "Bautismo", "Hechos 2:38", ["La buena noticia anuncia perdón,", "arrepentimiento y transformación;", "en el nombre de Jesús hay salvación,", "vida nueva para el corazón."]],
+                ["Nuevo Nacimiento", "Bautismo", "Juan 3:5", ["Nuevo nacimiento, promesa de Dios,", "agua y Espíritu nos llevan a su voz;", "Jesús nos recibe con gracia y verdad,", "para vivir en santidad."]],
+                ["Altar Rendimos", "Consagración", "Romanos 12:1", ["Altar rendimos delante de ti,", "todo lo que somos lo entregamos aquí;", "Jesús, transforma nuestro ser,", "para tu gloria queremos vivir."]],
+                ["Corazón Disponible", "Consagración", "Isaías 6:8", ["Corazón disponible, manos para servir,", "donde tú me envíes quiero ir;", "Jesús, mi respuesta será fiel,", "cuenta conmigo, aquí estoy ante Él."]],
+                ["Camino de Santidad", "Consagración", "1 Pedro 1:15-16", ["Camino de santidad, guíame Señor,", "que mis pasos hablen de tu amor;", "apartado para tu voluntad,", "quiero reflejar tu verdad."]],
+                ["Haz Tu Obra", "Consagración", "Filipenses 1:6", ["Haz tu obra completa en mí, Jesús,", "corrige mi senda, lléname de luz;", "lo que comenzaste terminarás,", "en tus manos siempre confiaré más."]],
+                ["Te Pertenezco", "Consagración", "Gálatas 2:20", ["Te pertenezco, Cristo Jesús,", "mi vida es tuya, mi fuerza y luz;", "ya no vivo yo, vives en mí,", "que tu amor se vea aquí."]],
+                ["Más Que Vencedores", "Victoria", "Romanos 8:37", ["Más que vencedores somos en Jesús,", "su amor nos cubre, nos guía en su luz;", "ninguna batalla apagará", "la fe del pueblo que en Cristo está."]],
+                ["Roca Inconmovible", "Victoria", "Salmos 18:2", ["Roca inconmovible es mi Señor,", "cuando sopla el viento no tengo temor;", "Jesús es mi fuerza, mi protección,", "mi victoria y mi canción."]],
+                ["La Batalla Es de Dios", "Victoria", "2 Crónicas 20:15", ["La batalla es de Dios, no temeré,", "con alabanza firme avanzaré;", "Él abre caminos, Él peleará,", "su mano poderosa triunfará."]],
+                ["Luz en la Noche", "Victoria", "Juan 1:5", ["Luz en la noche, Jesús brilló,", "ninguna sombra su voz venció;", "camino seguro, esperanza y paz,", "con Él la victoria llegará."]],
+                ["Firmes en la Fe", "Victoria", "1 Corintios 16:13", ["Firmes en la fe permaneceremos,", "aun en la prueba no retrocedemos;", "Jesús es fiel, nos sostendrá,", "su iglesia en victoria caminará."]],
+                ["Ve y Anuncia", "Misión", "Marcos 16:15", ["Ve y anuncia que Jesús salvó,", "que su gracia al mundo alcanzó;", "con compasión y con verdad,", "llevemos esperanza a la ciudad."]],
+                ["Luz Para las Naciones", "Misión", "Mateo 5:14", ["Luz para las naciones, brilla Señor,", "que tu iglesia sirva con santo amor;", "en cada pueblo se escuchará", "que el nombre de Jesús salvará."]],
+                ["Manos de Servicio", "Misión", "Gálatas 5:13", ["Manos de servicio, pies para ir,", "ojos que miran a quien ha de sufrir;", "Jesús nos llama a compartir", "pan, esperanza y porvenir."]],
+                ["Semilla de Fe", "Misión", "Marcos 4:14", ["Semilla de fe vamos a sembrar,", "con paciencia y amor al caminar;", "Dios da el crecimiento y hará florecer", "vidas que a Cristo quieren volver."]],
+                ["Un Solo Cuerpo", "Misión", "1 Corintios 12:12", ["Un solo cuerpo, un solo Señor,", "muchos servicios, un mismo amor;", "juntos servimos con unidad,", "para anunciar su verdad."]],
+                ["Cristo Volverá", "Esperanza", "Hechos 1:11", ["Cristo volverá, la iglesia espera,", "con lámparas listas y fe sincera;", "hasta aquel día proclamaremos", "que Jesús reina y le serviremos."]],
+                ["Esperanza Viva", "Esperanza", "1 Pedro 1:3", ["Esperanza viva tenemos en Dios,", "por Jesucristo que resucitó;", "si el mundo cambia, Él fiel será,", "su promesa nos sostendrá."]],
+                ["Ciudad Eterna", "Esperanza", "Apocalipsis 21:2-4", ["Ciudad eterna, hogar de paz,", "allí con Cristo no habrá más llanto jamás;", "mientras esperamos con fidelidad,", "su reino anunciamos con humildad."]],
+                ["Mantén la Lámpara", "Esperanza", "Mateo 25:13", ["Mantén la lámpara encendida hoy,", "vive despierto, Jesús es Señor;", "con aceite de fe y oración,", "esperamos su restauración."]],
+                ["Hasta Ver Tu Rostro", "Esperanza", "1 Juan 3:2", ["Hasta ver tu rostro, Cristo Jesús,", "caminaré confiado en tu luz;", "mi esperanza no se moverá,", "porque tu regreso llegará."]]
+            ].map(([title, category, reference, lyrics]) => ({ title, category, reference, lyrics, author: "Colección editorial IPUL Panamá", rights: editorialRights, sourceLabel: source }));
+            new ChorusLibrary({ items, containerId: "chorus-list", resultCountId: "chorus-result-count", emptyStateId: "chorus-empty-state", searchInputId: "chorus-search", categoryContainerId: "chorus-categories", allCategory: "Todos", authorLabel: "Autor", lyricsLabel: "Ver letra", rightsLabel: "Derechos", sourceLabel: "Fuente", resultMessage: (count) => `${count} ${count === 1 ? "coro encontrado" : "coros encontrados"}` }).initialize();
+        });
+    </script>
+    <script src="vendor/cookie-consent.js"></script>
+    <script src="vendor/whatsapp-button.js"></script>
+    <script src="vendor/tab-message.js"></script>
+</body>
+</html>
