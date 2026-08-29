@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002855">
+    <link rel="manifest" href="/manifest.json">
+    <title>Pentecostal Choruses | IPUL Panama</title>
+    <meta name="description" content="IPUL Panama's chorus library: worship, praise, the oneness of God, the Holy Spirit, baptism in Jesus' name, and more.">
+    <link rel="canonical" href="https://ipulpanama.com/en/choruses.html">
+    <link rel="alternate" hreflang="es-PA" href="https://ipulpanama.com/coros.html">
+    <link rel="alternate" hreflang="en" href="https://ipulpanama.com/en/choruses.html">
+    <link rel="icon" type="image/png" href="../src/ipul_logo-removebg-preview.png">
+    <link rel="apple-touch-icon" href="../src/ipul_logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pentecostal Choruses | IPUL Panama">
+    <meta property="og:description" content="Find worship, praise, and biblical teaching choruses in the IPUL Panama library.">
+    <meta property="og:url" content="https://ipulpanama.com/en/choruses.html">
+    <meta property="og:image" content="https://ipulpanama.com/src/ipul_logo.png">
+    <meta property="og:site_name" content="IPUL Panama">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pentecostal Choruses | IPUL Panama">
+    <meta name="twitter:description" content="A chorus library for worship, learning, and sharing the apostolic faith.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Pentecostal Choruses - IPUL Panama",
+        "description": "Bilingual library of worship, praise, and biblical teaching choruses.",
+        "url": "https://ipulpanama.com/en/choruses.html",
+        "isPartOf": {"@type": "WebSite", "name": "IPUL Panama", "url": "https://ipulpanama.com"}
+    }
+    </script>
+    <link rel="stylesheet" href="../vendor/tailwind.min.css">
+    <link rel="stylesheet" href="../vendor/shared.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="../vendor/phosphor/phosphor-icons.js"></script>
+</head>
+<body class="bg-slate-50 font-sans antialiased text-slate-700">
+    <div class="fixed top-0 left-0 w-full h-1 z-[60]" style="background:linear-gradient(90deg,#DA121A 0%,#ef4444 50%,#DA121A 100%)"></div>
+    <header class="bg-ipul-blue text-white pt-20 pb-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(#FFC72C 1px,transparent 1px);background-size:24px 24px"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <nav class="flex justify-between items-center mb-12">
+                <a href="/en/" class="inline-flex items-center gap-2 text-sm text-blue-200 hover:text-white transition"><i class="ph-bold ph-arrow-left"></i> Back to Home</a>
+                <a href="/coros.html" class="inline-flex items-center gap-1.5 text-sm font-bold text-blue-100 hover:text-white border border-blue-300/40 px-3 py-1.5 rounded-full transition"><i class="ph-bold ph-translate"></i> ES</a>
+            </nav>
+            <div class="max-w-3xl">
+                <p class="text-ipul-gold font-bold tracking-[0.2em] uppercase text-xs mb-4">National Music</p>
+                <h1 class="font-heading text-4xl md:text-6xl font-extrabold">Chorus Library</h1>
+                <p class="text-blue-100 text-lg mt-5 max-w-2xl">Choruses to worship Jesus Christ, affirm the apostolic faith, and serve the church. Search by word, author, theme, or Bible reference.</p>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-6 py-14">
+        <section aria-labelledby="search-title">
+            <h2 id="search-title" class="sr-only">Search and filter choruses</h2>
+            <label for="chorus-search" class="sr-only">Search choruses</label>
+            <div class="relative max-w-3xl">
+                <i class="ph-bold ph-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-ipul-blue text-xl" aria-hidden="true"></i>
+                <input id="chorus-search" type="search" autocomplete="off" placeholder="Search by title, author, theme, or text..." class="w-full rounded-2xl border border-slate-200 bg-white py-5 pl-14 pr-5 text-lg shadow-sm focus:border-ipul-blue focus:ring-2 focus:ring-ipul-gold outline-none">
+            </div>
+            <div id="chorus-categories" class="flex flex-wrap gap-2 mt-6" aria-label="Filter by category">
+                <button type="button" data-category="All" aria-pressed="true" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-ipul-blue text-white border-ipul-blue">All</button>
+                <button type="button" data-category="Worship" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Worship</button>
+                <button type="button" data-category="Praise" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Praise</button>
+                <button type="button" data-category="Oneness" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Oneness</button>
+                <button type="button" data-category="Holy Spirit" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Holy Spirit</button>
+                <button type="button" data-category="Salvation" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Salvation</button>
+                <button type="button" data-category="Baptism" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Baptism</button>
+                <button type="button" data-category="Consecration" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Consecration</button>
+                <button type="button" data-category="Victory" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Victory</button>
+                <button type="button" data-category="Mission" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Mission</button>
+                <button type="button" data-category="Hope" aria-pressed="false" class="rounded-full border px-4 py-2 text-sm font-bold transition bg-white text-slate-600 border-slate-200">Hope</button>
+            </div>
+            <p id="chorus-result-count" class="mt-7 text-sm font-semibold text-slate-500" aria-live="polite"></p>
+        </section>
+        <section class="mt-8" aria-label="Chorus list">
+            <div id="chorus-list" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+            <div id="chorus-empty-state" class="hidden text-center bg-white border border-slate-200 rounded-2xl p-12 mt-6">
+                <i class="ph-duotone ph-music-notes text-5xl text-ipul-gold"></i>
+                <h2 class="font-heading text-xl font-bold text-ipul-blue mt-4">We could not find that chorus</h2>
+                <p class="text-slate-500 mt-2">Try another word, author, category, or Bible reference.</p>
+            </div>
+        </section>
+        <section class="mt-16 rounded-2xl border border-amber-200 bg-amber-50 p-7" aria-labelledby="rights-title">
+            <div class="flex gap-4">
+                <i class="ph-duotone ph-copyright text-3xl text-amber-700 shrink-0" aria-hidden="true"></i>
+                <div>
+                    <h2 id="rights-title" class="font-heading text-xl font-bold text-amber-950">Copyright and doctrinal review</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-amber-950">The lyrics in this initial edition are original editorial drafts prepared for this website; they do not reproduce third-party published songs. Each record identifies its editorial authorship and rights status. IPUL Central must approve doctrinal content, ownership, and musical use before these works are presented as official repertoire or distributed beyond this site.</p>
+                    <p class="mt-3 text-sm text-amber-950">Are you a rights holder or did you find a matching work? Contact <a href="mailto:info@ipulpanama.org" class="font-bold underline">info@ipulpanama.org</a> so that we can review or remove it.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-ipul-blue text-white py-10">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between gap-4 text-sm text-blue-200"><p>IPUL Panama — United Pentecostal Church of Latin America</p><a href="/en/pages/page_national_music.html" class="font-bold text-ipul-gold hover:text-white">National Music</a></div>
+    </footer>
+    <script src="../vendor/chorus-search.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const editorialRights = "Original editorial draft; pending doctrinal and ownership approval by IPUL Central.";
+            const source = "IPUL Panama editorial collection, initial 2026 edition";
+            const items = [
+                ["Before Your Throne", "Worship", "Revelation 4:11", ["Before Your throne we come, O Jesus,", "with yielded hands and one heart raised;", "all glory belongs to You forever,", "worthy Lamb, receive our praise."]],
+                ["Holy Is Jesus", "Worship", "Isaiah 6:3", ["Holy is Jesus, holy is the King,", "His name fills heaven and earth as we sing;", "with all the redeemed we lift one voice,", "holy, holy, holy, Lord of our choice."]],
+                ["Glory to the Lamb", "Worship", "Revelation 5:12", ["Glory to the Lamb who overcame,", "glory to Jesus, our Savior's name;", "receive honor, strength, and song,", "King of kings, to You we belong."]],
+                ["You Are Worthy", "Worship", "1 Chronicles 16:29", ["You are worthy of all our praise,", "Jesus, our rock through all our days;", "with grateful hearts we lift our voice,", "Your name will reign as our only choice."]],
+                ["King of Glory", "Worship", "Psalm 24:8", ["King of glory, enter this place,", "open our lips to declare Your grace;", "strong and mighty in every fight,", "Jesus is King, our living light."]],
+                ["Sing with Joy", "Praise", "Psalm 100:1", ["Sing with joy to the Savior today,", "His mercy has never faded away;", "with clapping hands and songs we raise,", "Jesus is good, so give Him praise."]],
+                ["With Dance and Song", "Praise", "Psalm 150:4", ["With dance and song we lift His name,", "Jesus our King is still the same;", "let everything breathing now proclaim,", "praise to Jesus in every frame."]],
+                ["A Voice of Victory", "Praise", "Exodus 15:1", ["A voice of victory fills the camp,", "Jesus has conquered, our guiding lamp;", "we sing His triumph with faith and love,", "our banner is the Lord above."]],
+                ["Celebrate the Lord", "Praise", "Philippians 4:4", ["Celebrate the Lord in every season,", "His joy renews our hope and reason;", "if He is near, who can we fear?", "Jesus is reigning, His kingdom is here."]],
+                ["All the Earth", "Praise", "Psalm 96:1", ["All the earth, sing out to Jesus,", "His grace has drawn us into light;", "peoples and nations will declare Him,", "His holy name is lifted high."]],
+                ["Jesus, Highest Name", "Oneness", "Philippians 2:9-11", ["Jesus, highest name and true,", "God made known, Emmanuel to view;", "at Your name all knees will bow,", "every tongue confess You now."]],
+                ["Fullness in Christ", "Oneness", "Colossians 2:9", ["In Christ the fullness dwells,", "God came near and grace prevails;", "there is no other name to save,", "Jesus is the One we praise."]],
+                ["Our God Is One", "Oneness", "Deuteronomy 6:4", ["Our God is one, our Lord is one,", "Father revealed in the saving Son;", "in apostolic faith we say,", "Jesus is God, our hope and way."]],
+                ["The Father Revealed", "Oneness", "John 14:9", ["The Father revealed came to restore,", "in Christ we see the One we adore;", "Jesus is image of God divine,", "our steadfast rock through every time."]],
+                ["Jesus Is Lord", "Oneness", "Acts 2:36", ["Jesus is Lord, we sing with power,", "crucified and risen in this hour;", "His name is refuge, His name is true,", "Jesus reigns in all we do."]],
+                ["Breathe, Holy Spirit", "Holy Spirit", "John 3:8", ["Breathe, Holy Spirit, in this place,", "revive Your church with holy grace;", "give us courage, guide our way,", "let Christ be lifted up today."]],
+                ["The Father's Promise", "Holy Spirit", "Acts 1:8", ["The Father's promise came with power,", "to make us witnesses in every hour;", "Holy Spirit, guide our feet,", "until the world hears Christ complete."]],
+                ["Filled with Your Power", "Holy Spirit", "Ephesians 5:18", ["Filled with Your power we choose to live,", "with songs of praise and hearts to give;", "renew Your people, awaken faith,", "Holy Spirit, move again with grace."]],
+                ["River of Life", "Holy Spirit", "John 7:38", ["River of life, flow through my heart,", "Christ has promised a brand-new start;", "from deep within, worship will rise,", "living water beneath the skies."]],
+                ["Holy Fire", "Holy Spirit", "Acts 2:3-4", ["Holy fire, kindle my altar,", "take away fear, make me a witness;", "let every word proclaim the name", "of Jesus Christ, our hope and flame."]],
+                ["Redeeming Grace", "Salvation", "Ephesians 2:8", ["Redeeming grace has reached my life,", "when I was lost in endless night;", "Jesus called me by love and name,", "now I will follow, never the same."]],
+                ["Christ Found Me", "Salvation", "Luke 19:10", ["Christ found me in my deepest need,", "He gave forgiveness, set me free;", "His cross declares restoration's song,", "Jesus is where my heart belongs."]],
+                ["A New Creation", "Salvation", "2 Corinthians 5:17", ["A new creation I have become,", "the old has passed, new life has come;", "His grace teaches me to start again,", "with hope to walk with Him as friend."]],
+                ["Come to the Savior", "Salvation", "Matthew 11:28", ["Come to the Savior, He welcomes you,", "He carries burdens and makes you new;", "Jesus is way and life and truth,", "His love brings healing to every wound."]],
+                ["Faithful Mercy", "Salvation", "Lamentations 3:22-23", ["Your faithful mercy, Lord, is new,", "each morning brings Your promise true;", "in Your word I will safely rest,", "unchanging King, forever blessed."]],
+                ["In Your Name", "Baptism", "Acts 2:38", ["In Your name, Jesus, I will walk,", "in obedience I will answer Your call;", "buried with You, I now declare,", "Your new life is mine to share."]],
+                ["Buried with Christ", "Baptism", "Romans 6:4", ["Buried with Christ in baptism's way,", "raised to walk in a brand-new day;", "by Your grace we rise to live,", "in holiness, the life You give."]],
+                ["Waters of Obedience", "Baptism", "Acts 22:16", ["Waters of obedience, a step of faith,", "in Jesus' name I enter grace;", "His forgiveness reaches me,", "a brand-new life and liberty."]],
+                ["The Good News", "Baptism", "Acts 2:38", ["The good news brings forgiveness near,", "repentance and a heart made clear;", "in Jesus' name salvation comes,", "new life for every searching one."]],
+                ["New Birth", "Baptism", "John 3:5", ["New birth, the promise of our God,", "water and Spirit lead us on;", "Jesus receives us in grace and truth,", "to walk in holy life renewed."]],
+                ["We Yield the Altar", "Consecration", "Romans 12:1", ["We yield the altar before You, Lord,", "all that we are is now restored;", "Jesus, transform our every part,", "let Your glory shape our heart."]],
+                ["A Willing Heart", "Consecration", "Isaiah 6:8", ["A willing heart and hands to serve,", "wherever You send, we will not turn;", "Jesus, our answer will be true,", "here we are, ready for You."]],
+                ["A Holy Path", "Consecration", "1 Peter 1:15-16", ["A holy path, Lord, lead me through,", "let every step reflect what is true;", "set apart for Your holy will,", "teach my life Your word to fulfill."]],
+                ["Complete Your Work", "Consecration", "Philippians 1:6", ["Complete Your work in me, O Lord,", "correct my path through Your sure word;", "what You began, You will fulfill,", "in Your hands I trust You still."]],
+                ["I Belong to You", "Consecration", "Galatians 2:20", ["I belong to You, Christ Jesus,", "my life is Yours, my strength and light;", "it is no longer I who live,", "show Your love through me in sight."]],
+                ["More Than Conquerors", "Victory", "Romans 8:37", ["More than conquerors through Jesus we stand,", "His love holds us in His hand;", "no battle can silence the faithful song", "of those who in Christ belong."]],
+                ["Unshakable Rock", "Victory", "Psalm 18:2", ["Unshakable rock is my Lord,", "when winds rise, I trust His word;", "Jesus is strength and protection to me,", "my victory and melody."]],
+                ["The Battle Is God's", "Victory", "2 Chronicles 20:15", ["The battle is God's, I will not fear,", "with praise I will keep drawing near;", "He opens pathways, He will fight,", "His mighty hand will bring the light."]],
+                ["Light in the Night", "Victory", "John 1:5", ["Light in the night, Jesus shines,", "no shadow defeats His design;", "a certain path, a hope so bright,", "with Him comes victory and light."]],
+                ["Stand Firm in Faith", "Victory", "1 Corinthians 16:13", ["Stand firm in faith, we will remain,", "through every trial, we will not wane;", "Jesus is faithful, He will sustain,", "His church in victory will remain."]],
+                ["Go and Proclaim", "Mission", "Mark 16:15", ["Go and proclaim that Jesus saves,", "His grace reaches through every place;", "with compassion and truth we bring", "hope to the city in the King's name."]],
+                ["Light for the Nations", "Mission", "Matthew 5:14", ["Light for the nations, shine, O Lord,", "let Your church serve through love and word;", "in every people it will be known,", "Jesus' name saves and He alone."]],
+                ["Hands of Service", "Mission", "Galatians 5:13", ["Hands of service, feet to go,", "eyes that see another's woe;", "Jesus calls us all to share", "bread and hope and faithful care."]],
+                ["Seeds of Faith", "Mission", "Mark 4:14", ["Seeds of faith we choose to sow,", "with patient love wherever we go;", "God gives the growth and makes it bloom,", "lives returning to Christ's room."]],
+                ["One Body", "Mission", "1 Corinthians 12:12", ["One body, one Lord, one faithful call,", "many gifts, but love for all;", "together we serve in unity,", "to tell the world His truth is free."]],
+                ["Christ Will Return", "Hope", "Acts 1:11", ["Christ will return, the church awaits,", "with lamps prepared and steadfast faith;", "until that day we will proclaim", "Jesus reigns in His holy name."]],
+                ["Living Hope", "Hope", "1 Peter 1:3", ["Living hope we have in God,", "through Jesus Christ who rose again;", "though worlds may change, He will remain,", "His promise holds us to the end."]],
+                ["The Eternal City", "Hope", "Revelation 21:2-4", ["The eternal city, home of peace,", "with Christ all sorrow there will cease;", "while waiting, faithful we will be,", "proclaiming His coming humility."]],
+                ["Keep Your Lamp Lit", "Hope", "Matthew 25:13", ["Keep your lamp lit through the night,", "live awake, for Jesus is light;", "with oil of faith and prayer within,", "we await His reign to begin."]],
+                ["Until I See Your Face", "Hope", "1 John 3:2", ["Until I see Your face, Christ Jesus,", "I will walk trusting in Your light;", "my hope will never be removed,", "Your return will make all right."]]
+            ].map(([title, category, reference, lyrics]) => ({ title, category, reference, lyrics, author: "IPUL Panama editorial collection", rights: editorialRights, sourceLabel: source }));
+            new ChorusLibrary({ items, containerId: "chorus-list", resultCountId: "chorus-result-count", emptyStateId: "chorus-empty-state", searchInputId: "chorus-search", categoryContainerId: "chorus-categories", allCategory: "All", authorLabel: "Author", lyricsLabel: "View lyrics", rightsLabel: "Rights", sourceLabel: "Source", resultMessage: (count) => `${count} ${count === 1 ? "chorus found" : "choruses found"}` }).initialize();
+        });
+    </script>
+    <script src="../vendor/cookie-consent.js"></script>
+    <script src="../vendor/whatsapp-button.js"></script>
+    <script src="../vendor/tab-message.js"></script>
+</body>
+</html>
