@@ -1283,9 +1283,9 @@
             if (mapContainer) {
                 map = L.map('map', { scrollWheelZoom: false }).setView([8.538, -80.782], 8);
                 
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                    attribution: '&copy; OpenStreetMap contributors',
-                    maxZoom: 19
+                L.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=__CARTO_KEY__', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    maxZoom: 20
                 }).addTo(map);
 
                 locations.forEach((loc) => {
