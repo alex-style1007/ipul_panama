@@ -28,6 +28,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inject CARTO API key
+        run: sed -i "s|__CARTO_KEY__|${{ secrets.CARTO_API_KEY }}|g" index.html en/index.html
+
       - name: Build search index
         run: npx -y pagefind --site .
 
