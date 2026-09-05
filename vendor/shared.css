@@ -360,4 +360,151 @@ a:focus-visible, button:focus-visible {
 .event-calendar-option:focus-visible {
     background: rgba(218, 18, 26, 0.08);
     color: #9f1017;
+
+/* Doctrine pages */
+.doctrine-page {
+    background: #fbfcfe;
+    color: #243247;
+}
+
+.doctrine-hero {
+    position: relative;
+    overflow: hidden;
+    background: #002855;
+    color: #fff;
+}
+
+.doctrine-hero::before {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 85% 18%, rgba(218, 18, 26, 0.26), transparent 28rem),
+        linear-gradient(115deg, rgba(0, 40, 85, 0.98), rgba(7, 35, 87, 0.9));
+    content: '';
+}
+
+.doctrine-hero::after {
+    position: absolute;
+    right: -8rem;
+    bottom: -9rem;
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 9999px;
+    box-shadow: 0 0 0 3rem rgba(218, 18, 26, 0.06), 0 0 0 6rem rgba(255, 255, 255, 0.04);
+    content: '';
+}
+
+.doctrine-kicker {
+    color: #ffd66a;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.doctrine-red-rule {
+    display: inline-block;
+    width: 3rem;
+    height: 0.22rem;
+    border-radius: 9999px;
+    background: #da121a;
+}
+
+.doctrine-card {
+    height: 100%;
+    border: 1px solid rgba(0, 40, 85, 0.12);
+    border-radius: 0.9rem;
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(0, 40, 85, 0.07);
+}
+
+.doctrine-card-icon {
+    display: inline-flex;
+    width: 3.25rem;
+    height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.8rem;
+    background: rgba(218, 18, 26, 0.08);
+    color: #b20f18;
+    font-size: 1.4rem;
+}
+
+.doctrine-reference {
+    color: #b20f18;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.doctrine-panama-band {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(108deg, #fff 0%, #fff7f7 48%, #f8fbff 100%);
+}
+
+.doctrine-panama-band::before {
+    position: absolute;
+    top: -14rem;
+    right: -10rem;
+    width: 30rem;
+    height: 30rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(218, 18, 26, 0.11), transparent 68%);
+    content: '';
+    pointer-events: none;
+}
+
+.doctrine-list li {
+    position: relative;
+    padding-left: 1.4rem;
+}
+
+.doctrine-list li::before {
+    position: absolute;
+    top: 0.65rem;
+    left: 0;
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 9999px;
+    background: #da121a;
+    content: '';
+}
+
+.doctrine-faq details {
+    border: 1px solid rgba(0, 40, 85, 0.1);
+    border-radius: 0.75rem;
+    background: #fff;
+    padding: 1.1rem 1.25rem;
+}
+
+.doctrine-faq summary {
+    color: #002855;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.doctrine-faq summary::marker {
+    color: #da121a;
+}
+
+.doctrine-footer {
+    background: #001f43;
+}
+
+@media (max-width: 640px) {
+    .doctrine-hero::after {
+        right: -13rem;
+        bottom: -14rem;
+    }
+}
+
+.doctrine-pif-link {
+    text-decoration-color: rgba(218, 18, 26, 0.65);
+}
+
+.doctrine-hero-note {
+    color: #ffd66a;
 }
