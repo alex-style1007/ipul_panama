@@ -42,7 +42,7 @@
          */
         build(event) {
             const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-            const details = [event.title, event.location || '', event.allDay ? event.reserveAllDay : event.time].filter(Boolean).join(' — ');
+            const details = [event.title, event.location || '', event.detail || '', event.allDay ? event.reserveAllDay : event.time].filter(Boolean).join(' — ');
             const dateLines = event.allDay ? this.buildAllDayDates(event) : this.buildTimedDates(event);
 
             return [
@@ -159,20 +159,28 @@
         getCopy() {
             return this.isEnglish ? {
                 allDay: 'Save the date — all day',
+                apple: 'Apple Calendar (.ics)',
                 calendar: 'Add to calendar',
                 contact: 'More information',
                 dateLabel: 'Event date',
                 empty: 'New events will be announced soon.',
+                google: 'Google Calendar',
                 next: 'Show next events',
-                previous: 'Show previous events'
+                outlook: 'Outlook',
+                previous: 'Show previous events',
+                venues: 'Simultaneous venues'
             } : {
                 allDay: 'Reserva todo el día',
+                apple: 'Apple Calendar (.ics)',
                 calendar: 'Agregar al calendario',
                 contact: 'Más información',
                 dateLabel: 'Fecha del evento',
                 empty: 'Pronto anunciaremos nuevos eventos.',
+                google: 'Google Calendar',
                 next: 'Ver siguientes eventos',
-                previous: 'Ver eventos anteriores'
+                outlook: 'Outlook',
+                previous: 'Ver eventos anteriores',
+                venues: 'Sedes simultáneas'
             };
         }
 
@@ -187,7 +195,8 @@
             const allDay = this.copy.allDay;
 
             return this.isEnglish ? [
-                { id: 'women-mission-congress-2026', start: '2026-09-12', title: "Women's Mission Congress", category: 'National schedule', allDay: true, reserveAllDay: allDay },
+                { id: 'women-mission-congress-2026', start: '2026-09-12', title: "Women's Mission Congress", category: 'National schedule', allDay: true, reserveAllDay: allDay, location: 'District 1: Hotel Megapolis, Fania Ballroom; District 2: IPUL Yaviza; District 3: IPUL Santiago', venues: [{ district: 'District 1', name: 'Hotel Megapolis, Fania Ballroom', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hotel+Megapolis+Salon+Fania+Panama' }, { district: 'District 2', name: 'IPUL Yaviza' }, { district: 'District 3', name: 'IPUL Santiago' }] },
+                { id: 'amap-graduation-2026', start: '2026-09-13', title: 'AMAP Graduation Ceremony 2025–2026', category: 'National schedule', allDay: false, startTime: '16:00', endTime: '18:00', time: '4:00 PM – 6:00 PM', location: 'CACCO Auditorium, Colón', detail: 'Free admission · Unlimited capacity' },
                 { id: 'crece-d3-virtual-2026', start: '2026-09-19', title: 'CRECE District 3 Virtual', category: 'National schedule', allDay: true, reserveAllDay: allDay },
                 { id: 'crece-d1-2026', start: '2026-09-20', title: 'CRECE District 1', category: 'National schedule', allDay: true, reserveAllDay: allDay },
                 { id: 'esfolic-september-2026', start: '2026-09-27', title: 'ESFOLIC', category: 'National schedule', allDay: false, startTime: '14:00', endTime: '19:00', time: '2:00 PM – 7:00 PM', location: central },
@@ -206,7 +215,8 @@
                 { id: 'local-ebv-2026', start: '2026-12-15', end: '2026-12-19', title: 'Local VBS', category: 'National schedule', allDay: true, reserveAllDay: allDay },
                 { id: 'local-ebv-december-2026', start: '2026-12-21', title: 'Local VBS', category: 'National schedule', allDay: true, reserveAllDay: allDay }
             ].map((event) => ({ ...event, contactPhone: event.contactPhone || generalPhone })) : [
-                { id: 'congreso-mision-femenil-2026', start: '2026-09-12', title: 'Congreso Misión Femenil', category: 'Agenda nacional', allDay: true, reserveAllDay: allDay },
+                { id: 'congreso-mision-femenil-2026', start: '2026-09-12', title: 'Congreso Misión Femenil', category: 'Agenda nacional', allDay: true, reserveAllDay: allDay, location: 'Distrito 1: Hotel Megapolis, Salón Fania; Distrito 2: IPUL Yaviza; Distrito 3: IPUL Santiago', venues: [{ district: 'Distrito 1', name: 'Hotel Megapolis, Salón Fania', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hotel+Megapolis+Salon+Fania+Panama' }, { district: 'Distrito 2', name: 'IPUL Yaviza' }, { district: 'Distrito 3', name: 'IPUL Santiago' }] },
+                { id: 'graduacion-amap-2026', start: '2026-09-13', title: 'AMAP — Ceremonia de Graduación 2025–2026', category: 'Agenda nacional', allDay: false, startTime: '16:00', endTime: '18:00', time: '4:00 PM – 6:00 PM', location: 'Auditorio de Colón CACCO', detail: 'Entrada gratuita · Cupos ilimitados' },
                 { id: 'crece-d3-virtual-2026', start: '2026-09-19', title: 'CRECE Distrito 3 Virtual', category: 'Agenda nacional', allDay: true, reserveAllDay: allDay },
                 { id: 'crece-d1-2026', start: '2026-09-20', title: 'CRECE Distrito 1', category: 'Agenda nacional', allDay: true, reserveAllDay: allDay },
                 { id: 'esfolic-septiembre-2026', start: '2026-09-27', title: 'ESFOLIC', category: 'Agenda nacional', allDay: false, startTime: '14:00', endTime: '19:00', time: '2:00 PM – 7:00 PM', location: central },
@@ -277,7 +287,8 @@
             const date = this.formatDate(event);
             const contact = this.contactUrl(event);
             const schedule = event.allDay ? event.reserveAllDay : event.time;
-            const location = event.location ? `<p class="event-location"><i class="ph-fill ph-map-pin" aria-hidden="true"></i>${this.escapeHtml(event.location)}</p>` : '';
+            const venue = this.renderVenue(event);
+            const detail = event.detail ? `<p class="event-detail"><i class="ph-fill ph-ticket" aria-hidden="true"></i>${this.escapeHtml(event.detail)}</p>` : '';
 
             return `
                 <article class="event-card">
@@ -289,11 +300,25 @@
                     <p class="event-category">${this.escapeHtml(event.category)}</p>
                     <h3>${this.escapeHtml(event.title)}</h3>
                     <p class="event-schedule"><i class="ph-fill ph-clock" aria-hidden="true"></i>${this.escapeHtml(schedule)}</p>
-                    ${location}
+                    ${venue}
+                    ${detail}
                     <div class="event-actions">
-                        <button class="event-calendar-button" type="button" data-event-id="${event.id}">
-                            <i class="ph-bold ph-calendar-plus" aria-hidden="true"></i>${this.copy.calendar}
-                        </button>
+                        <div class="event-calendar-menu">
+                            <button class="event-calendar-button" type="button" data-calendar-toggle="${event.id}" aria-expanded="false" aria-haspopup="menu" aria-controls="calendar-options-${event.id}">
+                                <i class="ph-bold ph-calendar-plus" aria-hidden="true"></i>${this.copy.calendar}<i class="ph-bold ph-caret-down" aria-hidden="true"></i>
+                            </button>
+                            <div id="calendar-options-${event.id}" class="event-calendar-options" data-calendar-options="${event.id}" role="menu" hidden>
+                                <a class="event-calendar-option" href="${this.googleCalendarUrl(event)}" target="_blank" rel="noopener noreferrer" role="menuitem">
+                                    <i class="ph-bold ph-calendar" aria-hidden="true"></i>${this.copy.google}
+                                </a>
+                                <a class="event-calendar-option" href="${this.outlookCalendarUrl(event)}" target="_blank" rel="noopener noreferrer" role="menuitem">
+                                    <i class="ph-bold ph-calendar" aria-hidden="true"></i>${this.copy.outlook}
+                                </a>
+                                <button class="event-calendar-option" type="button" data-calendar-download="${event.id}" role="menuitem">
+                                    <i class="ph-bold ph-download-simple" aria-hidden="true"></i>${this.copy.apple}
+                                </button>
+                            </div>
+                        </div>
                         <a class="event-contact-link" href="${contact}" target="_blank" rel="noopener noreferrer">
                             <i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i>${this.copy.contact}: ${this.formatPhone(event.contactPhone)}
                         </a>
@@ -302,7 +327,31 @@
         }
 
         /**
-         * Binds scroll and calendar-download interactions.
+         * Renders a single location or a list of simultaneous event venues.
+         *
+         * @param {Object} event - Event data.
+         * @returns {string} Venue HTML.
+         */
+        renderVenue(event) {
+            if (event.venues) {
+                const venues = event.venues.map((venue) => {
+                    const mapLink = venue.mapUrl
+                        ? ` <a href="${venue.mapUrl}" target="_blank" rel="noopener noreferrer" class="event-venue-map"><i class="ph-bold ph-map-trifold" aria-hidden="true"></i>Google Maps</a>`
+                        : '';
+
+                    return `<li><strong>${this.escapeHtml(venue.district)}:</strong> ${this.escapeHtml(venue.name)}${mapLink}</li>`;
+                }).join('');
+
+                return `<div class="event-venues"><p><i class="ph-fill ph-map-pin" aria-hidden="true"></i>${this.copy.venues}</p><ul>${venues}</ul></div>`;
+            }
+
+            return event.location
+                ? `<p class="event-location"><i class="ph-fill ph-map-pin" aria-hidden="true"></i>${this.escapeHtml(event.location)}</p>`
+                : '';
+        }
+
+        /**
+         * Binds carousel, calendar-menu and calendar-download interactions.
          *
          * @returns {void}
          */
@@ -311,17 +360,127 @@
             const events = this.getEvents().filter((event) => this.isUpcoming(event));
             const previous = this.container.querySelector('[data-events-previous]');
             const next = this.container.querySelector('[data-events-next]');
+            const closeMenus = () => this.container.querySelectorAll('[data-calendar-options]').forEach((menu) => {
+                menu.hidden = true;
+                this.container.querySelector(`[data-calendar-toggle="${menu.dataset.calendarOptions}"]`).setAttribute('aria-expanded', 'false');
+            });
 
             previous.addEventListener('click', () => this.scroll(track, -1));
             next.addEventListener('click', () => this.scroll(track, 1));
-            this.container.querySelectorAll('[data-event-id]').forEach((button) => {
+            this.container.querySelectorAll('[data-calendar-toggle]').forEach((button) => {
                 button.addEventListener('click', () => {
-                    const event = events.find((item) => item.id === button.dataset.eventId);
+                    const menu = this.container.querySelector(`[data-calendar-options="${button.dataset.calendarToggle}"]`);
+                    const willOpen = menu.hidden;
+
+                    closeMenus();
+                    menu.hidden = !willOpen;
+                    button.setAttribute('aria-expanded', String(willOpen));
+                });
+            });
+            this.container.querySelectorAll('[data-calendar-download]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const event = events.find((item) => item.id === button.dataset.calendarDownload);
                     if (event) {
                         this.calendar.download(event);
+                        closeMenus();
                     }
                 });
             });
+            this.container.addEventListener('keydown', (keyboardEvent) => {
+                if (keyboardEvent.key === 'Escape') {
+                    closeMenus();
+                }
+            });
+            document.addEventListener('click', (mouseEvent) => {
+                if (!this.container.contains(mouseEvent.target)) {
+                    closeMenus();
+                }
+            });
+        }
+
+        /**
+         * Builds a Google Calendar event-creation URL.
+         *
+         * @param {Object} event - Event data.
+         * @returns {string} Google Calendar URL.
+         */
+        googleCalendarUrl(event) {
+            const dates = this.calendarValues(event);
+            const parameters = new URLSearchParams({
+                action: 'TEMPLATE',
+                text: event.title,
+                dates: `${dates.googleStart}/${dates.googleEnd}`,
+                details: this.eventDetails(event),
+                location: event.location || '',
+                ctz: 'America/Panama'
+            });
+
+            return `https://calendar.google.com/calendar/render?${parameters.toString()}`;
+        }
+
+        /**
+         * Builds an Outlook event-creation URL.
+         *
+         * @param {Object} event - Event data.
+         * @returns {string} Outlook URL.
+         */
+        outlookCalendarUrl(event) {
+            const dates = this.calendarValues(event);
+            const parameters = new URLSearchParams({
+                subject: event.title,
+                startdt: dates.outlookStart,
+                enddt: dates.outlookEnd,
+                allday: String(event.allDay),
+                body: this.eventDetails(event),
+                location: event.location || ''
+            });
+
+            return `https://outlook.live.com/calendar/0/action/compose?${parameters.toString()}`;
+        }
+
+        /**
+         * Produces provider-specific date values for all-day and timed events.
+         *
+         * @param {Object} event - Event data.
+         * @returns {Object} Formatted start and end values.
+         */
+        calendarValues(event) {
+            if (!event.allDay) {
+                const start = `${event.start.replaceAll('-', '')}T${event.startTime.replace(':', '')}00`;
+                const end = `${(event.end || event.start).replaceAll('-', '')}T${event.endTime.replace(':', '')}00`;
+
+                return {
+                    googleStart: start,
+                    googleEnd: end,
+                    outlookStart: `${event.start}T${event.startTime}:00-05:00`,
+                    outlookEnd: `${event.end || event.start}T${event.endTime}:00-05:00`
+                };
+            }
+
+            const endingDate = new Date(`${event.end || event.start}T12:00:00`);
+            endingDate.setDate(endingDate.getDate() + 1);
+            const exclusiveEnd = [
+                endingDate.getFullYear(),
+                String(endingDate.getMonth() + 1).padStart(2, '0'),
+                String(endingDate.getDate()).padStart(2, '0')
+            ].join('-');
+
+            return {
+                googleStart: event.start.replaceAll('-', ''),
+                googleEnd: exclusiveEnd.replaceAll('-', ''),
+                outlookStart: `${event.start}T00:00:00`,
+                outlookEnd: `${exclusiveEnd}T00:00:00`
+            };
+        }
+
+        /**
+         * Creates a concise event description for calendar providers.
+         *
+         * @param {Object} event - Event data.
+         * @returns {string} Calendar description.
+         */
+        eventDetails(event) {
+            return [event.title, event.location || '', event.detail || '', event.allDay ? event.reserveAllDay : event.time].filter(Boolean).join(' — ');
         }
 
         /**

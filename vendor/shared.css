@@ -218,6 +218,52 @@ a:focus-visible, button:focus-visible {
 .event-calendar-button {
     border: 1px solid #002855;
     background: #002855;
+
+.event-detail,
+.event-venues {
+    margin-top: 0.8rem;
+    color: #475569;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.event-detail,
+.event-venues > p {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.event-detail i,
+.event-venues > p i,
+.event-venue-map i {
+    color: #DA121A;
+}
+
+.event-venues > p {
+    color: #002855;
+    font-weight: 700;
+}
+
+.event-venues ul {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.45rem;
+    padding-left: 1.15rem;
+}
+
+.event-venue-map {
+    color: #002855;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgba(218, 18, 26, 0.5);
+    text-underline-offset: 0.15rem;
+}
+
+.event-venue-map:hover {
+    color: #DA121A;
+}
     color: #fff;
     cursor: pointer;
     padding: 0.6rem 0.85rem;
@@ -262,4 +308,56 @@ a:focus-visible, button:focus-visible {
     .events-carousel-controls {
         justify-content: flex-start;
     }
+}
+
+.event-calendar-menu {
+    position: relative;
+}
+
+.event-calendar-button {
+    width: 100%;
+}
+
+.event-calendar-options {
+    position: absolute;
+    z-index: 20;
+    right: 0;
+    bottom: calc(100% + 0.5rem);
+    left: 0;
+    display: grid;
+    gap: 0.2rem;
+    border: 1px solid rgba(0, 40, 85, 0.14);
+    border-radius: 0.65rem;
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(0, 40, 85, 0.18);
+    padding: 0.45rem;
+}
+
+.event-calendar-options[hidden] {
+    display: none;
+}
+
+.event-calendar-option {
+    display: flex;
+    min-height: 2.5rem;
+    align-items: center;
+    gap: 0.55rem;
+    border: 0;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: #002855;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.55rem 0.65rem;
+    text-align: left;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.event-calendar-option:hover,
+.event-calendar-option:focus-visible {
+    background: rgba(218, 18, 26, 0.08);
+    color: #9f1017;
 }
