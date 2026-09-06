@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - Misioneros Image Centering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #002855;
+            margin-bottom: 20px;
+        }
+        .image-preview {
+            width: 224px;
+            height: 224px;
+            border-radius: 50%;
+            border: 4px solid #FFC72C;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .option {
+            text-align: center;
+        }
+        .label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #002855;
+        }
+        .settings {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #334155;
+        }
+        code {
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎯 Vista Previa: Imagen de Misioneros Centrada</h2>
+        
+        <div class="comparison">
+            <div class="option">
+                <div class="label">❌ Antes (object-position: center)</div>
+                <div class="image-preview">
+                    <img src="src/Misioneros/Misioneros.jpg" alt="Misioneros - Before" style="object-position: center;">
+                </div>
+                <div class="settings">
+                    <code>object-position: center</code><br>
+                    Corta la parte superior de la foto
+                </div>
+            </div>
+            
+            <div class="option">
+                <div class="label">✅ Después (object-position: center 25%)</div>
+                <div class="image-preview">
+                    <img src="src/Misioneros/Misioneros.jpg" alt="Misioneros - After" style="object-position: center 25%;">
+                </div>
+                <div class="settings">
+                    <code>object-position: center 25%</code><br>
+                    Centra mejor los rostros en el círculo
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>📐 Configuración Aplicada</h2>
+        <div style="text-align: left;">
+            <p><strong>Archivo de imagen:</strong> <code>src/Misioneros/Misioneros.jpg</code></p>
+            <p><strong>Dimensiones:</strong> 1279 x 1600 px (proporción vertical)</p>
+            <p><strong>CSS aplicado:</strong></p>
+            <pre style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto;">
+class="w-full h-full object-cover object-center"
+style="object-position: center 25%;"</pre>
+            <p><strong>Efecto:</strong> Mueve el punto focal 25% hacia arriba desde el centro para capturar mejor los rostros dentro del círculo.</p>
+        </div>
+    </div>
+    
+    <p style="color: #64748b; font-size: 14px;">
+        Abre este archivo en tu navegador para ver la comparación visual.<br>
+        Archivo: <code>test_misioneros_preview.html</code>
+    </p>
+</body>
+</html>

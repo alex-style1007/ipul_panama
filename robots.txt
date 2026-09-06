@@ -5,9 +5,36 @@ Allow: /
 # Sitemap
 Sitemap: https://ipulpanama.com/sitemap.xml
 
-# Crawl-delay for respectful bots
+# Security Contact
+# Security issues: https://ipulpanama.com/.well-known/security.txt
+
+# Block unwanted AI crawlers
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /

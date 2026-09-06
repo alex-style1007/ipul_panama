@@ -1,0 +1,16 @@
+# Security Contact Information for ipulpanama.com
+# Generated: 2026-09-06
+# Standard: RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116.html)
+
+Contact: mailto:alexarenasatl@gmail.com
+Expires: 2027-09-06T23:59:59Z
+Preferred-Languages: es, en
+Canonical: https://ipulpanama.com/.well-known/security.txt
+
+# Reporting Security Issues
+# Please report security vulnerabilities to the contact above.
+# Include detailed information about the issue and steps to reproduce.
+
+# Reportar Problemas de Seguridad
+# Por favor reportar vulnerabilidades de seguridad al contacto indicado.
+# Incluir información detallada sobre el problema y pasos para reproducir.

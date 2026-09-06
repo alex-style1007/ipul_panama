@@ -303,4 +303,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Security and Policy Pages -->
+  <url>
+    <loc>https://ipulpanama.com/.well-known/security.txt</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
